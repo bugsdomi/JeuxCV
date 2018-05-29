@@ -1,0 +1,183 @@
+
+<script>
+// ********************************************************************* //
+// *                                                                   * //
+// *               "Vil-Coyote à la recherche du CV perdu"             * //
+// *                                                                   * //
+// ********************************************************************* //
+</script>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Atelier 1 - Jeu</title>
+    <link rel="stylesheet" href="src/JeuCV.css ">
+    <script type="text/javascript" src="variables.js"></script>
+    <script type="text/javascript" src="spriteAncestor.js"></script>
+    <script type="text/javascript" src="kbdMgr.js"></script>
+    <script type="text/javascript" src="vilCoyote.js"></script>
+    <script type="text/javascript" src="energyBall.js"></script>
+    <script type="text/javascript" src="vautour.js"></script>
+    <script type="text/javascript" src="BackgroundMgr.js"></script>
+    <script type="text/javascript" src="keyFrameMgr.js"></script>
+    <script type="text/javascript" src="toolBox.js"></script>
+    
+    <script>
+// ********************************************************************* //
+// *                                                                   * //
+// *               "Vil-Coyote à la recherche du CV perdu"             * //
+// *                                                                   * //
+// ********************************************************************* //
+// *                                                                   * //
+// *   Dominique Hourdequin - Mai 2018                                 * //
+// *   Projet N°1 - Type "Front"                                       * //
+// *                                                                   * //
+// *   Formation "Développeur Full Stack Javascript"                   * //
+// *   Classe : "DIWJS08" - Printemps 2018                             * //
+// *   IFOCOP - Paris XI                                               * //
+// *                                                                   * //
+// *   Contact à l'IFOCOP qui transmettra mes coordonnées sur demande  * //
+// *   Responsable de formation                                        * //
+// *   Madame Fabienne Thiry                                           * //
+// *   mail : fthiry@ifocop.fr                                         * //
+// *   Tel : 01-40-21-83-78                                            * //
+// *                                                                   * //
+// ********************************************************************* //
+
+      'use strict';
+
+      var mainLoop = function(){
+        
+        // --------------------- Initialisations ------------------------
+        toolBox = new ToolBox();
+        toolBox.getScreenSize();
+
+        // ------------------------------------------------------------
+        // Initialisation de l'Objet "Vil-Coyote" commandé par l'utilsateur avec le clavier
+        // ------------------------------------------------------------
+        vilCoyote = new VilCoyote('idBoiteVilCoyote','idMasqueVilCoyote','idSpriteVilCoyote');
+        vilCoyote.initVarMod();
+
+        // ------------------------------------------------------------
+        // Initialisation de l'Objet ennemi "Vautour" 
+        // ------------------------------------------------------------
+// XXXXXXXXXX  Declarer tous les vautours  
+        // for (var i=0; i < maxVautours; i++){
+        // for (var i=0; i = 0; i++){
+          // vautour[i] = new Vautour('idBoiteVautour'+i,'idMasqueVautour'+i,'idSpriteVautour'+i);
+          vautour[0] = new Vautour('idBoiteVautour0','idMasqueVautour0','idSpriteVautour0');
+          vautour[0].initVarMod();          
+          // vautour[i].initVarMod();          
+        // };
+
+        
+// XXXXXXXXXX  Declarer tous les autres ennemis      
+
+        // ------------------------------------------------------------
+        // Initialisation des fonds d'écran
+        // ------------------------------------------------------------
+        fondEcranSol = new ObjectFondEcran('6s', 'scrollBkgndSol','idFondEcranSol');
+        fondEcranSol.initVar();
+        
+        fondEcranNuages = new ObjectFondEcran('3s','scrollBkgndNuages','idFondEcranNuages');
+        fondEcranNuages.initVar();
+        
+        // ------------------------------------------------------------
+        // Initialisation du gestionnaire de KeyFrames (pour les animations)
+        // ------------------------------------------------------------
+        objectKeyFrame = new ObjectKeyFrame();      
+        
+        // ------------------------------------------------------------
+        // --------------------- Main Program -------------------------
+        // ------------------------------------------------------------
+        // Lancement de l'Ecoute du clavier, and that's All Folks !!!
+        //-------------------------------------------------------------
+        window.addEventListener('keydown',vilCoyote.keyboardMgr.gereAppuiTouche.bind(vilCoyote.keyboardMgr));   
+        window.addEventListener('keyup',vilCoyote.keyboardMgr.gereReleaseTouche.bind(vilCoyote.keyboardMgr));
+      };
+
+// XXXXXXXXXX  A activer en procédure de sortie de jeu
+// if (this.gestionKbdOnEnCours){
+//   window.clearInterval(this.idActionOnMgrInterval);
+//   this.gestionKbdOnEnCours = false;
+// }
+
+      // --------------------- Point d'entrée de l'application  ---------------------------
+      // Lance l'éxecution du script après chargement et affichage du document  (Window)
+      //-----------------------------------------------------------------------------------
+
+      window.onload = mainLoop;
+      
+  </script>
+  </head>
+  <body>      
+    <div id="idFondEcranSol" class="fondEcranSol"></div>
+    <div id="idFondEcranNuages" class="fondEcranNuages"></div>
+  
+    <div id="idBoiteVilCoyote" class="boiteVilCoyote">
+      <div id="idMasqueVilCoyote" class="masqueVilCoyote">
+        <img id="idSpriteVilCoyote" class="spriteVilCoyote" src="images/vil-coyote-sur-module-start-01-04-Droite.png" />
+      </div>
+    </div>
+
+    <div id="idBoiteEnergyBall0" class="boiteEnergyBall">
+      <div id="idMasqueEnergyBall0" class="masqueEnergyBall">
+        <img id="idSpriteEnergyBall0" class="spriteEnergyBall" src="images/vil-coyote-energy-balls.png" />
+      </div>
+    </div>
+
+    <!-- <div id="idBoiteEnergyBall1" class="boiteEnergyBall">
+      <div id="idMasqueEnergyBall1" class="masqueEnergyBall">
+        <img id="idSpriteEnergyBall1" class="sprite" src="images/vil-coyote-energy-balls.png" />
+      </div>
+    </div>
+
+    <div id="idBoiteEnergyBall2" class="boiteEnergyBall">
+      <div id="idMasqueEnergyBall2" class="masqueEnergyBall">
+        <img id="idSpriteEnergyBall2" class="sprite" src="images/vil-coyote-energy-balls.png" />
+      </div>
+    </div> 
+
+    <div id="idBoiteEnergyBall3" class="boiteEnergyBall">
+      <div id="idMasqueEnergyBall3" class="masqueEnergyBall">
+        <img id="idSpriteEnergyBall3" class="sprite" src="images/vil-coyote-energy-balls.png" />
+      </div>
+    </div> 
+
+    <div id="idBoiteEnergyBall4" class="boiteEnergyBall">
+      <div id="idMasqueEnergyBall4" class="masqueEnergyBall">
+        <img id="idSpriteEnergyBall4" class="sprite" src="images/vil-coyote-energy-balls.png" />
+      </div>
+    </div>     -->
+
+    <div id="idBoiteVautour0" class="boiteVautour">
+      <div id="idMasqueVautour0" class="masqueVautour">
+        <img id="idSpriteVautour0" class="spriteVautour" src="images/vulture_face_one_flying-gauche.png" />
+      </div>
+    </div>
+    <!-- <div id="idBoiteVautour1" class="boiteVautour">
+      <div id="idMasqueVautour1" class="masqueVautour">
+        <img id="idSpriteVautour1" class="spriteVautour" src="images/vulture_face_one_flying-gauche.png" />
+      </div>
+    </div>
+    <div id="idBoiteVautour2" class="boiteVautour">
+      <div id="idMasqueVautour2" class="masqueVautour">
+        <img id="idSpriteVautour2" class="spriteVautour" src="images/vulture_face_one_flying-gauche.png" />
+      </div>
+    </div>
+    <div id="idBoiteVautour3" class="boiteVautour">
+      <div id="idMasqueVautour3" class="masqueVautour">
+        <img id="idSpriteVautour3" class="spriteVautour" src="images/vulture_face_one_flying-gauche.png" />
+      </div>
+    </div>
+    <div id="idBoiteVautour4" class="boiteVautour">
+      <div id="idMasqueVautour4" class="masqueVautour">
+        <img id="idSpriteVautour4" class="spriteVautour" src="images/vulture_face_one_flying-gauche.png" />
+      </div>
+    </div> -->
+    <noscript>
+      <p>Veuillez activer JavaScript</p>
+    </noscript>    
+  </body>
+</html>
