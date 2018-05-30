@@ -300,7 +300,7 @@
         // -------------------------------------------------------------------------
         // On hérite de toutes les propiétés et méthode de "Sprite"
         Vautour.prototype = new Sprite();             
-        // Et on refait pointer le Constructeur de Vil-Coyote sur lui-même car il a été altéré par l'operation précédente
+        // Et on refait pointer le Constructeur du vautour sur lui-même car il a été altéré par l'operation précédente
         Vautour.prototype.constructor = Vautour;
         //
         // ------------------------------------------------------------------------
@@ -341,10 +341,7 @@
         //  Déclaration de toutes les méthodes nouvelles ou surchargeant les méthodes de l'Ancêtre "Sprite"
         // ------------------------------------------------------------------------
         Vautour.prototype.initFrameToRight  = function(){
-console.log('A FrameToRight --- : '+this.sensH);
-
             if (this.sensH <= 0){   
-console.log('B FrameToRight');
                 this.initFrame('images/vulture_face_one_flying-droit.png',
                                 'left', 
                                 this.getRightOffset, 
@@ -353,10 +350,7 @@ console.log('B FrameToRight');
         };
         // --------------------------------------------------------------
         Vautour.prototype.initFrameToLeft  = function(){
-console.log('A FrameToLeft : '+this.sensH);
             if (this.sensH >= 0){  
-console.log('B FrameToLeft');
-
                 this.initFrame( 'images/vulture_face_one_flying-gauche.png',
                                 'left', 
                                 this.getLeftOffset, 
@@ -369,43 +363,35 @@ console.log('B FrameToLeft');
         };
         // --------------------------------------------------------------
         Vautour.prototype.initDeplacement = function(){
-console.log('------------------');
-
-            if (toolBox.random(0,1) == 0){
-console.log('0');
-                
+            if (toolBox.random(0,1) === 0){
                 this.sensH =this.pas;
-                this.initFrameToRight(),
-                this.boite.style.left = -this.frameData[this.frameActif].thicknessBoiteMasqueH + 'px';
-            } else {
-                console.log('1');
-                
-                this.sensH =-this.pas;
                 this.initFrameToLeft(),
                 this.boite.style.left = toolBox.screenWidth + 1 + 'px';
+            } else {               
+                this.sensH =-this.pas;
+                this.initFrameToRight(),
+                this.boite.style.left = -this.frameData[this.frameActif].thicknessBoiteMasqueH + 'px';
             }
             
+            this.sensH *= -1;
             this.animationEnCours = true;
             this.animationCaller();
-//  XXXXXXXXXX Implementer un point de depart aléatoire
-this.boite.style.top = '500px';
+
+            this.boite.style.top = toolBox.random(50,toolBox.screenHeight-this.getHorizontalSpriteHeight()-300)+'px';
             this.boite.style.display = 'block';
         }
         // --------------------------------------------------------------
         Vautour.prototype.restaureModeNormal  = function(pEnnemi){
             clearTimeout(this.idTimeOut);        
-            pEnnemi.comeBackInGame();      
+            pEnnemi.comeBackInGame(this);      
         }
         // --------------------------------------------------------------
         Vautour.prototype.traiteCollision = function(pEnnemi){
-            if (!pEnnemi.animationFXOn){
-console.log('pEnnemi.animationFXOn : '+pEnnemi.animationFXOn);
-
+            if (!pEnnemi.animationFXOn){            // Si Vil-Coyote n'est pas en mode "Rotation folle", alors il est touché et perd, sinon, il eclate le vautour
                 pEnnemi.EjectModule(this);
                 this.idTimeOut = setTimeout(this.restaureModeNormal.bind(this),pEnnemi.animDelai,pEnnemi);
             } else {
-console.log('vilCoyote.traiteCollision : ');
-                // vilCoyote.traiteCollision(this);
+// vilCoyote.traiteCollision(this);
             }
         }
         // --------------------------------------------------------------
@@ -421,8 +407,8 @@ console.log('vilCoyote.traiteCollision : ');
         Vautour.prototype.gereDeplacement = function(){
             this.sensH > 0  ? this.moveSpriteToRight(this.screenCollideOff)
                             : this.moveSpriteToLeft(this.screenCollideOff);
-
-            this.isVautourHit();
+// XXXXXXXXXX
+this.isVautourHit();
 
             this.myPosX = parseInt(this.boite.style.left);
             if ((this.myPosX <= -250) ||

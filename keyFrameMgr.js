@@ -44,7 +44,7 @@
         // (sans rupture ni saut visible à l'écran, tout en fluidité)
         // S'applique à des animations simples de sprites, répétitives, et sans conditions particulières 
         // ---------------------------------------------------------------------------------------------------------
-        ObjectKeyFrame.prototype.upDateKeyFrames = function(pObject,pName,pFrom,pTo,pProperty){
+        ObjectKeyFrame.prototype.upDateKeyFrames = function(pObject,pName,pFrom,pTo,pProperty,pAnimationStr){
 
             pObject.myPosY = parseInt(window.getComputedStyle(pObject.boite,null).getPropertyValue(pProperty));
             pObject.sensAnimation *= -1;

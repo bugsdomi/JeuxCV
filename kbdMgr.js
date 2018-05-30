@@ -33,7 +33,7 @@
             
             this.tabKeyIndexes = [27,null,32,13,40,38,37,39];
 
-            this.keyMap =            // Toutes les propriétés "witnessButton" ne servent uniquement qu'au dévéloppement et au debugage
+            this.keyMap =            // Toutes les propriétés "witnessButton" ne servent uniquement qu'au développement et au debugage
             [{
                 valueAffectedBit: 128,
                 witnessButton: null         
@@ -115,7 +115,9 @@
         // --------------------------------------------------------------
         ObjectKeyboardMgr.prototype.gereReleaseTouche = function(event){
             this.idxKeyOffCode = this.tabKeyIndexes.indexOf(event.keyCode);
-            if ((this.idxKeyOffCode>-1) && (!vilCoyote.bloqueClavier)){ 
+// XXXXXXXXXX
+// if ((this.idxKeyOffCode>-1) && (!vilCoyote.bloqueClavier)){ 
+            if (this.idxKeyOffCode>-1){ 
                 this.actionOffMgr();
                 this.bitMask = this.keyMap[this.idxKeyOffCode].valueAffectedBit;  // Récupération du bit dans la matrice correspondant à la touche relachée
                 this.bitMask = ~(this.bitMask);                                   // Inversion des bits du BitMask

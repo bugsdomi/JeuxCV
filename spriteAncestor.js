@@ -69,7 +69,7 @@
             this.myPosX = 0;                // Position horizontale du sprite 
             this.screenCollideOn = true;    // Paramètre servant dans des les déplacement à determiner si les bords d'écran bloquent le sprite
             this.screenCollideOff = false;  // Idem ci-dessus mais inversé
-            this.collision = false;         // Collision ?
+            this.collision = false;         // Collision par entité 
 
             // Propriétés A NE PAS surcharger dans les héritiers             
             this.idBoite = pBoite;          // variable de l'ID HTML de la boite contenant le masque et le sprite
@@ -89,7 +89,7 @@
             
             this.masque = document.getElementById(this.idMasque);
             this.sprite = document.getElementById(this.idSprite);        
-
+// XXXXXXXXXX ParseInt vraiment necessaire ?   A voir
             this.boite.style.left = parseInt(window.getComputedStyle(this.boite).left)+'px';
             this.boite.style.top = parseInt(window.getComputedStyle(this.boite).top)+'px';
             this.sensH = this.pas;
@@ -185,8 +185,7 @@
         // --------------------------------------------------------------
         Sprite.prototype.detectCollision = function(pEnnemi){
 // XXXXXXXXXX A verifier si c'est interessant de garder
-            if (!this.collision){      // Si l'entité est déjà en collision, on ne reteste pas, pour optimisation CPU
-
+            if (!this.collision){      // Si l'entité est déjà en collision, on ne reteste pas, pour optimisation CPU 
                 // Pour eviter les calculs répétitifs de ParseInt, affectation à des variables intermédiaires
                 this.boiteStyleLeft = parseInt(pEnnemi.boite.style.left);
                 this.boiteStyleTop = parseInt(pEnnemi.boite.style.top);

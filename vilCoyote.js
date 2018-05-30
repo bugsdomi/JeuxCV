@@ -138,7 +138,8 @@
         } 
         // --------------------------------------------------------------
         VilCoyote.prototype.initFrameToRight  = function(){
-            if (this.sensH <= 0){   this.initFrameMod('images/vil-coyote-sur-module-start-01-04-Droite.png',
+            if (this.sensH <= 0){   
+                this.initFrameMod('images/vil-coyote-sur-module-start-01-04-Droite.png',
                                     'left', 
                                     this.getRightOffset, 
                                     'top');
@@ -146,7 +147,8 @@
         };
         // --------------------------------------------------------------
         VilCoyote.prototype.initFrameToLeft  = function(){
-            if (this.sensH >= 0){   this.initFrameMod( 'images/vil-coyote-sur-module-start-01-04-Gauche.png',
+            if (this.sensH >= 0){   
+                this.initFrameMod( 'images/vil-coyote-sur-module-start-01-04-Gauche.png',
                                     'left', 
                                     this.getLeftOffset, 
                                     'top');          
@@ -165,8 +167,6 @@
         }
         // --------------------------------------------------------------
         VilCoyote.prototype.traiteCollision = function(pEnnemi){
-console.log('Collision VilCoyote : '+pEnnemi);
-                        
             pEnnemi.stoppeDeplacement();
             pEnnemi.frameDeDebut = pEnnemi.frameDeDebutCollision;
             pEnnemi.frameDeFin = pEnnemi.frameDeFinCollision;
@@ -181,13 +181,16 @@ console.log('Collision VilCoyote : '+pEnnemi);
             if (!this.Collision){
 // XXXXXXXXXX Rajouter les autres ennenmis
                 for (var i=0; i<pEnnemi.length; i++){
-                    if (this.detectCollision(pEnnemi[i])){                        
+                    if (this.detectCollision(pEnnemi[i])){
                         if (this.animationFXOn){                // Si Vil-Coyote touche un ennemi ET qu'il est en mode "Spin fou", il eclate tous les ennemis touchés, sinon, c'est lui qui perd
-                            this.traiteCollision(pEnnemi[i]);
-                            this.collision = false;         
-                        } else {
-                            this.collision = false;         
-                        }
+                            // if (collisionGlobale === 1){                        
+                                this.traiteCollision(pEnnemi[i]);
+                                this.collision = false;         
+                            } else {
+                                this.collision = false;         
+                            }
+                        // collisionGlobale -= 1;
+                        // }
                     }
                 }
             }
@@ -209,7 +212,10 @@ console.log('Collision VilCoyote : '+pEnnemi);
         }   
         // --------------------------------------------------------------
         VilCoyote.prototype.refreshAnimFlottementModule = function(){
-            objectKeyFrame.upDateKeyFrames(this,'flottementModule',' {0% {','50% {','top');            
+            objectKeyFrame.upDateKeyFrames(this,'flottementModule',' {0% {','50% {','top','4s linear infinite flottementModule alternate');
+// XXXXXXXXXX
+// this.boite.style.animation = this.boite.style.animationName+' 4s linear infinite alternate'; 
+            
         }
         // --------------------------------------------------------------
         VilCoyote.prototype.animationCaller = function(){
@@ -303,17 +309,11 @@ console.log('Collision VilCoyote : '+pEnnemi);
                                                                 : 'ejectVilCoyoteG 1.5s linear 0s 1 forwards';
         }
         // --------------------------------------------------------------
-        VilCoyote.prototype.comeBackInGame = function() {
+        VilCoyote.prototype.comeBackInGame = function(pEnnemi) {
             this.unsetSpinVilCoyote();
             // this.boite.style.animation = (pEnnemi.sensH >= 0)   ? 'ejectVilCoyoteG 1s linear 0s 1 forwards reverse' 
-            //                                                     : 'ejectVilCoyoteD 1s linear 0s 1 forwards reverse';
+                                                                // : 'ejectVilCoyoteD 1s linear 0s 1 forwards reverse';
 
-
-            if (this.boite.style.animationName == 'ejectVilCoyoteD'){
-                this.boite.style.animation = 'ejectVilCoyoteG 1s linear 0s 1 forwards reverse'
-            } else {
-                this.boite.style.animation = 'ejectVilCoyoteD 1s linear 0s 1 forwards reverse'                
-            } 
             setTimeout(this.refreshAnimFlottementModule.bind(this), 1000);
             this.bloqueClavier = false;
         }

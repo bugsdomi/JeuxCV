@@ -245,8 +245,6 @@
         };
         // --------------------------------------------------------------
         EnergyBall.prototype.traiteCollision = function(pEnnemi){
-console.log('Collision VilCoyote : '+pEnnemi);
-                                    
             pEnnemi.stoppeDeplacement();
             pEnnemi.frameDeDebut = pEnnemi.frameDeDebutCollision;
             pEnnemi.frameDeFin = pEnnemi.frameDeFinCollision;

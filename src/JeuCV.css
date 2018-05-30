@@ -91,7 +91,7 @@ body {
     -o-animation: 4s linear infinite flottementModule alternate;
     -moz-animation: 4s linear infinite flottementModule alternate;
     -webkit-animation: 4s linear infinite flottementModule alternate; 
-    animation:  4s linear infinite flottementModule alternate; 
+    animation: 4s linear infinite flottementModule alternate; 
     /* border: solid black 1px;      */
 }
 

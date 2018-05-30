@@ -19,8 +19,7 @@
         var fondEcranNuages;          // instance du fond d'écran representant les nuages
         var objectKeyFrame;           // Instance du gestionnaire des KeyFrames
         var vautour = [];             // Instance des ennemis vautours
-// XXXXXXXXXX Passer à 10
-        var maxVautours = 5;         // Nombre maxi de vautours simultanés  
+        var maxVautours = 5;          // Nombre maxi de vautours simultanés  
         // --------------------------------------------------------------
 
 
