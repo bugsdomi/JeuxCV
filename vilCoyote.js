@@ -312,7 +312,7 @@
         VilCoyote.prototype.comeBackInGame = function(pEnnemi) {
             this.unsetSpinVilCoyote();
             // this.boite.style.animation = (pEnnemi.sensH >= 0)   ? 'ejectVilCoyoteG 1s linear 0s 1 forwards reverse' 
-                                                                // : 'ejectVilCoyoteD 1s linear 0s 1 forwards reverse';
+            //                                                     : 'ejectVilCoyoteD 1s linear 0s 1 forwards reverse';
 
             setTimeout(this.refreshAnimFlottementModule.bind(this), 1000);
             this.bloqueClavier = false;

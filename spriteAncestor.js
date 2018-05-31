@@ -240,7 +240,7 @@
         // --------------------------------------------------------------
         Sprite.prototype.moveSpriteToBottom = function(){
             this.newPos = this.myPosY + this.getHorizontalSpriteHeight()+this.sensV;
-            this.boite.style.top = (this.newPos >= toolBox.screenHeight ? toolBox.screenHeight - this.getHorizontalSpriteHeight() 
+            this.boite.style.top = (this.newPos >= toolBox.screenHeight - 200 ? toolBox.screenHeight - this.getHorizontalSpriteHeight() -200
                                                                         : this.newPos - this.getHorizontalSpriteHeight()) + 'px';
         };     
         // --------------------------------------------------------------

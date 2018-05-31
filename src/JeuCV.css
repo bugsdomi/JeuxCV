@@ -56,7 +56,7 @@ body {
 /*                           Arrières-plans                     */
 /* ------------------------------------------------------------ */
 
-.fondEcranSol{
+.clFondEcranSol{
     position: absolute;
     background-image: url("../images/appaloosa_desert_Background-sol-soir.png"); 
     z-index: 4;
@@ -66,7 +66,7 @@ body {
     animation:  6s linear infinite scrollBkgndSol;
 }
 
-.fondEcranNuages{
+.clFondEcranNuages{
     position: absolute;
     background-image: url("../images/appaloosa_desert_Background-nuages.png");
     opacity: 0.8;
@@ -81,7 +81,7 @@ body {
 /*                          Vil-Coyote                          */
 /* ------------------------------------------------------------ */
 
-.boiteVilCoyote{
+.clBoiteVilCoyote{
     position: absolute;
     top: 400px;
     left: calc((100% - 300px) / 2);
@@ -95,7 +95,7 @@ body {
     /* border: solid black 1px;      */
 }
 
-.masqueVilCoyote{
+.clMasqueVilCoyote{
     position: relative;
     overflow: hidden;
     margin: auto;
@@ -104,7 +104,7 @@ body {
     /* border: solid red 1px;  */
 }
 
-.spriteVilCoyote {
+.clSpriteVilCoyote {
     position: absolute;
     /* border: blue solid 3px; */
 }
@@ -113,7 +113,7 @@ body {
 /*                           Energy Ball                        */
 /* ------------------------------------------------------------ */
 
-.boiteEnergyBall{
+.clBoiteEnergyBall{
     position: absolute;
     width: 45px;
     height: 45px; 
@@ -122,14 +122,14 @@ body {
     /* border: solid black 1px;     */
 }
 
-.masqueEnergyBall{
+.clMasqueEnergyBall{
     position: relative;
     overflow: hidden;
     margin: auto;
     /* border: solid red 1px; */
 }
 
-.spriteEnergyBall {
+.clSpriteEnergyBall {
     position: absolute;
     /* border: blue solid 3px; */
 }
@@ -138,7 +138,7 @@ body {
 /*                             Vautour                          */
 /* ------------------------------------------------------------ */
 
-.boiteVautour{
+.clBboiteVautour{
     position: absolute;
     width: 260px;
     height: 200px; 
@@ -148,7 +148,7 @@ body {
     /* border: solid black 1px;     */
 }
 
-.masqueVautour{
+.clMasqueVautour{
     position: relative;
     overflow: hidden;
     top: 50%; 
@@ -157,7 +157,26 @@ body {
     /* border: solid red 1px; */
 }
 
-.spriteVautour {
+.clSpriteVautour {
     position: relative;
     /* border: blue solid 3px; */
+}
+
+/* ------------------------------------------------------------ */
+/*                 Panneau de contrôle                          */
+/* ------------------------------------------------------------ */
+
+.clBoiteControlPanel{
+    position: absolute;
+    width: 100%;
+    height: 12.5%; 
+    bottom: 0px;
+    left:0px;
+    z-index: 5;
+    /* border: solid black 1px;     */
+}
+
+.clImgControlPanel{
+    width: 100%;
+    height: auto;
 }

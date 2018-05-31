@@ -108,6 +108,8 @@
         // qui l'emporte 
         // ------------------------------------------------------------------------------------
         ObjectKeyboardMgr.prototype.actionOffMgr = function(){
+            this.idxKeyOffCode === 7 ? vilCoyote.refreshAnimFlottementModule() : '';     // 7 - "A droite"
+            this.idxKeyOffCode === 6 ? vilCoyote.refreshAnimFlottementModule() : '';     // 4 - "A gauche"
             this.idxKeyOffCode === 5 ? vilCoyote.refreshAnimFlottementModule() : '';     // 4 - "En haut"
             this.idxKeyOffCode === 4 ? vilCoyote.refreshAnimFlottementModule() : '';     // 8 - "En bas" 
             this.idxKeyOffCode === 3 ? vilCoyote.unsetSpinVilCoyote() : '';              // 16 - "ENTER" --> Spin Vil-Coyote
@@ -115,8 +117,6 @@
         // --------------------------------------------------------------
         ObjectKeyboardMgr.prototype.gereReleaseTouche = function(event){
             this.idxKeyOffCode = this.tabKeyIndexes.indexOf(event.keyCode);
-// XXXXXXXXXX
-// if ((this.idxKeyOffCode>-1) && (!vilCoyote.bloqueClavier)){ 
             if (this.idxKeyOffCode>-1){ 
                 this.actionOffMgr();
                 this.bitMask = this.keyMap[this.idxKeyOffCode].valueAffectedBit;  // Récupération du bit dans la matrice correspondant à la touche relachée
