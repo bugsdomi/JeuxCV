@@ -40,9 +40,6 @@
         }
         // --------------------------------------------------------------
         ToolBox.prototype.openCV = function(event){
-        console.log(event.originalTarget.id === 'idCVcourt');
-        console.log(dataBipBip.targetActif === (dataBipBip.maxCompetences-1));
-
             if (event.originalTarget.id === 'idCVLong'){
                 open('./index3.html', 'CV', 'directories=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes');
             } else {
