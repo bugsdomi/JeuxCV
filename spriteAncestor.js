@@ -54,15 +54,15 @@
             this.newPos = 0;                // Nouvelle position future du sprite
             this.boiteStyleLeft;            // Pour rapidité en evitant le recalcul, affectation à une variable intermédiaire
             this.boiteStyleTop;             // Pour rapidité en evitant le recalcul, affectation à une variable intermédiaire
-            this.thisboiteStyleLeft         // Pour rapidité en evitant le recalcul, affectation à une variable intermédiaire \_ "this.thisBoiteSyle..."" Fait exprès pour différencier des 2 variables précédentes
-            this.thisboiteStyleTop          // Pour rapidité en evitant le recalcul, affectation à une variable intermédiaire /
+            this.thisboiteStyleLeft;         // Pour rapidité en evitant le recalcul, affectation à une variable intermédiaire \_ "this.thisBoiteSyle..."" Fait exprès pour différencier des 2 variables précédentes
+            this.thisboiteStyleTop;          // Pour rapidité en evitant le recalcul, affectation à une variable intermédiaire /
             this.sensH = this.pas;          // Sens de la progression horizontale (<0 Gauche / >0 droite)
             this.sensV = 0;                 // Sens de la progression verticale (<0 Haut / >0 Bas)
             this.animationOn = true;        // Flag pour arrêter ou relancer l'animation automatique du sprite (Pour Dev uniquement)
             this.animationEnCours = false;  // Flag temoin de l'tat   de l'animation (lancée ou non)
             this.sensAnimFrames = 1;        // Gere les images dans la sequence 0-1-2-3...N puis N...3-2-1-0 puis 0-1-2-3..N etc ... (si "typeCycleAnimationFrames"=0)
             this.idAnimationInterval;       // Identifiant de l'animation du sprite pour la stopper quand ce n'est plus nécessaire (économie CPU)
-            this.idAnimationFrame           // Identifiant du "RequestAnimationFrame
+            this.idAnimationFrame;           // Identifiant du "RequestAnimationFrame
             this.idTimeOut;
             this.timestampInitial = undefined; // Valeur de temps de référence pour le changement de frame au refresh écran   
             this.myPosY = 0;                // Position verticale du sprite 
@@ -74,7 +74,7 @@
             // Propriétés A NE PAS surcharger dans les héritiers             
             this.idBoite = pBoite;          // variable de l'ID HTML de la boite contenant le masque et le sprite
             this.idMasque = pMasque;        // variable de l'ID HTML du masque contenant le sprite
-            this.idSprite = pSprite         // variable de l'ID HTML du sprite (Image )
+            this.idSprite = pSprite;        // variable de l'ID HTML du sprite (Image )
             this.boite;                     // Instance de la boite contenant le masque et le sprite
             this.masque;                    // variable du masque contenant le sprite
             this.sprite;                    // variable du sprite (Image )
@@ -89,32 +89,36 @@
             
             this.masque = document.getElementById(this.idMasque);
             this.sprite = document.getElementById(this.idSprite);        
-// XXXXXXXXXX ParseInt vraiment necessaire ?   A voir
-            this.boite.style.left = parseInt(window.getComputedStyle(this.boite).left)+'px';
-            this.boite.style.top = parseInt(window.getComputedStyle(this.boite).top)+'px';
+            this.boite.style.left = window.getComputedStyle(this.boite).left;
+            this.boite.style.top = window.getComputedStyle(this.boite).top;
             this.sensH = this.pas;
             this.sensV = 0;
         };
         // --------------------------------------------------------------
         // Donne le décalage "Left" du frame dans l'image de sequence quand le sprite va a gauche
+//  XXXXXXXXXX Voir si je peux utiliser leftOffset du DOM
         Sprite.prototype.getLeftOffset = function(){                          
             return this.frameData[this.frameActif].offsetGauche;            
         };
         // --------------------------------------------------------------
         // Donne le décalage "Left" du frame dans l'image de sequence quand le sprite va a droite
+//  XXXXXXXXXX Voir si je peux utiliser RightOffset du DOM
         Sprite.prototype.getRightOffset = function(){
             return this.frameData[this.frameActif].offsetDroite;            
         };
         // --------------------------------------------------------------
         // Donne le décalage "Top" du frame dans l'image 
+//  XXXXXXXXXX Voir si je peux utiliser leftOffset du DOM
         Sprite.prototype.getTopOffset = function(){
             return this.frameData[this.frameActif].offsetTop;            
         };
         // --------------------------------------------------------------
+//  XXXXXXXXXX Voir si equivalent en DOM
         Sprite.prototype.getHorizontalSpriteWidth = function(){
             return this.frameData[this.frameActif].largeurSpriteH;
         };
         // --------------------------------------------------------------
+//  XXXXXXXXXX Voir si equivalent en DOM
         Sprite.prototype.getHorizontalSpriteHeight = function(){
             return this.frameData[this.frameActif].hauteurSpriteH;            
         };            
@@ -132,10 +136,12 @@
                         //   |<-Boite englobante->|
 
         Sprite.prototype.computeOffsetBoiteMasqueH = function(){
+//  XXXXXXXXXX Voir si je peux utiliser leftOffset du DOM
             return (Math.round((parseInt(this.boite.style.width) - parseInt(this.frameData[this.frameActif].largeurSpriteH)) / 2));
         };
         // --------------------------------------------------------------
         // Calcule la taille de l'espace entre le bord supérieur de la boite englobante du sprite, et le bord haut du sprite centré dans la boite (sert pour la collision haute)
+//  XXXXXXXXXX Voir si je peux utiliser topOffset du DOM
         Sprite.prototype.computeOffsetBoiteMasqueV = function(){
             return (Math.round((parseInt(this.boite.style.height) - parseInt(this.frameData[this.frameActif].hauteurSpriteH)) / 2));
         };
@@ -240,7 +246,8 @@
         // --------------------------------------------------------------
         Sprite.prototype.moveSpriteToBottom = function(){
             this.newPos = this.myPosY + this.getHorizontalSpriteHeight()+this.sensV;
-            this.boite.style.top = (this.newPos >= toolBox.screenHeight - 200 ? toolBox.screenHeight - this.getHorizontalSpriteHeight() -200
+            this.boite.style.top = (this.newPos >= toolBox.screenHeight - parseInt(boiteControlPanel.style.height) 
+                                                                        ? toolBox.screenHeight - (this.getHorizontalSpriteHeight() + parseInt(boiteControlPanel.style.height))
                                                                         : this.newPos - this.getHorizontalSpriteHeight()) + 'px';
         };     
         // --------------------------------------------------------------

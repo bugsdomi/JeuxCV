@@ -166,7 +166,7 @@
             pEnnemi.deplacement();      
         }
         // --------------------------------------------------------------
-        VilCoyote.prototype.traiteCollision = function(pEnnemi){
+        VilCoyote.prototype.traiteCollisionEnnemi = function(pEnnemi){
             pEnnemi.stoppeDeplacement();
             pEnnemi.frameDeDebut = pEnnemi.frameDeDebutCollision;
             pEnnemi.frameDeFin = pEnnemi.frameDeFinCollision;
@@ -177,20 +177,48 @@
             this.idTimeOut = setTimeout(this.restaureModeNormal.bind(this),pEnnemi.animDelai,pEnnemi);
         }
         // --------------------------------------------------------------
-        VilCoyote.prototype.gereCollisionModule = function(pEnnemi){
-            if (!this.Collision){
+        VilCoyote.prototype.gereHitEnnemi = function(pEnnemi){
+            if (!this.collision){
 // XXXXXXXXXX Rajouter les autres ennenmis
                 for (var i=0; i<pEnnemi.length; i++){
                     if (this.detectCollision(pEnnemi[i])){
                         if (this.animationFXOn){                // Si Vil-Coyote touche un ennemi ET qu'il est en mode "Spin fou", il eclate tous les ennemis touchés, sinon, c'est lui qui perd
-                            // if (collisionGlobale === 1){                        
-                                this.traiteCollision(pEnnemi[i]);
-                                this.collision = false;         
-                            } else {
-                                this.collision = false;         
-                            }
-                        // collisionGlobale -= 1;
-                        // }
+                            this.traiteCollisionEnnemi(pEnnemi[i]);
+                            this.collision = false;         
+                        } else {
+                            this.collision = false;         
+                        }
+                    }
+                }
+            }
+        }    
+        // --------------------------------------------------------------
+        VilCoyote.prototype.traiteVictoire = function(pTarget,pIndex){
+            cvCourt.style.filter = 'grayscale(0)';
+            victoire.afficheVictoire();
+        }
+        // --------------------------------------------------------------
+        VilCoyote.prototype.traiteCollisionTarget = function(pTarget,pIndex){
+            if (pIndex === dataBipBip.targetActif){
+                dataBipBip.bipBip[dataBipBip.targetActif].traiteCompetence();
+                score.scoreActuel += 1;
+                score.AfficheScore();
+
+                if (dataBipBip.targetActif < (dataBipBip.maxCompetences - 1)){
+                    dataBipBip.targetActif += 1;
+                    dataBipBip.bipBip[dataBipBip.targetActif].AfficheTargetActif();
+                } else {
+                    this.traiteVictoire()
+                }            
+            }
+        }
+        // --------------------------------------------------------------
+        VilCoyote.prototype.gereHitTarget = function(){
+            if (!this.collision){
+                for (var i=0; i<dataBipBip.maxCompetences; i++){
+                    if (this.detectCollision(dataBipBip.bipBip[i])){
+                        this.traiteCollisionTarget(dataBipBip.bipBip[i],i);
+                        this.collision = false;         
                     }
                 }
             }
@@ -198,7 +226,8 @@
         // --------------------------------------------------------------
         VilCoyote.prototype.changeDirectionHMod  = function(pSensActuel, pFonction1, pSensFutur, pFonction2, pScreenCollide){
             this.changeDirectionH(pSensActuel, pFonction1, pSensFutur, pFonction2, pScreenCollide);
-            this.gereCollisionModule(vautour);
+            this.gereHitEnnemi(dataVautours.vautour);
+            this.gereHitTarget();
         }
         // --------------------------------------------------------------
         VilCoyote.prototype.changeDirectionVMod  = function(pSensActuel, pFonction1){
@@ -208,14 +237,12 @@
             this.boite.style.animationName = 'none';
 
             this.changeDirectionV(pSensActuel, pFonction1);
-            this.gereCollisionModule(vautour);      
+            this.gereHitEnnemi(dataVautours.vautour);      
+            this.gereHitTarget();
         }   
         // --------------------------------------------------------------
         VilCoyote.prototype.refreshAnimFlottementModule = function(){
             objectKeyFrame.upDateKeyFrames(this,'flottementModule',' {0% {','50% {','top','4s linear infinite flottementModule alternate');
-// XXXXXXXXXX
-// this.boite.style.animation = this.boite.style.animationName+' 4s linear infinite alternate'; 
-            
         }
         // --------------------------------------------------------------
         VilCoyote.prototype.animationCaller = function(){
@@ -255,7 +282,6 @@
             this.energyBall[0].boite.style.left = (this.sensH > 0   ? parseInt(this.boite.style.left) + this.frameData[this.frameActif].thicknessBoiteMasqueH + 1
                                                                     : parseInt(this.boite.style.left) + this.frameData[this.frameActif].offsetBoiteMasqueH 
                                                                     - parseInt(this.energyBall[0].boite.style.width) - 1) + 'px';
-
             this.energyBall[0].boite.style.top = parseInt(window.getComputedStyle(this.boite,null).getPropertyValue('top')) + 110 +'px';
             this.energyBall[0].sensH = Math.abs(this.energyBall[0].sensH) * Math.sign(this.sensH);
             this.energyBall[0].boite.style.display = 'block';
@@ -269,12 +295,12 @@
         }
         // --------------------------------------------------------------
         VilCoyote.prototype.isEnergyBallHit = function(){
-            if (!this.energyBall[0].Collision){
+            if (!this.energyBall[0].collision){
 // XXXXXXXXXX Rajouter les autres ennenmis
-                for (var i=0; i<vautour.length; i++){
-                    if (this.energyBall[0].detectCollision(vautour[i])){                        
+                for (var i=0; i<dataVautours.vautour.length; i++){
+                    if (this.energyBall[0].detectCollision(dataVautours.vautour[i])){                        
                         this.StoppeTir();
-                        this.energyBall[0].traiteCollision(vautour[i]);
+                        this.energyBall[0].traiteCollisionEnnemi(dataVautours.vautour[i]);
                         this.energyBall[0].collision = false;         
                     }
                 }
@@ -311,10 +337,8 @@
         // --------------------------------------------------------------
         VilCoyote.prototype.comeBackInGame = function(pEnnemi) {
             this.unsetSpinVilCoyote();
-            // this.boite.style.animation = (pEnnemi.sensH >= 0)   ? 'ejectVilCoyoteG 1s linear 0s 1 forwards reverse' 
-            //                                                     : 'ejectVilCoyoteD 1s linear 0s 1 forwards reverse';
-
-            setTimeout(this.refreshAnimFlottementModule.bind(this), 1000);
+            this.boite.style.animation = '4s linear infinite flottementModule alternate'; 
+            setTimeout(this.refreshAnimFlottementModule.bind(this), 500);
             this.bloqueClavier = false;
         }
         // --------------------------------------------------------------

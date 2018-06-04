@@ -31,6 +31,16 @@
     to { transform: translate(1500px, -1500px); }
 }
 
+@keyframes animeImage {
+    0% { transform: scale(1.8); }
+    100% { transform: scale(1.4); }
+}
+
+@keyframes rangeCompetence {
+    from {transform: translate(0px, 0px); } 
+    to {transform: translate(600px, 600px);}
+}
+
 /* ------------------------------------------------------------ */
 /*                           Général                            */
 /* ------------------------------------------------------------ */
@@ -70,7 +80,7 @@ body {
     position: absolute;
     background-image: url("../images/appaloosa_desert_Background-nuages.png");
     opacity: 0.8;
-    z-index: 10;
+    z-index: 6;
     -o-animation: 3s linear infinite scrollBkgndNuages;
     -moz-animation: 3s linear infinite scrollBkgndNuages;
     -webkit-animation: 3s linear infinite scrollBkgndNuages;
@@ -173,10 +183,100 @@ body {
     bottom: 0px;
     left:0px;
     z-index: 5;
-    /* border: solid black 1px;     */
+    border: solid black 1px;    
 }
 
 .clImgControlPanel{
     width: 100%;
-    height: auto;
+    height: 100%;
+}
+
+/* ------------------------------------------------------------ */
+/*                            Targets                           */
+/* ------------------------------------------------------------ */
+.clBoiteBipBip{
+    position: absolute;
+    width: 60px;                
+    height: 60px;  
+    z-index: 7;
+    /* border: solid black 1px;     */
+}
+
+/* ------------------------------------------------------------ */
+/*                         Chiffres du score                    */
+/* ------------------------------------------------------------ */
+.clBoiteChiffre{
+    position: absolute;
+    width: 200px;                
+    height: 200px;  
+    top : 700px;
+    left : 1200px;
+    z-index: 5;
+    /* border: solid black 1px;     */
+}
+
+.clMasqueChiffre{
+    position: absolute;
+    overflow: hidden;
+    margin: auto;
+   /* border: solid red 1px; */
+}
+
+.clSpriteChiffre{
+    position: absolute;
+}
+
+/* ------------------------------------------------------------ */
+/*                         Icones des CV                        */
+/* ------------------------------------------------------------ */
+.clCVcourt{
+    position: absolute;
+    top: 910px;
+    left: 1245px;
+    width: 100px;
+    height : 64px;
+    filter: grayscale(1);
+    z-index: 10;
+}
+
+.clCVNLong{
+    position: absolute;
+    top: 910px;
+    left: 1350px;
+    width: 100px;
+    height : 64px;
+    z-index: 10;
+}
+
+.clDownloadCV{
+    position: absolute;
+    top: 5px;
+    left: 1815px;
+    width: 100px;
+    height : 100px;
+}
+
+/* ------------------------------------------------------------ */
+/*                         Victoire                             */
+/* ------------------------------------------------------------ */
+.clBoiteLettre{
+    position: absolute;
+    width: 200px;                
+    height: 200px;  
+    top : 700px;
+    left : 1200px;
+    /* display: none; */
+    z-index: 5;
+    /* border: solid black 1px;     */
+}
+
+.clMasqueLettre{
+    position: absolute;
+    overflow: hidden;
+    margin: auto;
+   /* border: solid red 1px; */
+}
+
+.clSpriteLettre{
+    position: absolute;
 }

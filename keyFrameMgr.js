@@ -20,6 +20,8 @@
         }
         // --------------------------------------------------------------
         // Méthodes prototypées de l'objet "ObjectKeyFrame"
+        // Cette méthode efface les anciennes regles "KeyFrame" 
+        // et les recrée avec les nouvelles valeurs
         // --------------------------------------------------------------
         ObjectKeyFrame.prototype.changeKeyFrameRule = function(){
             this.myStyleSheet = document.styleSheets;
@@ -31,6 +33,7 @@
             while ((!found) && (i < this.myRules.length)){
                 if ((this.myRules[i].type === window.CSSRule.KEYFRAMES_RULE) && 
                     this.myRules[i].name === this.oldAnimName){
+
                     this.myStyleSheet[0].deleteRule(i);
                     this.myStyleSheet[0].insertRule(this.newRules, 0);
                     found = true;
@@ -50,6 +53,8 @@
             pObject.sensAnimation *= -1;
 
             this.keyFrameFrom = pObject.myPosY+'px';
+
+// XXXXXXXXXX  Virer maxFlottement et remplacer par un parametre
             this.keyFrameTo = pObject.myPosY+(pObject.maxFlottement)+'px';
             
             pObject.boite.style.top = pObject.myPosY+'px';

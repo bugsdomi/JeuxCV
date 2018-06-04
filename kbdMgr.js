@@ -1,6 +1,6 @@
         // ****************************************************************************
         // ***                                                                      ***
-        // *** Objet : objectKeyboardMgr                                            ***
+        // *** Objet : ObjectKeyboardMgr                                            ***
         // ***                                                                      ***
         // *** Cet objet sert à gérer la simultanéité de l'appui de plusieurs       ***
         // *** touches pour générer des effets combinés (ex : orientation et        ***

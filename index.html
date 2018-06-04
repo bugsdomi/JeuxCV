@@ -16,12 +16,17 @@
     <script type="text/javascript" src="variables.js"></script>
     <script type="text/javascript" src="spriteAncestor.js"></script>
     <script type="text/javascript" src="kbdMgr.js"></script>
+    <script type="text/javascript" src="bipBip.js"></script>
     <script type="text/javascript" src="vilCoyote.js"></script>
     <script type="text/javascript" src="energyBall.js"></script>
     <script type="text/javascript" src="vautour.js"></script>
-    <script type="text/javascript" src="BackgroundMgr.js"></script>
+    <script type="text/javascript" src="backgroundMgr.js"></script>
     <script type="text/javascript" src="keyFrameMgr.js"></script>
     <script type="text/javascript" src="toolBox.js"></script>
+    <script type="text/javascript" src="chiffres.js"></script>
+    <script type="text/javascript" src="lettres.js"></script>
+    <script type="text/javascript" src="score.js"></script>
+    <script type="text/javascript" src="victoire.js"></script>
     
     <script>
 // ********************************************************************* //
@@ -48,31 +53,15 @@
       'use strict';
 
       var mainLoop = function(){
-        
+
+// Intégrer la gestion du son
+// Gérer le zoom
+// Ajouter des niveaux
+// Gerer le niveau de difficulté
+
         // --------------------- Initialisations ------------------------
         toolBox = new ToolBox();
         toolBox.getScreenSize();
-
-        // ------------------------------------------------------------
-        // Initialisation de l'Objet "Vil-Coyote" commandé par l'utilsateur avec le clavier
-        // ------------------------------------------------------------
-        vilCoyote = new VilCoyote('idBoiteVilCoyote','idMasqueVilCoyote','idSpriteVilCoyote');
-        vilCoyote.initVarMod();
-
-        // ------------------------------------------------------------
-        // Initialisation de l'Objet ennemi "Vautour" 
-        // ------------------------------------------------------------
-// XXXXXXXXXX  Declarer tous les vautours  
-        // for (var i=0; i < maxVautours; i++){
-        // for (var i=0; i = 0; i++){
-          // vautour[i] = new Vautour('idBoiteVautour'+i,'idMasqueVautour'+i,'idSpriteVautour'+i);
-          vautour[0] = new Vautour('idBoiteVautour0','idMasqueVautour0','idSpriteVautour0');
-          vautour[0].initVarMod();          
-          // vautour[i].initVarMod();          
-        // };
-
-        
-// XXXXXXXXXX  Declarer tous les autres ennemis      
 
         // ------------------------------------------------------------
         // Initialisation des fonds d'écran
@@ -83,6 +72,47 @@
         fondEcranNuages = new ObjectFondEcran('3s','scrollBkgndNuages','idFondEcranNuages');
         fondEcranNuages.initVar();
         
+        boiteControlPanel = document.getElementById('idBoiteControlPanel');
+        boiteControlPanel.style.width = window.getComputedStyle(boiteControlPanel).width;
+        boiteControlPanel.style.height = window.getComputedStyle(boiteControlPanel).height;
+        
+        cvCourt = document.getElementById('idCVcourt');
+        cvLong  = document.getElementById('idCVLong');
+        // ------------------------------------------------------------
+        // Initialisation des objets "score " et "Victoire"
+        // ------------------------------------------------------------
+        score = new Score();
+        score.initVar();
+
+        victoire = new Victoire();
+        victoire.initVar();
+
+        // ------------------------------------------------------------
+        // Initialisation des targets - Les targets representent les compétences 
+        // sous forme de Bip-Bip qu'il faut toucher pour révéler la compétence associée
+        // ------------------------------------------------------------
+        for (var i=0; i < dataBipBip.maxCompetences; i++){
+          dataBipBip.bipBip[i] = new BipBip('idBoiteBipBip'+i,'idMasqueBipBip'+i,'idSpriteBipBip'+i);
+          dataBipBip.bipBip[i].initVarMod();      
+        }
+        dataBipBip.targetActif = 0;
+        dataBipBip.bipBip[dataBipBip.targetActif].AfficheTargetActif();
+
+        
+        // ------------------------------------------------------------
+        // Initialisation de l'Objet "Vil-Coyote" commandé par l'utilsateur avec le clavier
+        // ------------------------------------------------------------
+        vilCoyote = new VilCoyote('idBoiteVilCoyote','idMasqueVilCoyote','idSpriteVilCoyote');
+        vilCoyote.initVarMod();
+
+        // ------------------------------------------------------------
+        // Initialisation de l'Objet ennemi "Vautour" 
+        // ------------------------------------------------------------
+        dataVautours.vautour[0] = new Vautour('idBoiteVautour0','idMasqueVautour0','idSpriteVautour0');
+        dataVautours.vautour[0].initVarMod();          
+        
+// XXXXXXXXXX  Declarer tous les autres ennemis      
+
         // ------------------------------------------------------------
         // Initialisation du gestionnaire de KeyFrames (pour les animations)
         // ------------------------------------------------------------
@@ -95,6 +125,7 @@
         //-------------------------------------------------------------
         window.addEventListener('keydown',vilCoyote.keyboardMgr.gereAppuiTouche.bind(vilCoyote.keyboardMgr));   
         window.addEventListener('keyup',vilCoyote.keyboardMgr.gereReleaseTouche.bind(vilCoyote.keyboardMgr));
+        window.addEventListener('click',toolBox.openCV.bind(toolBox));
       };
 
 // XXXXXXXXXX  A activer en procédure de sortie de jeu
@@ -112,77 +143,193 @@
   </script>
   </head>
   <body>      
+    <!--  Arrière-Plan "Sol" en parallaxe   -->
     <div id="idFondEcranSol" class="clFondEcranSol"></div>
+
+
+    <!--  Arrière-Plan "Nuages" en parallaxe   -->
     <div id="idFondEcranNuages" class="clFondEcranNuages"></div>
   
+    <!-- Personnage Principal "Vil-Coyote"  -->
     <div id="idBoiteVilCoyote" class="clBoiteVilCoyote">
       <div id="idMasqueVilCoyote" class="clMasqueVilCoyote">
         <img id="idSpriteVilCoyote" class="clSpriteVilCoyote" src="images/vil-coyote-sur-module-start-01-04-Droite.png" />
       </div>
     </div>
 
+    <!-- Boules d'énergie électrique tirées par Vil-Coyote -->
     <div id="idBoiteEnergyBall0" class="clBoiteEnergyBall">
       <div id="idMasqueEnergyBall0" class="clMasqueEnergyBall">
         <img id="idSpriteEnergyBall0" class="clSpriteEnergyBall" src="images/vil-coyote-energy-balls.png" />
       </div>
     </div>
 
-    <!-- <div id="idBoiteEnergyBall1" class="clBoiteEnergyBall">
-      <div id="idMasqueEnergyBall1" class="clMasqueEnergyBall">
-        <img id="idSpriteEnergyBall1" class="clSpriteEnergyBall" src="images/vil-coyote-energy-balls.png" />
-      </div>
-    </div>
-
-    <div id="idBoiteEnergyBall2" class="clBoiteEnergyBall">
-      <div id="idMasqueEnergyBall2" class="clMasqueEnergyBall">
-        <img id="idSpriteEnergyBall2" class="clSpriteEnergyBall" src="images/vil-coyote-energy-balls.png" />
-      </div>
-    </div> 
-
-    <div id="idBoiteEnergyBall3" class="clBoiteEnergyBall">
-      <div id="idMasqueEnergyBall3" class="clMasqueEnergyBall">
-        <img id="idSpriteEnergyBall3" class="clSpriteEnergyBall" src="images/vil-coyote-energy-balls.png" />
-      </div>
-    </div> 
-
-    <div id="idBoiteEnergyBall4" class="clBoiteEnergyBall">
-      <div id="idMasqueEnergyBall4" class="clMasqueEnergyBall">
-        <img id="idSpriteEnergyBall4" class="clSpriteEnergyBall" src="images/vil-coyote-energy-balls.png" />
-      </div>
-    </div>     -->
-
+    <!-- Premier type d'ennemi : Le Vautour -->
     <div id="idBoiteVautour0" class="clBboiteVautour">
       <div id="idMasqueVautour0" class="clMasqueVautour">
         <img id="idSpriteVautour0" class="clSpriteVautour" src="images/vulture_face_one_flying-gauche.png" />
       </div>
     </div>
-    <!-- <div id="idBoiteVautour1" class="clBboiteVautour">
-      <div id="idMasqueVautour1" class="clMasqueVautour">
-        <img id="idSpriteVautour1" class="clSpriteVautour" src="images/vulture_face_one_flying-gauche.png" />
-      </div>
-    </div>
-    <div id="idBoiteVautour2" class="clBboiteVautour">
-      <div id="idMasqueVautour2" class="masqueVautour">
-        <img id="idSpriteVautour2" class="clSpriteVautour" src="images/vulture_face_one_flying-gauche.png" />
-      </div>
-    </div>
-    <div id="idBoiteVautour3" class="clBboiteVautour">
-      <div id="idMasqueVautour3" class="masqueVautour">
-        <img id="idSpriteVautour3" class="clSpriteVautour" src="images/vulture_face_one_flying-gauche.png" />
-      </div>
-    </div>
-    <div id="idBoiteVautour4" class="clBboiteVautour">
-      <div id="idMasqueVautour4" class="masqueVautour">
-        <img id="idSpriteVautour4" class="clSpriteVautour" src="images/vulture_face_one_flying-gauche.png" />
-      </div>
-    </div> -->
 
     <div id="idBoiteControlPanel" class="clBoiteControlPanel">
       <img id="idImgControlPanel" class="clImgControlPanel" src="images/controlPanel1024px-by-512px.png" />
-      <span>MON SCORE</span>
     </div>
+
+<!-- Targets "Bip-Bip" que Vil-Coyote doit toucher -->
+    <div id="idBoiteBipBip0" class="clBoiteBipBip">
+      <div id="idMasqueBipBip0" class="clMasqueBipBip">
+        <img id="idSpriteBipBip0" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteBipBip1" class="clBoiteBipBip">
+      <div id="idMasqueBipBip1" class="clMasqueBipBip">
+        <img id="idSpriteBipBip1" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteBipBip2" class="clBoiteBipBip">
+      <div id="idMasqueBipBip2" class="clMasqueBipBip">
+        <img id="idSpriteBipBip2" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteBipBip3" class="clBoiteBipBip">
+      <div id="idMasqueBipBip3" class="clMasqueBipBip">
+        <img id="idSpriteBipBip3" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteBipBip4" class="clBoiteBipBip">
+      <div id="idMasqueBipBip4" class="clMasqueBipBip">
+        <img id="idSpriteBipBip4" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteBipBip5" class="clBoiteBipBip">
+      <div id="idMasqueBipBip5" class="clMasqueBipBip">
+        <img id="idSpriteBipBip5" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteBipBip6" class="clBoiteBipBip">
+      <div id="idMasqueBipBip6" class="clMasqueBipBip">
+        <img id="idSpriteBipBip6" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteBipBip7" class="clBoiteBipBip">
+      <div id="idMasqueBipBip7" class="clMasqueBipBip">
+        <img id="idSpriteBipBip7" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteBipBip8" class="clBoiteBipBip">
+      <div id="idMasqueBipBip8" class="clMasqueBipBip">
+        <img id="idSpriteBipBip8" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteBipBip9" class="clBoiteBipBip">
+      <div id="idMasqueBipBip9" class="clMasqueBipBip">
+        <img id="idSpriteBipBip9" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteBipBip10" class="clBoiteBipBip">
+      <div id="idMasqueBipBip10" class="clMasqueBipBip">
+        <img id="idSpriteBipBip10" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+      </div>
+    </div>  
+
+
+<!-- Chiffres 0 à 9 + "/" -->
+    <div id="idBoiteChiffre0" class="clBoiteChiffre">
+      <div id="idMasqueChiffre0" class="clMasqueChiffre">
+        <img id="idSpriteChiffre0" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteChiffre1" class="clBoiteChiffre">
+      <div id="idMasqueChiffre1" class="clMasqueChiffre">
+        <img id="idSpriteChiffre1" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteChiffre2" class="clBoiteChiffre">
+      <div id="idMasqueChiffre2" class="clMasqueChiffre">
+        <img id="idSpriteChiffre2" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteChiffre3" class="clBoiteChiffre">
+      <div id="idMasqueChiffre3" class="clMasqueChiffre">
+        <img id="idSpriteChiffre3" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteChiffre4" class="clBoiteChiffre">
+        <div id="idMasqueChiffre4" class="clMasqueChiffre">
+          <img id="idSpriteChiffre4" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" />
+        </div>
+    </div>  
+
+  <!-- Lettres du mot "Victoiree' -->
+  <div id="idBoiteLettre0" class="clBoiteLettre">
+      <div id="idMasqueLettre0" class="clMasqueLettre">
+        <img id="idSpriteLettre0" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteLettre1" class="clBoiteLettre">
+      <div id="idMasqueLettre1" class="clMasqueLettre">
+        <img id="idSpriteLettre1" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteLettre2" class="clBoiteLettre">
+      <div id="idMasqueLettre2" class="clMasqueLettre">
+        <img id="idSpriteLettre2" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteLettre3" class="clBoiteLettre">
+      <div id="idMasqueLettre3" class="clMasqueLettre">
+        <img id="idSpriteLettre3" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteLettre4" class="clBoiteLettre">
+        <div id="idMasqueLettre4" class="clMasqueLettre">
+          <img id="idSpriteLettre4" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+        </div>
+      </div>  
+    <div id="idBoiteLettre5" class="clBoiteLettre">
+      <div id="idMasqueLettre5" class="clMasqueLettre">
+        <img id="idSpriteLettre5" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteLettre6" class="clBoiteLettre">
+      <div id="idMasqueLettre6" class="clMasqueLettre">
+        <img id="idSpriteLettre6" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+      </div>
+    </div>  
+    
+    <div id="idBoiteLettre7" class="clBoiteLettre">
+        <div id="idMasqueLettre7" class="clMasqueLettre">
+          <img id="idSpriteLettre7" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+        </div>
+    </div>  
+  
+    <img id="idCVcourt" class="clCVcourt" src="images/rolled-up.png" title="CV court"/>
+    <img id="idCVLong" class="clCVNLong" src="images/brown-book.png" title="CV long"/>
+      
     <noscript>
       <p>Veuillez activer JavaScript</p>
     </noscript>    
   </body>
 </html>
+
+
+<!-- <p><a href="monfichier.zip">Télécharger le fichier</a></p> -->

@@ -4,11 +4,8 @@
         // *** Objet : Vautour                                                   ***
         // ***                                                                   ***
         // *** Cet objet sert à gérer :                                          ***
-        // ***   - L'animation principale de Vil-Coyote (le pompage)             ***
-        // ***   - L'animation permanente de Vil-Coyote (Le flottement)          ***
-        // ***   - L'animation secondaire de Vil-Coyote (Le Spin "fou")          ***
-        // ***   - Les déplacements, les changements de sens, les collisions avec***
-        // ***     les bords de l'écran, et l'orientation du sprite              ***
+        // ***   - L'animation principale du vautour (le vol)                    ***
+        // ***   - Les déplacements, les collisions et l'orientation du sprite   ***
         // ***                                                                   ***
         // ***                                                                   ***
         // ***  Nécessite :                                                      ***
@@ -21,7 +18,7 @@
             Sprite.call(this,pBoite, pMasque, pSprite);         // Passage des paramètres de création à l'objet-Ancêtre "Sprite"
 
             this.frameData =                                    // Tableau des tailles et positions des frames dans l'image des sprites
-            [{// -------------------  Vautour volant ---------------------
+            [{                     // -------------------  Vautour volant ---------------------
                 offsetBoiteMasqueH: 0, 
                 thicknessBoiteMasqueH: 0, 
                 offsetBoiteMasqueV: 0,                  
@@ -181,7 +178,7 @@
                 offsetTop: -1438,
                 offsetDroite: -5,
                 offsetGauche: -783
-            },{                                // -------------------  Vautour explose ---------------------
+            },{                // -------------------  Vautour explose ---------------------
                 offsetBoiteMasqueH: 0, 
                 thicknessBoiteMasqueH: 0, 
                 offsetBoiteMasqueV: 0,                  
@@ -376,8 +373,8 @@
             this.sensH *= -1;
             this.animationEnCours = true;
             this.animationCaller();
-
-            this.boite.style.top = toolBox.random(50,toolBox.screenHeight-this.getHorizontalSpriteHeight()-300)+'px';
+            // this.boite.style.top = toolBox.random(50,toolBox.screenHeight-(this.getHorizontalSpriteHeight() + parseInt(boiteControlPanel.style.height)))+'px';
+            this.boite.style.top = toolBox.random(10,toolBox.screenHeight-(parseInt(this.boite.style.height) + parseInt(boiteControlPanel.style.height)))+'px';
             this.boite.style.display = 'block';
         }
         // --------------------------------------------------------------
@@ -391,12 +388,13 @@
                 pEnnemi.EjectModule(this);
                 this.idTimeOut = setTimeout(this.restaureModeNormal.bind(this),pEnnemi.animDelai,pEnnemi);
             } else {
+// XXXXXXXXXX 
 // vilCoyote.traiteCollision(this);
             }
         }
         // --------------------------------------------------------------
         Vautour.prototype.isVautourHit = function(){
-            if (!this.Collision){
+            if (!this.collision){
                 if (this.detectCollision(vilCoyote)){                       
                     this.traiteCollision(vilCoyote);
                     this.collision = false;         
@@ -408,14 +406,14 @@
             this.sensH > 0  ? this.moveSpriteToRight(this.screenCollideOff)
                             : this.moveSpriteToLeft(this.screenCollideOff);
 // XXXXXXXXXX
-this.isVautourHit();
+            this.isVautourHit();
 
             this.myPosX = parseInt(this.boite.style.left);
             if ((this.myPosX <= -250) ||
                 (this.myPosX >= (toolBox.screenWidth+250))){
                 this.stoppeDeplacement();
 // XXXXXXXXXX Pour reboucler en phase de DEV, A virer ensuite
-this.deplacement();  
+                this.deplacement();  
             }
         }
         // --------------------------------------------------------------

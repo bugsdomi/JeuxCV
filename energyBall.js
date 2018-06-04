@@ -1,5 +1,5 @@
         // ************************************************************************
-        // ***      EnergyBall : Objet representant les tirs d Vil-Coyote       ***
+        // ***      EnergyBall : Objet representant les tirs de Vil-Coyote      ***
         // ***                                                                  ***
         // *** Objet : EnergyBall                                               ***
         // ***                                                                  ***
@@ -244,7 +244,7 @@
             this.idAnimationFrame = window.requestAnimationFrame(this.animeFrame.bind(this));
         };
         // --------------------------------------------------------------
-        EnergyBall.prototype.traiteCollision = function(pEnnemi){
+        EnergyBall.prototype.traiteCollisionEnnemi = function(pEnnemi){
             pEnnemi.stoppeDeplacement();
             pEnnemi.frameDeDebut = pEnnemi.frameDeDebutCollision;
             pEnnemi.frameDeFin = pEnnemi.frameDeFinCollision;

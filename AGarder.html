@@ -375,3 +375,269 @@ this.idxKeyOffCode === 2 ? console.log('Espace') : '';                       // 
     // ' --- somme : '+ (parseInt(this.boite.style.top) + this.frameData[this.frameActif].thicknessBoiteMasqueV)
     // );
                                                 
+
+
+
+
+
+
+
+    // *************************************************************************
+    // ***      Score : Objet gérant l(affichage du score                    ***
+    // ***                                                                   ***
+    // *** Objet : Score                                                     ***
+    // ***                                                                   ***
+    // *** Cet objet sert à gérer :                                          ***
+    // ***   - L'affichage du score des compétences gagnées                  ***
+    // ***                                                                   ***
+    // ***  Nécessite :                                                      ***
+    // ***      Une variable pour son instanciation                          ***
+    // ***                                                                   ***
+    // *************************************************************************
+
+    function Score() {              // Fonction constructeur d
+        image: 'images/LooneyTunesCouleur.png',
+
+        chiffres = [
+            { 
+                top: -718,       // Chiffre 0
+                left: -5,
+                height: 70,
+                width: 75
+            },{ 
+                top: -719,       // Chiffre 1
+                left: -77,
+                height: 73,
+                width: 49
+            },{ 
+                top: -718,       // Chiffre 2
+                left: -134, 
+                height: 74,
+                width: 57
+            },{ 
+                top: -718,       // Chiffre 3
+                left: -195,
+                height: 75,
+                width: 56
+            },{ 
+                top: -719,       // Chiffre 4
+                left: -256,
+                height: 68,
+                width: 73
+            },{ 
+                top: -719,       // Chiffre 5
+                left: -329,
+                height: 74,
+                width: 54
+            },{ 
+                top: -718,       // Chiffre 6
+                left: -388,
+                height: 75,
+                width: 65
+            },{ 
+                top: -719,       // Chiffre 7
+                left: -455,
+                height: 73,
+                width: 57
+            },{ 
+                top: -718,        // Chiffre 8
+                left: -513,
+                height: 64,
+                width: 75
+            },{ 
+                top: -718,         // Chiffre 9
+                left: -580,
+                height: 75,
+                width: 65
+            },{ 
+                top: -992,         // Caractère "/"
+                left: -242,
+                height: 82,
+                width: 44
+        }];
+    }
+    //
+
+
+
+
+
+
+
+
+    /* ------------------------------------------------------------ */
+    /*                    Polices "Looney Tunes"                    */
+    /* ------------------------------------------------------------ */
+    @font-face {
+        font-family: 'looneytunes_tilt_bttilt';
+        src: url('../fonts/looney_tunes_tilt_bt-webfont.eot');
+        src: url('../fonts/looney_tunes_tilt_bt-webfont.eot?#iefix') format('embedded-opentype'),
+             url('../fonts/looney_tunes_tilt_bt-webfont.woff2') format('woff2'),
+             url('../fonts/looney_tunes_tilt_bt-webfont.woff') format('woff'),
+             url('../fonts/looney_tunes_tilt_bt-webfont.ttf') format('truetype'),
+             url('../fonts/looney_tunes_tilt_bt-webfont.svg#looneytunes_tilt_bttilt') format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    
+    @font-face {
+        font-family: 'thats_font_folksitalic';
+        src: url('../fonts/that_s_font_folks-webfont.eot');
+        src: url('../fonts/that_s_font_folks-webfont.eot?#iefix') format('embedded-opentype'),
+             url('../fonts/that_s_font_folks-webfont.woff2') format('woff2'),
+             url('../fonts/that_s_font_folks-webfont.woff') format('woff'),
+             url('../fonts/that_s_font_folks-webfont.ttf') format('truetype'),
+             url('../fonts/that_s_font_folks-webfont.svg#thats_font_folksitalic') format('svg');
+        font-weight: normal;
+        font-style: normal;
+    
+    }
+    
+
+    
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Cv Court</title>
+    <link rel="stylesheet" href="src/page2CVCourt.css ">
+
+    <script>
+
+// ********************************************************************* //
+// *                                                                   * //
+// *               "Vil-Coyote à la recherche du CV perdu"             * //
+// *                                                                   * //
+// ********************************************************************* //
+// *                                                                   * //
+// *   Dominique Hourdequin - Mai 2018                                 * //
+// *   Projet N°1 - Type "Front"                                       * //
+// *                                                                   * //
+// *   Formation "Développeur Full Stack Javascript"                   * //
+// *   Classe : "DIWJS08" - Printemps 2018                             * //
+// *   IFOCOP - Paris XI                                               * //
+// *                                                                   * //
+// *   Contact à l'IFOCOP qui transmettra mes coordonnées sur demande  * //
+// *   Responsable de formation                                        * //
+// *   Madame Fabienne Thiry                                           * //
+// *   mail : fthiry@ifocop.fr                                         * //
+// *   Tel : 01-40-21-83-78                                            * //
+// *                                                                   * //
+// ********************************************************************* //
+
+      'use strict';
+
+    </script>
+  </head>
+  <body>    
+      <!-- <div id="idFondLooneyTunes" class="clFondLooneyTunes"></div> -->
+
+      <div id="idFondEcranSol" class="clFondEcranSol"></div>
+
+  
+    <noscript>
+      <p>Veuillez activer JavaScript</p>
+    </noscript>    
+  </body>
+</html>
+===========================================================================================================================================
+// XXXXXXXXXXXXXXXXXXXXXXXXX
+        //        if (document.body){
+        // alert('A')
+        //          screenWidth = (document.body.clientWidth);
+        //          screenHeight = (document.body.clientHeight);
+        //        } else {
+        // alert('B')
+                this.screenWidth = (window.innerWidth);
+                this.screenHeight = (window.innerHeight);
+        //          }       
+        // alert('screenWidth : '+screenWidth+' screenHeight : '+screenHeight);
+        }
+        // --------------------------------------------------------------
+// XXXXXXXXXXXXXXXXXXXXXXXXX Voir gerer le zoom par programme
+        // document.body.style.zoom="200%";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // ************************************************************************
+        // ***                                                                  ***
+        // *** Objet : ToolBox                                                  ***
+        // ***                                                                  ***
+        // *** Cet objet cpontient différentes méthodes générales               ***
+        // *** Il s'entichira au fur et à mesure du temps de nouvelles méthodes ***
+        // ***                                                                  ***
+        // *** - 1 Générateur de nombre aléatoire :                             ***
+        // ***     - random(ValeurInférieure, ValeurSupérieure                  ***
+        // ***                                                                  ***
+        // ***  Nécessite :                                                     ***
+        // ***      Une variable pour son instanciation                         ***
+        // ***                                                                  ***
+        // ************************************************************************
+        // --------------------------------------------------------------
+        function ToolBox(){
+                this. screenWidth;              // Largeur de l'écran visible du navigateur
+                this.screenHeight;              // Hauteur de l'écran visible du navigateur
+        }
+        // --------------------------------------------------------------
+        // Méthodes prototypées de l'objet "ToolBox"
+        // --------------------------------------------------------------
+        ToolBox.prototype.random = function(pValInf, pValSup){
+            return Math.round(((pValSup - pValInf) * Math.random()) + pValInf);
+        }
+        // --------------------------------------------------------------
+        ToolBox.prototype.getScreenSize = function(pValInf, pValSup){
+                
+// XXXXXXXXXXXXXXXXXXXXXXXXX
+        //        if (document.body){
+        // alert('A')
+        //          screenWidth = (document.body.clientWidth);
+        //          screenHeight = (document.body.clientHeight);
+        //        } else {
+        // alert('B')
+                this.screenWidth = (window.innerWidth);
+                this.screenHeight = (window.innerHeight);
+        //          }       
+        // alert('screenWidth : '+screenWidth+' screenHeight : '+screenHeight);
+        }
+        // --------------------------------------------------------------
+        ToolBox.prototype.downloadCVCourt = function(event){
+console.log('Toto')
+                console.log(event);
+
+                if (event.id = 'idCVcourt') && (dataBipBip.targetActif < (dataBipBip.maxCompetences)){
+                        open('./index2.html', 'CVCourt', 'directories=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes');
+                }
+        }

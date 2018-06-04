@@ -1,4 +1,4 @@
-        // ************************************************************************
+
         // ***                                                                  ***
         // *** Objet : ToolBox                                                  ***
         // ***                                                                  ***
@@ -14,8 +14,8 @@
         // ************************************************************************
         // --------------------------------------------------------------
         function ToolBox(){
-                this. screenWidth;              // Largeur de l'écran visible du navigateur
-                this.screenHeight;              // Hauteur de l'écran visible du navigateur
+            this. screenWidth;              // Largeur de l'écran visible du navigateur
+            this.screenHeight;              // Hauteur de l'écran visible du navigateur
         }
         // --------------------------------------------------------------
         // Méthodes prototypées de l'objet "ToolBox"
@@ -39,7 +39,17 @@
         // alert('screenWidth : '+screenWidth+' screenHeight : '+screenHeight);
         }
         // --------------------------------------------------------------
-// XXXXXXXXXXXXXXXXXXXXXXXXX
-        // document.body.style.zoom="200%";
-        // --------------------------------------------------------------
-        
+        ToolBox.prototype.openCV = function(event){
+console.log(event);
+        console.log(event.originalTarget.id === 'idCVcourt');
+        console.log(dataBipBip.targetActif === (dataBipBip.maxCompetences-1));
+
+            if (event.originalTarget.id === 'idCVLong'){
+                open('./index3.html', 'CV', 'directories=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes');
+            } else {
+                if ((event.originalTarget.id === 'idCVcourt') && (dataBipBip.targetActif === (dataBipBip.maxCompetences-1))){
+                    open('./index2.html', 'CV', 'directories=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes');
+                }
+            }   
+            
+        }

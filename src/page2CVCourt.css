@@ -1,0 +1,35 @@
+
+/* ------------------------------------------------------------ */
+/*                           Général                            */
+/* ------------------------------------------------------------ */
+* {
+    /* Pour empecher la sélection des objets statiques à l'écran  */
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* background-color: royalblue; */
+    /* background-color: red; */
+    background-color: #d9c97c;
+                         
+}
+
+/* ------------------------------------------------------------ */
+/*                           Arrières-plans                     */
+/* ------------------------------------------------------------ */
+
+
+/* .clImageCV{
+    position: absolute;
+    top: 5px;
+    left: calc((100% - 800px) / 2);
+    width: 800px;
+    height: 1000px; 
+     
+} */
