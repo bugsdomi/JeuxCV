@@ -25,16 +25,18 @@
         var cvLong;                   // variable du CV "Old-School"
         var downloadCV;          // variable du DownLoader 
 
-        var dataVautours = {
+        var dataVautours = 
+                {
                 vautour : [],         // Instance des ennemis vautours
                 maxVautours : 5       // Nombre maxi de vautours simultanés 
+                }
 
-                        }
-        var dataBipBip = {
+        var dataBipBip = 
+                {
                 bipBip: [],           // Table stockant les infos propres à chaque target Bip-Bip
                 maxCompetences : 11,  // Nombre de compétences (actuellement 11)
                 targetActif : 0,
-                        }
+                }
         // --------------------------------------------------------------
 
 

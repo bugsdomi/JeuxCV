@@ -183,7 +183,7 @@ body {
     bottom: 0px;
     left:0px;
     z-index: 5;
-    border: solid black 1px;    
+    /* border: solid black 1px;   */
 }
 
 .clImgControlPanel{
@@ -265,7 +265,6 @@ body {
     height: 200px;  
     top : 700px;
     left : 1200px;
-    /* display: none; */
     z-index: 5;
     /* border: solid black 1px;     */
 }

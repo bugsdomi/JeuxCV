@@ -19,7 +19,6 @@
         function EnergyBall(pBoite, pMasque, pSprite) {  // Fonction constructeur de du Sprite "Vil-Coyote"
             Sprite.call(this,pBoite, pMasque, pSprite);   // Passage des paramètres de création à l'objet-Ancêtre "Sprite"
 
-
             this.frameData =                // Tableau des tailles et positions des frames dans l'image des sprites
             [{
                 offsetBoiteMasqueH: 0, 

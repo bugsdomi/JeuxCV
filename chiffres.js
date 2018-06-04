@@ -11,8 +11,7 @@
         // ***                                                                   ***
         // *************************************************************************
 
-        function Chiffres(pBoite, pMasque, pSprite) {              // Fonction constructeur d
-        
+        function Chiffres(pBoite, pMasque, pSprite) {              // Fonction constructeur d        
             this.tabChiffres = ['0','1','2','3','4','5','6','7','8','9','/'],
             this.image = 'images/LooneyTunesCouleur.png',
             this.idBoite = pBoite;          // variable de l'ID HTML de la boite contenant le masque et le sprite

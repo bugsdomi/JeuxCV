@@ -54,7 +54,7 @@
             this.newPos = 0;                // Nouvelle position future du sprite
             this.boiteStyleLeft;            // Pour rapidité en evitant le recalcul, affectation à une variable intermédiaire
             this.boiteStyleTop;             // Pour rapidité en evitant le recalcul, affectation à une variable intermédiaire
-            this.thisboiteStyleLeft;         // Pour rapidité en evitant le recalcul, affectation à une variable intermédiaire \_ "this.thisBoiteSyle..."" Fait exprès pour différencier des 2 variables précédentes
+            this.thisboiteStyleLeft;        // Pour rapidité en evitant le recalcul, affectation à une variable intermédiaire \_ "this.thisBoiteSyle..."" Fait exprès pour différencier des 2 variables précédentes
             this.thisboiteStyleTop;          // Pour rapidité en evitant le recalcul, affectation à une variable intermédiaire /
             this.sensH = this.pas;          // Sens de la progression horizontale (<0 Gauche / >0 droite)
             this.sensV = 0;                 // Sens de la progression verticale (<0 Haut / >0 Bas)

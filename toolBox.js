@@ -40,7 +40,6 @@
         }
         // --------------------------------------------------------------
         ToolBox.prototype.openCV = function(event){
-console.log(event);
         console.log(event.originalTarget.id === 'idCVcourt');
         console.log(dataBipBip.targetActif === (dataBipBip.maxCompetences-1));
 

@@ -11,8 +11,7 @@
         // ***                                                                   ***
         // *************************************************************************
 
-        function Lettres(pBoite, pMasque, pSprite) {              // Fonction constructeur d
-        
+        function Lettres(pBoite, pMasque, pSprite) {              // Fonction constructeur d        
             this.tabLettres = ['V','I','C','T','O','R','E'],
             this.image = 'images/LooneyTunesCouleur.png',
             this.idBoite = pBoite;          // variable de l'ID HTML de la boite contenant le masque et le sprite

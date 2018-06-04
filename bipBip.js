@@ -13,7 +13,7 @@
         // ***      Le module ancêtre "spriteAncestor.js"                        ***
         // ***      Le module "tooBox.js"                                        ***
         // ***                                                                   ***
-        // ************************************************************************
+        // *************************************************************************
         function BipBip(pBoite, pMasque, pSprite) {             // Fonction constructeur de Sprite "Bip-Bip"
             Sprite.call(this,pBoite, pMasque, pSprite);         // Passage des paramètres de création à l'objet-Ancêtre "Sprite"
 

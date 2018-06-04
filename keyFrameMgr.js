@@ -9,7 +9,6 @@
         // ***      Une variable pour son instanciation                         ***
         // ***                                                                  ***
         // ************************************************************************
-        // --------------------------------------------------------------
         function ObjectKeyFrame(){
             this.myStyleSheet= '';     // Référence à la feuille de style CSS
             this.myRules = '';         // Références aux blocs de règles de la feuille de style

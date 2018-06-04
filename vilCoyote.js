@@ -121,7 +121,7 @@
 
             this.keyboardMgr = new ObjectKeyboardMgr();
 
-//  XXXXXXXXXX Declarer toutes les boules pour le tir en rafale
+//  XXXXXXXXXX Declarer toutes les boules pour les tirs en rafale
 // for (var i=0; i<; i++){
 //     this.energyBall[i] = new EnergyBall('idBoiteEnergyBall'+i,'idMasqueEnergyBall'+i,'idSpriteEnergyBall'+i);
 //     this.energyBall[i].initVarMod();

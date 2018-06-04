@@ -12,7 +12,7 @@
         // ***                                                                   ***
         // *************************************************************************
 
-        function Score(){              // Fonction constructeur 
+        function Score(){             // Fonction constructeur 
             this.scoreActuel = 0;
             this.scoreComplet = this.scoreActuel + '/' + dataBipBip.maxCompetences;
 

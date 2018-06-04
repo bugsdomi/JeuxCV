@@ -18,7 +18,7 @@
             Sprite.call(this,pBoite, pMasque, pSprite);         // Passage des paramètres de création à l'objet-Ancêtre "Sprite"
 
             this.frameData =                                    // Tableau des tailles et positions des frames dans l'image des sprites
-            [{                     // -------------------  Vautour volant ---------------------
+            [{                                      // -------------------  Vautour volant ---------------------
                 offsetBoiteMasqueH: 0, 
                 thicknessBoiteMasqueH: 0, 
                 offsetBoiteMasqueV: 0,                  
@@ -178,7 +178,7 @@
                 offsetTop: -1438,
                 offsetDroite: -5,
                 offsetGauche: -783
-            },{                // -------------------  Vautour explose ---------------------
+            },{                                                 // -------------------  Vautour explose ---------------------
                 offsetBoiteMasqueH: 0, 
                 thicknessBoiteMasqueH: 0, 
                 offsetBoiteMasqueV: 0,                  

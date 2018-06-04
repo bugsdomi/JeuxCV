@@ -20,7 +20,7 @@
                 lettre : [],          // Instance pour les 5 caractères du victoire
                 maxLettres : 8,       // ==> 8 caractères dans le victoire "XX/YY"
                 startPoint : 0,       // Point de départ des écritures
-                currentPoint : 0,     // Position d'ecriture incrémentée
+                currentPoint : 0      // Position d'ecriture incrémentée
             }
         }
         // -------------------------------------------------------------------------

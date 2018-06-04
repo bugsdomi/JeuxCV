@@ -10,7 +10,6 @@
         // ***      Le module "tooBox.js"                                       ***
         // ***                                                                  ***
         // ************************************************************************
-        // --------------------------------------------------------------
         function ObjectFondEcran(pSpeed, pKeyFrames, pIdFondEcran){
             this.bkgndWidth = 1920;           // Largeur de l'image de fond d'écran
             this.bkgndHeight = 1074;          // Hauteur de l'image de fond d'écran

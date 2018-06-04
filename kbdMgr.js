@@ -25,8 +25,7 @@
             this.bitMask = null;            // Récupère dans 1 variable unique le contenut du BitMask du tableau "keyMap" pour des raisons de vitesse car utilisée de multiples fois
             this.idxKeyOnCode = -1;         // Index dans le tableau "tabKeyIndexes" de la touche appuyée
             this.idxKeyOffCode = -1;        // Index dans le tableau "tabKeyIndexes" de la touche relachée
-            
-            
+                        
             // Tableau des touches clavier donnant l'index de position des infos liées dans le table "keyMap" (pour des raisons de vitesse d'exploration) 
             // On cherche la touche dans la table "tabKeyIndexes", et son "indexOf()" permet de sélectionner l'objet correspondant dans "keyMap") 
             // PS : la touche "null" est réservée pour un éventuel usage futur
