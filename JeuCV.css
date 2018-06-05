@@ -104,9 +104,9 @@
 }
 
 body {
-    /* background-color: royalblue; */
+    background-color: royalblue;
     /* background-color: red; */
-    background-color: #d9c97c;
+    /* background-color: #d9c97c; */
     overflow: hidden;                   /* Pour empecher l'affichage des Scroll-Bar */    
 }
 
@@ -116,7 +116,7 @@ body {
 
 .clFondEcranSol{
     position: absolute;
-    background-image: url("../images/appaloosa_desert_Background-sol-soir.png"); 
+    background-image: url("images/appaloosa_desert_Background-sol-soir.png"); 
     z-index: 4;
     -o-animation: 6s linear infinite scrollBkgndSol;
     -moz-animation: 6s linear infinite scrollBkgndSol;
@@ -127,7 +127,7 @@ body {
 
 .clFondEcranNuages{
     position: absolute;
-    background-image: url("../images/appaloosa_desert_Background-nuages.png");
+    background-image: url("images/appaloosa_desert_Background-nuages.png");
     opacity: 0.8;
     z-index: 6;
     -o-animation: 3s linear infinite scrollBkgndNuages;

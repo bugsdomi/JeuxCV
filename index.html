@@ -1,4 +1,13 @@
 
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Atelier 1 - Jeu</title>
+    <!-- <link rel="stylesheet" href="JeuCV.css "> -->
+
 <script>
 // ********************************************************************* //
 // *                                                                   * //
@@ -7,27 +16,338 @@
 // ********************************************************************* //
 </script>
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Atelier 1 - Jeu</title>
-    <link rel="stylesheet" href="src/JeuCV.css ">
-    <script type="text/javascript" src="BrowserNameAndVersion.js"></script>
-    <script type="text/javascript" src="variables.js"></script>
-    <script type="text/javascript" src="spriteAncestor.js"></script>
-    <script type="text/javascript" src="kbdMgr.js"></script>
-    <script type="text/javascript" src="bipBip.js"></script>
-    <script type="text/javascript" src="vilCoyote.js"></script>
-    <script type="text/javascript" src="energyBall.js"></script>
-    <script type="text/javascript" src="vautour.js"></script>
-    <script type="text/javascript" src="backgroundMgr.js"></script>
-    <script type="text/javascript" src="keyFrameMgr.js"></script>
-    <script type="text/javascript" src="toolBox.js"></script>
-    <script type="text/javascript" src="chiffres.js"></script>
-    <script type="text/javascript" src="lettres.js"></script>
-    <script type="text/javascript" src="score.js"></script>
-    <script type="text/javascript" src="victoire.js"></script>
+<style>
+
+/* ------------------------------------------------------------ */
+/*                        Polyfill ppour Chrome                 */
+/*                                                              */
+/*  Uncaught DOMException: Failed to read the 'rules' property  */
+/*  from 'CSSStyleSheet': Cannot access rules                   */
+/*                                                              */
+/* "Cannot access cssRules from local css file in Chrome 64"    */
+/*                                                              */
+/*  SOLUTIONS:                                                  */ 
+/*  1. works when files are online/localhost                    */
+/*  2. works with other browsers (i.e. Internet Explorer,       */   
+/*  Microsoft Edge, Firefox)                                    */
+/*  3. chrome --allow-file-access-from-files                    */                                        
+/*                                                              */
+/*  As of Chrome 64, new CORS rules are enforced for stylesheets*/
+/*. You'll need to use a local development server to do local   */ 
+/* testing of functionality that depends on the CSS Object Model*/
+/* For details :                                                */
+/* https://stackoverflow.com/questions/48753691/cannot-access   */
+/* -cssrules-from-local-css-file-in-chrome/49160760#49160760    */
+/*                                                              */
+/*                                                              */
+/*                                                              */
+/* ------------------------------------------------------------ */
+
+/* ------------------------------------------------------------ */
+/*                           Animations                         */
+/* ------------------------------------------------------------ */
+
+
+@keyframes scrollBkgndSol {
+    from {background-position-x: 0px;}
+    to {background-position-x: -1920px;} 
+}
+
+@keyframes scrollBkgndNuages {
+    from {background-position-x: 0px;}
+    to {background-position-x: -1920px;} 
+}
+
+@keyframes flottementModule {
+    0% {top: 400px;}
+    50% {top: 500px;} 
+}
+
+@keyframes spinVilCoyote {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(720deg); }
+}
+
+@keyframes ejectVilCoyoteG {
+    from { transform: translate(0px); }
+    to { transform: translate(-1500px, -1500px); }
+}
+
+@keyframes ejectVilCoyoteD {
+    from { transform: translate(0px); }
+    to { transform: translate(1500px, -1500px); }
+}
+
+@keyframes animeImage {
+    0% { transform: scale(1.8); }
+    100% { transform: scale(1.4); }
+}
+
+@keyframes rangeCompetence {
+    from {transform: translate(0px, 0px); } 
+    to {transform: translate(600px, 600px);}
+}
+
+/* ------------------------------------------------------------ */
+/*                           Général                            */
+/* ------------------------------------------------------------ */
+* {
+    /* Pour empecher la sélection des objets statiques à l'écran  */
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* background-color: royalblue; */
+    /* background-color: red; */
+    background-color: #d9c97c;
+    overflow: hidden;                   /* Pour empecher l'affichage des Scroll-Bar */    
+}
+
+/* ------------------------------------------------------------ */
+/*                           Arrières-plans                     */
+/* ------------------------------------------------------------ */
+
+.clFondEcranSol{
+    position: absolute;
+    background-image: url("images/appaloosa_desert_Background-sol-soir.png"); 
+    z-index: 4;
+    -o-animation: 6s linear infinite scrollBkgndSol;
+    -moz-animation: 6s linear infinite scrollBkgndSol;
+    -webkit-animation: 6s linear infinite scrollBkgndSol;
+    -ms-animation:  6s linear infinite scrollBkgndSol;
+    animation:  6s linear infinite scrollBkgndSol;
+}
+
+.clFondEcranNuages{
+    position: absolute;
+    background-image: url("images/appaloosa_desert_Background-nuages.png");
+    opacity: 0.8;
+    z-index: 6;
+    -o-animation: 3s linear infinite scrollBkgndNuages;
+    -moz-animation: 3s linear infinite scrollBkgndNuages;
+    -webkit-animation: 3s linear infinite scrollBkgndNuages;
+    -ms-animation:  4.5s linear infinite scrollBkgndNuages;
+    animation:  4.5s linear infinite scrollBkgndNuages;
+}
+
+/* ------------------------------------------------------------ */
+/*                          Vil-Coyote                          */
+/* ------------------------------------------------------------ */
+
+.clBoiteVilCoyote{
+    position: absolute;
+    top: 400px;
+    /* left: calc((100% - 300px) / 2); */
+    left: 50%;
+    width: 300px;
+    height: 196px; 
+    z-index: 5;
+    -o-animation: 4s linear infinite flottementModule alternate;
+    -moz-animation: 4s linear infinite flottementModule alternate;
+    -webkit-animation: 4s linear infinite flottementModule alternate; 
+    -ms-animation: 4s linear infinite flottementModule alternate; 
+    animation: 4s linear infinite flottementModule alternate; 
+    /* border: solid black 1px;      */
+}
+
+.clMasqueVilCoyote{
+    position: relative;
+    overflow: hidden;
+    margin: auto;
+    width: 191px;
+    height: 196px; 
+    /* border: solid red 1px;  */
+}
+
+.clSpriteVilCoyote {
+    position: absolute;
+    /* border: blue solid 3px; */
+}
+
+/* ------------------------------------------------------------ */
+/*                           Energy Ball                        */
+/* ------------------------------------------------------------ */
+
+.clBoiteEnergyBall{
+    position: absolute;
+    width: 45px;
+    height: 45px; 
+    display : none;
+    z-index: 5;
+    /* border: solid black 1px;     */
+}
+
+.clMasqueEnergyBall{
+    position: relative;
+    overflow: hidden;
+    margin: auto;
+    /* border: solid red 1px; */
+}
+
+.clSpriteEnergyBall {
+    position: absolute;
+    /* border: blue solid 3px; */
+}
+
+/* ------------------------------------------------------------ */
+/*                             Vautour                          */
+/* ------------------------------------------------------------ */
+
+.clBboiteVautour{
+    position: absolute;
+    width: 260px;
+    height: 200px; 
+    top: 400px;
+    left: 1400px;
+    z-index: 5;
+    /* border: solid black 1px;     */
+}
+
+.clMasqueVautour{
+    position: relative;
+    overflow: hidden;
+    top: 50%; 
+    transform: translateY(-50%);
+    margin: auto;
+    /* border: solid red 1px; */
+}
+
+.clSpriteVautour {
+    position: relative;
+    /* border: blue solid 3px; */
+}
+
+/* ------------------------------------------------------------ */
+/*                 Panneau de contrôle                          */
+/* ------------------------------------------------------------ */
+
+.clBoiteControlPanel{
+    position: absolute;
+    width: 100%;
+    height: 12.5%; 
+    bottom: 0px;
+    left:0px;
+    z-index: 5;
+    /* border: solid black 1px;   */
+}
+
+.clImgControlPanel{
+    width: 100%;
+    height: 100%;
+}
+
+/* ------------------------------------------------------------ */
+/*                            Targets                           */
+/* ------------------------------------------------------------ */
+.clBoiteBipBip{
+    position: absolute;
+    width: 60px;                
+    height: 60px;  
+    z-index: 7;
+    /* border: solid black 1px;     */
+}
+
+/* ------------------------------------------------------------ */
+/*                         Chiffres du score                    */
+/* ------------------------------------------------------------ */
+.clBoiteChiffre{
+    position: absolute;
+    width: 200px;                
+    height: 200px;  
+    top : 90%;
+    left : 1200px;
+    z-index: 5;
+    /* border: solid black 1px;     */
+}
+
+.clMasqueChiffre{
+    position: absolute;
+    overflow: hidden;
+    margin: auto;
+   /* border: solid red 1px; */
+}
+
+.clSpriteChiffre{
+    position: absolute;
+}
+
+/* ------------------------------------------------------------ */
+/*                         Icones des CV                        */
+/* ------------------------------------------------------------ */
+.clCVcourt{
+    position: absolute;
+    top: 91%;
+    left: 1245px;
+    width: 100px;
+    height : 64px;
+    -ms-filter: grayscale(1);
+    filter: grayscale(1);
+    z-index: 10;
+}
+
+.clCVNLong{
+    position: absolute;
+    top: 89.5%;
+    left: 1350px;
+    width: 100px;
+    height : 90px;
+    z-index: 10;
+}
+
+.clDownloadCV{
+    position: absolute;
+    top: 5px;
+    left: 1815px;
+    width: 100px;
+    height : 100px;
+}
+
+/* ------------------------------------------------------------ */
+/*                         Victoire                             */
+/* ------------------------------------------------------------ */
+.clBoiteLettre{
+    position: absolute;
+    width: 200px;                
+    height: 200px;  
+    top : 700px;
+    left : 1200px;
+    z-index: 5;
+    /* border: solid black 1px;     */
+}
+
+.clMasqueLettre{
+    position: absolute;
+    overflow: hidden;
+    margin: auto;
+   /* border: solid red 1px; */
+}
+
+.clSpriteLettre{
+    position: absolute;
+}
+</style>
+
+    <script src="BrowserNameAndVersion.js"></script>
+    <script src="variables.js"></script>
+    <script src="spriteAncestor.js"></script>
+    <script src="kbdMgr.js"></script>
+    <script src="bipBip.js"></script>
+    <script src="vilCoyote.js"></script>
+    <script src="energyBall.js"></script>
+    <script src="vautour.js"></script>
+    <script src="backgroundMgr.js"></script>
+    <script src="keyFrameMgr.js"></script>
+    <script src="toolBox.js"></script>
+    <script src="chiffres.js"></script>
+    <script src="lettres.js"></script>
+    <script src="score.js"></script>
+    <script src="victoire.js"></script>
     
     <script>
 // ********************************************************************* //
@@ -90,6 +410,34 @@
 
         victoire = new Victoire();
         victoire.initVar();
+
+        // ------------------------------------------------------------
+        // Polyfill pour Safary qui ne connait pas "RequestAnimationFrame"
+        // ------------------------------------------------------------
+        (function () {
+          var lastTime = 0;
+          var vendors = ['ms', 'moz', 'webkit', 'o'];
+          for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+            window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+            window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+          }
+          if(!window.requestAnimationFrame)
+            window.requestAnimationFrame = function (callback, element) {
+              var currTime = new Date().getTime();
+              var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+              var id = window.setTimeout(function () {
+                callback(currTime + timeToCall);
+              },
+              timeToCall);
+              lastTime = currTime + timeToCall;
+              return id;
+          };
+          if(!window.cancelAnimationFrame)
+            window.cancelAnimationFrame = function (id) {
+              clearTimeout(id);
+          };
+        }());
+
 
         // ------------------------------------------------------------
         // Initialisation des targets - Les targets representent les compétences 
@@ -157,92 +505,92 @@
     <!-- Personnage Principal "Vil-Coyote"  -->
     <div id="idBoiteVilCoyote" class="clBoiteVilCoyote">
       <div id="idMasqueVilCoyote" class="clMasqueVilCoyote">
-        <img id="idSpriteVilCoyote" class="clSpriteVilCoyote" src="images/vil-coyote-sur-module-start-01-04-Droite.png" />
+        <img id="idSpriteVilCoyote" class="clSpriteVilCoyote" src="images/vil-coyote-sur-module-start-01-04-Droite.png" alt="Sprite 'Vil-Coyote"/>
       </div>
     </div>
 
     <!-- Boules d'énergie électrique tirées par Vil-Coyote -->
     <div id="idBoiteEnergyBall0" class="clBoiteEnergyBall">
       <div id="idMasqueEnergyBall0" class="clMasqueEnergyBall">
-        <img id="idSpriteEnergyBall0" class="clSpriteEnergyBall" src="images/vil-coyote-energy-balls.png" />
+        <img id="idSpriteEnergyBall0" class="clSpriteEnergyBall" src="images/vil-coyote-energy-balls.png" alt="Sprite 'Boule d\'énergie"/>
       </div>
     </div>
 
     <!-- Premier type d'ennemi : Le Vautour -->
     <div id="idBoiteVautour0" class="clBboiteVautour">
       <div id="idMasqueVautour0" class="clMasqueVautour">
-        <img id="idSpriteVautour0" class="clSpriteVautour" src="images/vulture_face_one_flying-gauche.png" />
+        <img id="idSpriteVautour0" class="clSpriteVautour" src="images/vulture_face_one_flying-gauche.png" alt="Sprite 'Vautour'"/>
       </div>
     </div>
 
     <div id="idBoiteControlPanel" class="clBoiteControlPanel">
-      <img id="idImgControlPanel" class="clImgControlPanel" src="images/controlPanel1024px-by-512px.png" />
+      <img id="idImgControlPanel" class="clImgControlPanel" src="images/controlPanel1024px-by-512px.png" alt="Sprite 'Container de bas d\'écran'"/>
     </div>
 
 <!-- Targets "Bip-Bip" que Vil-Coyote doit toucher -->
     <div id="idBoiteBipBip0" class="clBoiteBipBip">
       <div id="idMasqueBipBip0" class="clMasqueBipBip">
-        <img id="idSpriteBipBip0" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+        <img id="idSpriteBipBip0" class="clSpriteBipBip" src="images/Bip-Bip.png" alt="Sprite 'Jeton Bip-Bip'"/>
       </div>
     </div>  
     
     <div id="idBoiteBipBip1" class="clBoiteBipBip">
       <div id="idMasqueBipBip1" class="clMasqueBipBip">
-        <img id="idSpriteBipBip1" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+        <img id="idSpriteBipBip1" class="clSpriteBipBip" src="images/Bip-Bip.png" alt="Sprite 'Jeton Bip-Bip'"/>
       </div>
     </div>  
     
     <div id="idBoiteBipBip2" class="clBoiteBipBip">
       <div id="idMasqueBipBip2" class="clMasqueBipBip">
-        <img id="idSpriteBipBip2" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+        <img id="idSpriteBipBip2" class="clSpriteBipBip" src="images/Bip-Bip.png" alt="Sprite 'Jeton Bip-Bip'"/>
       </div>
     </div>  
     
     <div id="idBoiteBipBip3" class="clBoiteBipBip">
       <div id="idMasqueBipBip3" class="clMasqueBipBip">
-        <img id="idSpriteBipBip3" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+        <img id="idSpriteBipBip3" class="clSpriteBipBip" src="images/Bip-Bip.png" alt="Sprite 'Jeton Bip-Bip'"/>
       </div>
     </div>  
     
     <div id="idBoiteBipBip4" class="clBoiteBipBip">
       <div id="idMasqueBipBip4" class="clMasqueBipBip">
-        <img id="idSpriteBipBip4" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+        <img id="idSpriteBipBip4" class="clSpriteBipBip" src="images/Bip-Bip.png" alt="Sprite 'Jeton Bip-Bip'"/>
       </div>
     </div>  
     
     <div id="idBoiteBipBip5" class="clBoiteBipBip">
       <div id="idMasqueBipBip5" class="clMasqueBipBip">
-        <img id="idSpriteBipBip5" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+        <img id="idSpriteBipBip5" class="clSpriteBipBip" src="images/Bip-Bip.png" alt="Sprite 'Jeton Bip-Bip'"/>
       </div>
     </div>  
     
     <div id="idBoiteBipBip6" class="clBoiteBipBip">
       <div id="idMasqueBipBip6" class="clMasqueBipBip">
-        <img id="idSpriteBipBip6" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+        <img id="idSpriteBipBip6" class="clSpriteBipBip" src="images/Bip-Bip.png" alt="Sprite 'Jeton Bip-Bip'"/>
       </div>
     </div>  
     
     <div id="idBoiteBipBip7" class="clBoiteBipBip">
       <div id="idMasqueBipBip7" class="clMasqueBipBip">
-        <img id="idSpriteBipBip7" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+        <img id="idSpriteBipBip7" class="clSpriteBipBip" src="images/Bip-Bip.png" alt="Sprite 'Jeton Bip-Bip'"/>
       </div>
     </div>  
     
     <div id="idBoiteBipBip8" class="clBoiteBipBip">
       <div id="idMasqueBipBip8" class="clMasqueBipBip">
-        <img id="idSpriteBipBip8" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+        <img id="idSpriteBipBip8" class="clSpriteBipBip" src="images/Bip-Bip.png" alt="Sprite 'Jeton Bip-Bip'"/>
       </div>
     </div>  
     
     <div id="idBoiteBipBip9" class="clBoiteBipBip">
       <div id="idMasqueBipBip9" class="clMasqueBipBip">
-        <img id="idSpriteBipBip9" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+        <img id="idSpriteBipBip9" class="clSpriteBipBip" src="images/Bip-Bip.png" alt="Sprite 'Jeton Bip-Bip'"/>
       </div>
     </div>  
     
     <div id="idBoiteBipBip10" class="clBoiteBipBip">
       <div id="idMasqueBipBip10" class="clMasqueBipBip">
-        <img id="idSpriteBipBip10" class="clSpriteBipBip" src="images/Bip-Bip.png" />
+        <img id="idSpriteBipBip10" class="clSpriteBipBip" src="images/Bip-Bip.png" alt="Sprite 'Jeton Bip-Bip'"/>
       </div>
     </div>  
 
@@ -250,84 +598,84 @@
 <!-- Chiffres 0 à 9 + "/" -->
     <div id="idBoiteChiffre0" class="clBoiteChiffre">
       <div id="idMasqueChiffre0" class="clMasqueChiffre">
-        <img id="idSpriteChiffre0" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" />
+        <img id="idSpriteChiffre0" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 1er chiffre du score"/>
       </div>
     </div>  
     
     <div id="idBoiteChiffre1" class="clBoiteChiffre">
       <div id="idMasqueChiffre1" class="clMasqueChiffre">
-        <img id="idSpriteChiffre1" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" />
+        <img id="idSpriteChiffre1" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 2eme chiffre du score'"/>
       </div>
     </div>  
     
     <div id="idBoiteChiffre2" class="clBoiteChiffre">
       <div id="idMasqueChiffre2" class="clMasqueChiffre">
-        <img id="idSpriteChiffre2" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" />
+        <img id="idSpriteChiffre2" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" alt="Emplacement du séparateur du score"/>
       </div>
     </div>  
     
     <div id="idBoiteChiffre3" class="clBoiteChiffre">
       <div id="idMasqueChiffre3" class="clMasqueChiffre">
-        <img id="idSpriteChiffre3" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" />
+        <img id="idSpriteChiffre3" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 3eme chiffre du score"/>
       </div>
     </div>  
     
     <div id="idBoiteChiffre4" class="clBoiteChiffre">
         <div id="idMasqueChiffre4" class="clMasqueChiffre">
-          <img id="idSpriteChiffre4" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" />
+          <img id="idSpriteChiffre4" class="clSpriteChiffre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 4eme chiffre du score'"/>
         </div>
     </div>  
 
   <!-- Lettres du mot "Victoiree' -->
   <div id="idBoiteLettre0" class="clBoiteLettre">
       <div id="idMasqueLettre0" class="clMasqueLettre">
-        <img id="idSpriteLettre0" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+        <img id="idSpriteLettre0" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'V'"/>
       </div>
     </div>  
     
     <div id="idBoiteLettre1" class="clBoiteLettre">
       <div id="idMasqueLettre1" class="clMasqueLettre">
-        <img id="idSpriteLettre1" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+        <img id="idSpriteLettre1" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'I'"/>
       </div>
     </div>  
     
     <div id="idBoiteLettre2" class="clBoiteLettre">
       <div id="idMasqueLettre2" class="clMasqueLettre">
-        <img id="idSpriteLettre2" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+        <img id="idSpriteLettre2" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'C'"/>
       </div>
     </div>  
     
     <div id="idBoiteLettre3" class="clBoiteLettre">
       <div id="idMasqueLettre3" class="clMasqueLettre">
-        <img id="idSpriteLettre3" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+        <img id="idSpriteLettre3" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'T'"/>
       </div>
     </div>  
     
     <div id="idBoiteLettre4" class="clBoiteLettre">
         <div id="idMasqueLettre4" class="clMasqueLettre">
-          <img id="idSpriteLettre4" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+          <img id="idSpriteLettre4" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'O'"/>
         </div>
       </div>  
     <div id="idBoiteLettre5" class="clBoiteLettre">
       <div id="idMasqueLettre5" class="clMasqueLettre">
-        <img id="idSpriteLettre5" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+        <img id="idSpriteLettre5" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'I'"/>
       </div>
     </div>  
     
     <div id="idBoiteLettre6" class="clBoiteLettre">
       <div id="idMasqueLettre6" class="clMasqueLettre">
-        <img id="idSpriteLettre6" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+        <img id="idSpriteLettre6" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
       </div>
     </div>  
     
     <div id="idBoiteLettre7" class="clBoiteLettre">
         <div id="idMasqueLettre7" class="clMasqueLettre">
-          <img id="idSpriteLettre7" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" />
+          <img id="idSpriteLettre7" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'E'"/>
         </div>
     </div>  
   
-    <img id="idCVcourt" class="clCVcourt" src="images/rolled-up.png" title="CV court"/>
-    <img id="idCVLong" class="clCVNLong" src="images/brown-book.png" title="CV long"/>
+    <img id="idCVcourt" class="clCVcourt" src="images/rolled-up.png" title="CV court" alt="Sprite du 'Parchemin'"/>
+    <img id="idCVLong" class="clCVNLong" src="images/brown-book.png" title="CV long" alt="Sprite du 'Grimoire'"/>
       
     <noscript>
       <p>Veuillez activer JavaScript</p>

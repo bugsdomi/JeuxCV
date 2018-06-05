@@ -104,7 +104,7 @@
             this.boite.style.height = this.chiffres[maData].height + 'px'; 
 
             this.boite.style.left = pStartPoint + this.currentPoint+'px'; 
-            this.boite.style.top = 895 + (90 - (this.chiffres[maData].height)) / 2 + 'px'; 
+            this.boite.style.top = '90%'; 
 
             this.currentPoint = this.currentPoint + this.chiffres[maData].width + 10; 
         }

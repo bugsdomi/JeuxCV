@@ -144,7 +144,10 @@
 
         this.boite.style.animation = 'none';
         this.boite.style.left = competence[dataBipBip.targetActif].left+'px';
-        this.boite.style.top = competence[dataBipBip.targetActif].top+'px';
+        // this.boite.style.top = competence[dataBipBip.targetActif].top+'px';
+        this.boite.style.top = '91%';
+
+        
         this.sprite.style.width = competence[dataBipBip.targetActif].width+'px';
         this.sprite.style.height = competence[dataBipBip.targetActif].height+'px';
         }

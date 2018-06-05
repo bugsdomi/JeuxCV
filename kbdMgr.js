@@ -90,7 +90,8 @@
         }
         // --------------------------------------------------------------
         ObjectKeyboardMgr.prototype.gereAppuiTouche = function(event){
-            this.idxKeyOnCode = this.tabKeyIndexes.indexOf(event.keyCode);
+
+            this.idxKeyOnCode = this.tabKeyIndexes.indexOf(event.keyCode||event.which);
             if ((this.idxKeyOnCode>-1)&& (!vilCoyote.bloqueClavier)){
                 this.bitMask = this.keyMap[this.idxKeyOnCode].valueAffectedBit;  // Récupération du bit dans la matrice correspondant à la touche
                 this.keyPressedMatrix = this.keyPressedMatrix | this.bitMask;    // "OU" logique pour positionner le bit correspondant dans la matrice
@@ -115,7 +116,7 @@
         }
         // --------------------------------------------------------------
         ObjectKeyboardMgr.prototype.gereReleaseTouche = function(event){
-            this.idxKeyOffCode = this.tabKeyIndexes.indexOf(event.keyCode);
+            this.idxKeyOffCode = this.tabKeyIndexes.indexOf(event.keyCode||event.which);
             if (this.idxKeyOffCode>-1){ 
                 this.actionOffMgr();
                 this.bitMask = this.keyMap[this.idxKeyOffCode].valueAffectedBit;  // Récupération du bit dans la matrice correspondant à la touche relachée

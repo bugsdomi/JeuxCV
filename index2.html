@@ -1,4 +1,13 @@
 
+
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <title>CV Court</title>
 <script>
 // ********************************************************************* //
 // *                                                                   * //
@@ -6,24 +15,15 @@
 // *                                                                   * //
 // ********************************************************************* //
 </script>
+        <link rel="stylesheet" href="src/jeuCV.css ">
+        <script src="variables.js"></script>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-  <title>CV Court</title>
-  <link rel="stylesheet" href="src/jeuCV.css ">
-  <script type="text/javascript" src="variables.js"></script>
-
-  <script>
-      downloadCV  = document.getElementById('idDownloadCV');
-  </script>
-</head>
-<body>
-    <img id="idCVCourt" class="clSCVCourt" src="images/CVCourt.jpeg" />
-    <a href="ressources/CVDH-03-2018 - Dev Full Stack - Short version.pdf" ><img id="idDownloadCV" class="clDownloadCV" src="images/save.png" title="Télécharger le CV"/></a>
-</body>
+        <script>
+            downloadCV  = document.getElementById('idDownloadCV');
+        </script>
+    </head>
+    <body>
+        <img id="idCVCourt" class="clSCVCourt" src="images/CVCourt.jpeg" alt="Image du CV court'"/>
+        <a href="ressources/CVDH-03-2018-DevFullStack-ShortVersion.pdf" ><img id="idDownloadCV" class="clDownloadCV" src="images/save.png" title="Télécharger le CV" alt="Téléchargement"/></a>
+    </body>
 </html>

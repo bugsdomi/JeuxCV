@@ -232,10 +232,10 @@
             // Pour des raisons de rapidité, affectation à une propriété intermédiaire pour eviter de faire le même calcul plusieurs fois
             this.boiteStyleLeft = parseInt(this.boite.style.left);   
             this.newPos = this.boiteStyleLeft + this.frameData[this.frameActif].thicknessBoiteMasqueH + this.sensH;
-            this.boite.style.left = (pScreenCollide && 
-                                    (this.newPos >= toolBox.screenWidth)    ? toolBox.screenWidth - (this.frameData[this.frameActif].thicknessBoiteMasqueH+1) 
-                                                                            : this.boiteStyleLeft + this.sensH) + 'px';
-        };  
+            this.boite.style.left   = (pScreenCollide && (this.newPos >= toolBox.screenWidth)    
+                                    ? toolBox.screenWidth - (this.frameData[this.frameActif].thicknessBoiteMasqueH+1) 
+                                    : this.boiteStyleLeft + this.sensH) + 'px';
+            };  
         // --------------------------------------------------------------
         Sprite.prototype.moveSpriteToLeft = function(pScreenCollide){
             this.newPos = parseInt(this.boite.style.left) + this.sensH;

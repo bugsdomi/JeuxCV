@@ -283,7 +283,7 @@
                                                                     : parseInt(this.boite.style.left) + this.frameData[this.frameActif].offsetBoiteMasqueH 
                                                                     - parseInt(this.energyBall[0].boite.style.width) - 1) + 'px';
             this.energyBall[0].boite.style.top = parseInt(window.getComputedStyle(this.boite,null).getPropertyValue('top')) + 110 +'px';
-            this.energyBall[0].sensH = Math.abs(this.energyBall[0].sensH) * Math.sign(this.sensH);
+            this.energyBall[0].sensH = Math.abs(this.energyBall[0].sensH) * toolBox.sign(this.sensH);
             this.energyBall[0].boite.style.display = 'block';
         }
         // --------------------------------------------------------------

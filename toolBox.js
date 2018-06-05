@@ -56,3 +56,9 @@
             }   
             
         }
+        // --------------------------------------------------------------
+        // Polyfill pour MSIE qui n'accepte pas la fonction Math.sign
+        // --------------------------------------------------------------
+        ToolBox.prototype.sign = function(x){
+            return !(x= parseFloat(x)) ? x : x > 0 ? 1 : -1;
+        };

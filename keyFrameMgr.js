@@ -10,7 +10,7 @@
         // ***                                                                  ***
         // ************************************************************************
         function ObjectKeyFrame(){
-            this.myStyleSheet= '';     // Référence à la feuille de style CSS
+            this.myStyleSheet;     // Référence à la feuille de style CSS
             this.myRules = '';         // Références aux blocs de règles de la feuille de style
             this.keyFrameFrom = 0;     // Position de départ en pixels de l'animation
             this.oldAnimName = '';     // Nom de l'ancien "@keyFrames" de l'animation 
@@ -23,8 +23,8 @@
         // et les recrée avec les nouvelles valeurs
         // --------------------------------------------------------------
         ObjectKeyFrame.prototype.changeKeyFrameRule = function(){
-            this.myStyleSheet = document.styleSheets;
-            this.myRules = this.myStyleSheet[0].cssRules;
+            this.myStyleSheet = document.styleSheets[0];
+            this.myRules = this.myStyleSheet.cssRules;
 
             var found = false;
             var i = 0;
@@ -33,8 +33,8 @@
                 if ((this.myRules[i].type === window.CSSRule.KEYFRAMES_RULE) && 
                     this.myRules[i].name === this.oldAnimName){
 
-                    this.myStyleSheet[0].deleteRule(i);
-                    this.myStyleSheet[0].insertRule(this.newRules, 0);
+                    this.myStyleSheet.deleteRule(i);
+                    this.myStyleSheet.insertRule(this.newRules, 0);
                     found = true;
                 }
                 i++;           
