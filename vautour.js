@@ -405,7 +405,7 @@
         Vautour.prototype.gereDeplacement = function(){
             this.sensH > 0  ? this.moveSpriteToRight(this.screenCollideOff)
                             : this.moveSpriteToLeft(this.screenCollideOff);
-// XXXXXXXXXX
+
             this.isVautourHit();
 
             this.myPosX = parseInt(this.boite.style.left);

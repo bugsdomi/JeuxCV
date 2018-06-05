@@ -1,9 +1,11 @@
 
+        // ************************************************************************
         // ***                                                                  ***
         // *** Objet : ToolBox                                                  ***
         // ***                                                                  ***
-        // *** Cet objet cpontient différentes méthodes générales               ***
-        // *** Il s'entichira au fur et à mesure du temps de nouvelles méthodes ***
+        // *** Cet objet contient différentes méthodes générales variées et trop***
+        // *** peu nombreuses pour definir une catégorie spécifique             ***
+        // *** Il s'enrichiera au fur et à mesure du temps de nouvelles méthodes***
         // ***                                                                  ***
         // *** - 1 Générateur de nombre aléatoire :                             ***
         // ***     - random(ValeurInférieure, ValeurSupérieure                  ***

@@ -144,7 +144,6 @@
 
         this.boite.style.animation = 'none';
         this.boite.style.left = competence[dataBipBip.targetActif].left+'px';
-        // this.boite.style.top = competence[dataBipBip.targetActif].top+'px';
         this.boite.style.top = '91%';
 
         
