@@ -641,3 +641,25 @@ console.log('Toto')
                         open('./index2.html', 'CVCourt', 'directories=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes');
                 }
         }
+
+
+
+
+
+
+        var eventId;
+        if (event.srcElement){
+            eventId = event.srcElement.id;          // Pour Chrome et affilies
+        } else {
+            eventId = event.originalTarget.id;      // Pour Firefox
+        }
+
+        if (eventId === 'idCVLong'){
+            open('./index3.html', 'CV', 'directories=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes');
+        } else {
+            if ((eventId === 'idCVcourt') && (dataBipBip.targetActif === (dataBipBip.maxCompetences-1))){
+                open('./index2.html', 'CV', 'directories=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes');
+            }
+        }   
+        
+    }

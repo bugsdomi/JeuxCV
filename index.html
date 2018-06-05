@@ -13,6 +13,7 @@
     <meta charset="UTF-8">
     <title>Atelier 1 - Jeu</title>
     <link rel="stylesheet" href="src/JeuCV.css ">
+    <script type="text/javascript" src="BrowserNameAndVersion.js"></script>
     <script type="text/javascript" src="variables.js"></script>
     <script type="text/javascript" src="spriteAncestor.js"></script>
     <script type="text/javascript" src="kbdMgr.js"></script>
@@ -60,6 +61,9 @@
 // Gerer le niveau de difficulté
 
         // --------------------- Initialisations ------------------------
+        browserNameAndVersion  = new BrowserNameAndVersion();
+        browserName = browserNameAndVersion.getBrowserName();
+
         toolBox = new ToolBox();
         toolBox.getScreenSize();
 

@@ -23,7 +23,9 @@
         var victoire;                 // Instance de l'objet "Victoire"
         var cvCourt;                  // variable du CV "new Age"
         var cvLong;                   // variable du CV "Old-School"
-        var downloadCV;          // variable du DownLoader 
+        var downloadCV;               // variable du DownLoader 
+        var browserNameAndVersion     // Instance du détécteur de Browser
+        var browserName               // Variable contenant le nom du browser
 
         var dataVautours = 
                 {

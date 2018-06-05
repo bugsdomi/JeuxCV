@@ -26,7 +26,7 @@
         // --------------------------------------------------------------
         ToolBox.prototype.getScreenSize = function(pValInf, pValSup){
                 
-// XXXXXXXXXXXXXXXXXXXXXXXXX
+// XXXXXXXXXXXXXXXXXXXXXXXXX A travailler sur multi browser
         //        if (document.body){
         // alert('A')
         //          screenWidth = (document.body.clientWidth);
@@ -40,10 +40,17 @@
         }
         // --------------------------------------------------------------
         ToolBox.prototype.openCV = function(event){
-            if (event.originalTarget.id === 'idCVLong'){
+            var eventId;
+            if (event.srcElement){
+                eventId = event.srcElement.id;          // Pour Chrome et affilies
+            } else {
+                eventId = event.originalTarget.id;      // Pour Firefox
+            }
+
+            if (eventId === 'idCVLong'){
                 open('./index3.html', 'CV', 'directories=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes');
             } else {
-                if ((event.originalTarget.id === 'idCVcourt') && (dataBipBip.targetActif === (dataBipBip.maxCompetences-1))){
+                if ((eventId === 'idCVcourt') && (dataBipBip.targetActif === (dataBipBip.maxCompetences-1))){
                     open('./index2.html', 'CV', 'directories=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes');
                 }
             }   
