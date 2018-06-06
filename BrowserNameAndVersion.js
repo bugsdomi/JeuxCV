@@ -1,4 +1,18 @@
-function BrowserNameAndVersion(){
+    // ****************************************************************************
+    // ***                                                                      ***
+    // *** Objet : BrowserNameAndVersion                                        ***
+    // ***                                                                      ***
+    // *** Cet objet sert à déterminer le type de Browser et sa version         ***
+    // *** Il se base sur la sentence du "UserAgent" et a resisté à tous les    ***
+    // *** jusqu'ici                                                            ***
+    // ***                                                                      ***
+    // ***  Nécessite :                                                         ***
+    // ***      Une variable pour son instanciation                             ***
+    // ***                                                                      ***
+    // ***                                                                      ***
+    // ****************************************************************************
+    // ----------------------------------------------------------------------------
+    function BrowserNameAndVersion(){
     browser ='',
     version = '',
     posBrowserName ='',
