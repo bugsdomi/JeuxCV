@@ -201,15 +201,16 @@
         VilCoyote.prototype.traiteCollisionTarget = function(pTarget,pIndex){
             if (pIndex === dataBipBip.targetActif){
                 dataBipBip.bipBip[dataBipBip.targetActif].traiteCompetence();
+                score.scoreActuel += 1;
+                score.AfficheScore();
 
                 if (dataBipBip.targetActif < (dataBipBip.maxCompetences - 1)){
                     dataBipBip.targetActif += 1;
-                    score.scoreActuel += 1;
-                    score.AfficheScore();
 
                     dataBipBip.bipBip[dataBipBip.targetActif].AfficheTargetActif();
                 } else {
-                    this.traiteVictoire()
+                    this.traiteVictoire();
+                    dataBipBip.targetActif = null;
                 }            
             }
         }
