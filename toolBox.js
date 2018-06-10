@@ -54,8 +54,6 @@
         ToolBox.prototype.openCV = function(event){
             var eventId = event.srcElement  ? event.srcElement.id          // Pour Chrome et affiliés
                                             : event.originalTarget.id;     // Pour Firefox
-console.log('eventId : ',eventId);
-
             switch (eventId) {
                 case 'idCVLongBtn':
                     open('./index3.html', 'CV', 'directories=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes');
