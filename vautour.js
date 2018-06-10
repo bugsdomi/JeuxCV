@@ -373,8 +373,8 @@
             this.sensH *= -1;
             this.animationEnCours = true;
             this.animationCaller();
-            // this.boite.style.top = toolBox.random(50,toolBox.screenHeight-(this.getHorizontalSpriteHeight() + parseInt(boiteControlPanel.style.height)))+'px';
-            this.boite.style.top = toolBox.random(10,toolBox.screenHeight-(parseInt(this.boite.style.height) + parseInt(boiteControlPanel.style.height)))+'px';
+            this.boite.style.top = toolBox.random(0,toolBox.screenHeight - (parseInt(this.boite.style.height) + parseInt(getComputedStyle(boiteControlPanel).height)))+'px';
+
             this.boite.style.display = 'block';
         }
         // --------------------------------------------------------------
@@ -412,7 +412,7 @@
             if ((this.myPosX <= -250) ||
                 (this.myPosX >= (toolBox.screenWidth+250))){
                 this.stoppeDeplacement();
-// XXXXXXXXXX Pour reboucler en phase de DEV, A virer ensuite
+// XXXXXXXXXX Pour reboucler en phase de DEV, A virer ensuite si je rajoute d'autres ennemis
                 this.deplacement();  
             }
         }
@@ -421,8 +421,6 @@
             this.animationEnCours = false;
             window.clearInterval(this.idAnimationInterval);
             window.cancelAnimationFrame(this.idAnimationFrame);
-//  XXXXXXXXXX A activer lorsque je serai pret
-            // this.boite.style.display = 'none';
         }
         // --------------------------------------------------------------
         Vautour.prototype.deplacement = function(){

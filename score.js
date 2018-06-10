@@ -37,9 +37,7 @@
         Score.prototype.AfficheScore = function(){
             this.scoreComplet = this.scoreActuel + '/' + dataBipBip.maxCompetences;
 
-            if (this.scoreActuel < 10)
-            // this.dataChiffres.startPoint = this.scoreActuel < 10 ? 1600 : 1500;
-            this.dataChiffres.startPoint = this.scoreActuel < 10 ? 1500 : 1600;
+            this.dataChiffres.startPoint = this.scoreActuel < 10 ? 85 : 83;
             this.dataChiffres.currentPoint = 0;
             
             for (var i=0; i < this.scoreComplet.length; i++){ 
@@ -47,5 +45,5 @@
                 this.dataChiffres.currentPoint = this.dataChiffres.chiffre[i].getCurrentPoint();
             }
         }
-    // -------------------------------------------------------------------------
+        // -------------------------------------------------------------------------
 

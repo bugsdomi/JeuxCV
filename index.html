@@ -14,19 +14,35 @@
 // *       "Vil-Coyote à la recherche du CV perdu" - Mai 2018          * //
 // *                                                                   * //
 // ********************************************************************* //
+// *                                                                   * //
+// *   Dominique Hourdequin - Mai 2018                                 * //
+// *   Projet N°1 - Type "Front"                                       * //
+// *                                                                   * //
+// *   Formation "Développeur Full Stack Javascript"                   * //
+// *   Classe : "DIWJS08" - Printemps 2018                             * //
+// *   IFOCOP - Paris XI                                               * //
+// *                                                                   * //
+// *   Contact à l'IFOCOP qui transmettra mes coordonnées sur demande  * //
+// *   Responsable de formation                                        * //
+// *   Madame Fabienne Thiry                                           * //
+// *   mail : fthiry@ifocop.fr                                         * //
+// *   Tel : 01-40-21-83-78                                            * //
+// *                                                                   * //
+// ********************************************************************* //
 </script>
 
 <style>
-
 /* ------------------------------------------------------------ */
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 /*                                                              */
-/*                    Polyfill ppour Chrome                     */
+/*                    Polyfill pour Chrome                      */
+/*                                                              */
+/*   IMPORTANT !!!   Note de D. Hourdequin                      */
 /*                                                              */
 /*   Depuis la version de Chrome de janvier 2018, celui-ci      */
 /*   n'autorise plus l'acces au CSSOM pour des raisons de       */
 /*   violation du CORS (à cause de modules d'extensions qui     */
-/*   faisaient de l'injection CSS                               */
+/*   faisaient de l'injection CSS)                              */
 /*   Seul Chrome à réagi, et il semble que la frécation ait     */
 /*   entrainée le bug que nous rencontrons ici                  */ 
 /*                                                              */
@@ -55,8 +71,36 @@
 /* ------------------------------------------------------------ */
 
 /* ------------------------------------------------------------ */
+/*                           Polices                            */
+/* ------------------------------------------------------------ */
+
+/* ------------------------------------------------------------ */
 /*                           Animations                         */
 /* ------------------------------------------------------------ */
+
+@font-face {
+    font-family: 'looneytunes_tilt_bttilt';
+    src: url('fonts/looney_tunes_tilt_bt-webfont.eot');
+    src: url('fonts/looney_tunes_tilt_bt-webfont.eot?#iefix') format('embedded-opentype'),
+        url('fonts/looney_tunes_tilt_bt-webfont.woff2') format('woff2'),
+        url('fonts/looney_tunes_tilt_bt-webfont.woff') format('woff'),
+        url('fonts/looney_tunes_tilt_bt-webfont.ttf') format('truetype'),
+        url('fonts/looney_tunes_tilt_bt-webfont.svg#looneytunes_tilt_bttilt') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+        font-family: 'thats_font_folksitalic';
+        src: url('fonts/that_s_font_folks-webfont.eot');
+        src: url('fonts/that_s_font_folks-webfont.eot?#iefix') format('embedded-opentype'),
+            url('fonts/that_s_font_folks-webfont.woff2') format('woff2'),
+            url('fonts/that_s_font_folks-webfont.woff') format('woff'),
+            url('fonts/that_s_font_folks-webfont.ttf') format('truetype'),
+            url('fonts/that_s_font_folks-webfont.svg#thats_font_folksitalic') format('svg');
+        font-weight: normal;
+        font-style: normal;   
+}
 
 
 @keyframes scrollBkgndSol {
@@ -81,12 +125,12 @@
 
 @keyframes ejectVilCoyoteG {
     from { transform: translate(0px); }
-    to { transform: translate(-1500px, -1500px); }
+    to { transform: translate(-4000px, -4000px); }
 }
 
 @keyframes ejectVilCoyoteD {
     from { transform: translate(0px); }
-    to { transform: translate(1500px, -1500px); }
+    to { transform: translate(4000px, -4000px); }
 }
 
 @keyframes animeImage {
@@ -154,7 +198,6 @@ body {
 .clBoiteVilCoyote{
     position: absolute;
     top: 400px;
-    /* left: calc((100% - 300px) / 2); */
     left: 50%;
     width: 300px;
     height: 196px; 
@@ -240,8 +283,6 @@ body {
 
 .clBoiteControlPanel{
     position: absolute;
-    width: 100%;
-    height: 12.5%; 
     bottom: 0px;
     left:0px;
     z-index: 5;
@@ -258,9 +299,10 @@ body {
 /* ------------------------------------------------------------ */
 .clBoiteBipBip{
     position: absolute;
-    width: 60px;                
-    height: 60px;  
+    width: 3.13%;                
+    height: 3.13%;  
     z-index: 7;
+    overflow: hidden;
     /* border: solid black 1px;     */
 }
 
@@ -269,11 +311,11 @@ body {
 /* ------------------------------------------------------------ */
 .clBoiteChiffre{
     position: absolute;
-    width: 200px;                
-    height: 200px;  
-    top : 90%;
-    left : 1200px;
-    z-index: 5;
+    width: 2.55%;                
+    height: 7.46%;  
+    top : 89%;
+    left : 83.33%;
+    z-index: 7;
     /* border: solid black 1px;     */
 }
 
@@ -291,34 +333,114 @@ body {
 /* ------------------------------------------------------------ */
 /*                         Icones des CV                        */
 /* ------------------------------------------------------------ */
-.clCVcourt{
+.clCVcourtBtn{
     position: absolute;
-    top: 91%;
-    left: 1245px;
-    width: 100px;
-    height : 64px;
-    -ms-filter: grayscale(1);
+    top: 90%;
+    left: 64.84%;
+    width: 5.21%;
+    height : 6.37%;
     filter: grayscale(1);
-    z-index: 10;
+    z-index: 8;
 }
 
-.clCVNLong{
+.clCVLongBtn{
     position: absolute;
     top: 89%;
-    left: 1350px;
-    width: 100px;
-    height : 90px;
-    z-index: 10;
+    left: 70.31%;
+    width: 5.21%;
+    height : 7.96%;
+    z-index: 8;
 }
-
-.clDownloadCV{
+/* ------------------------------------------------------------ */
+/*                         Icone du bouton d'aide               */
+/* ------------------------------------------------------------ */
+.clHelpBtn{
     position: absolute;
-    top: 5px;
-    left: 1815px;
-    width: 100px;
-    height : 100px;
+    top: 89%;
+    left: 76%;
+    width: 5.21%;
+    height : 7.96%;
+    z-index: 8;
 }
 
+.clHelpScreen{
+    position: absolute;
+    top: 2%;
+    left: 5%;
+    width: 90%;
+    height : 82%;
+    z-index: 8;   
+    display: none;
+    /* border: solid black 1px;     */
+}
+
+.clHelpImg{
+    position: absolute;
+    width: 100%;
+    height : 100%;
+    /* border: solid red 1px;     */
+}
+
+.clHelpText{
+    position: absolute;
+    top: 7%;
+    left: 5%;
+    width: 93%;
+    height : 85%;
+    /* margin: auto; */
+
+    font-family : "thats_font_folksitalic", Georgia, cursive, serif, sans-serif;
+    /* font-family : "looneytunes_tilt_bttilt", Georgia, cursive, serif, sans-serif; */
+    font-style: normal;
+    /* font-weight: bold; */
+    /* font-size: 1.4em; */
+    font-size: 1.7em;
+    /* border: solid brown 1px;     */
+}
+
+h1 {
+    font-family : "looneytunes_tilt_bttilt", Georgia, cursive, serif, sans-serif;
+    text-align: center;
+    font-size: 1.6em;
+    text-transform: uppercase;
+    color: brown;
+}
+
+h2 {
+    font-family : "looneytunes_tilt_bttilt", Georgia, cursive, serif, sans-serif;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    text-align: justify;
+    color: brown;
+}
+
+p {
+    text-indent: 50px;
+    text-align: justify;
+}
+
+span{
+    font-family : "looneytunes_tilt_bttilt", Georgia, cursive, serif, sans-serif;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    text-align: justify;
+    font-weight: bold;
+    color: brown;
+    background-color: yellow;
+}
+
+
+/* ------------------------------------------------------------ */
+/*                Icones des vies de Vil-Coyote                 */
+/* ------------------------------------------------------------ */
+.clSpriteVie{
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    width: 5.21%;
+    height : 6.37%;
+    z-index: 6;
+}
 /* ------------------------------------------------------------ */
 /*                         Victoire                             */
 /* ------------------------------------------------------------ */
@@ -328,7 +450,7 @@ body {
     height: 200px;  
     top : 700px;
     left : 1200px;
-    z-index: 5;
+    z-index: 7;
     /* border: solid black 1px;     */
 }
 
@@ -342,54 +464,31 @@ body {
 .clSpriteLettre{
     position: absolute;
 }
-</style>
 
+  /* ------------------------------------------------------------ */
+  /*                         Fin CSS                             */
+  /* ------------------------------------------------------------ */
+</style>
     <script src="BrowserNameAndVersion.js"></script>
     <script src="variables.js"></script>
     <script src="spriteAncestor.js"></script>
     <script src="kbdMgr.js"></script>
+    <script src="toolBox.js"></script>
     <script src="bipBip.js"></script>
     <script src="vilCoyote.js"></script>
     <script src="energyBall.js"></script>
     <script src="vautour.js"></script>
     <script src="backgroundMgr.js"></script>
     <script src="keyFrameMgr.js"></script>
-    <script src="toolBox.js"></script>
     <script src="chiffres.js"></script>
     <script src="lettres.js"></script>
     <script src="score.js"></script>
-    <script src="victoire.js"></script>
+    <script src="endOfGame.js"></script>
     
     <script>
-// ********************************************************************* //
-// *                                                                   * //
-// *               "Vil-Coyote à la recherche du CV perdu"             * //
-// *                                                                   * //
-// ********************************************************************* //
-// *                                                                   * //
-// *   Dominique Hourdequin - Mai 2018                                 * //
-// *   Projet N°1 - Type "Front"                                       * //
-// *                                                                   * //
-// *   Formation "Développeur Full Stack Javascript"                   * //
-// *   Classe : "DIWJS08" - Printemps 2018                             * //
-// *   IFOCOP - Paris XI                                               * //
-// *                                                                   * //
-// *   Contact à l'IFOCOP qui transmettra mes coordonnées sur demande  * //
-// *   Responsable de formation                                        * //
-// *   Madame Fabienne Thiry                                           * //
-// *   mail : fthiry@ifocop.fr                                         * //
-// *   Tel : 01-40-21-83-78                                            * //
-// *                                                                   * //
-// ********************************************************************* //
-
       'use strict';
 
       var mainLoop = function(){
-
-// Intégrer la gestion du son
-// Gérer le zoom
-// Ajouter des niveaux
-// Gerer le niveau de difficulté
 
         // --------------------- Initialisations ------------------------
         browserNameAndVersion  = new BrowserNameAndVersion();
@@ -403,24 +502,20 @@ body {
         // ------------------------------------------------------------
         fondEcranSol = new ObjectFondEcran('6s', 'scrollBkgndSol','idFondEcranSol');
         fondEcranSol.initVar();
-        
+
         fondEcranNuages = new ObjectFondEcran('3s','scrollBkgndNuages','idFondEcranNuages');
         fondEcranNuages.initVar();
         
         boiteControlPanel = document.getElementById('idBoiteControlPanel');
-        boiteControlPanel.style.width = window.getComputedStyle(boiteControlPanel).width;
-        boiteControlPanel.style.height = window.getComputedStyle(boiteControlPanel).height;
+        boiteControlPanel.style.width = '100%';
+        boiteControlPanel.style.height = '13%';
         
-        cvCourt = document.getElementById('idCVcourt');
-        cvLong  = document.getElementById('idCVLong');
-        // ------------------------------------------------------------
-        // Initialisation des objets "score " et "Victoire"
-        // ------------------------------------------------------------
-        score = new Score();
-        score.initVar();
+        cvCourtBtn = document.getElementById('idCVcourtBtn');
+        cvLongBtn  = document.getElementById('idCVLongBtn');
+        helpBtn = document.getElementById('idHelpBtn');
+        helpScreen = document.getElementById('idHelpScreen');
 
-        victoire = new Victoire();
-        victoire.initVar();
+        
 
         // ------------------------------------------------------------
         // Polyfill pour Safari qui ne connait pas "RequestAnimationFrame"
@@ -484,11 +579,13 @@ body {
         // ------------------------------------------------------------
         // --------------------- Main Program -------------------------
         // ------------------------------------------------------------
-        // Lancement de l'Ecoute du clavier, and that's All Folks !!!
+        // Lancement de l'Ecoute du clavier, et des divers écouteurs
+        //                   and that's All Folks !!!
         //-------------------------------------------------------------
         window.addEventListener('keydown',vilCoyote.keyboardMgr.gereAppuiTouche.bind(vilCoyote.keyboardMgr));   
         window.addEventListener('keyup',vilCoyote.keyboardMgr.gereReleaseTouche.bind(vilCoyote.keyboardMgr));
         window.addEventListener('click',toolBox.openCV.bind(toolBox));
+        window.addEventListener('resize',toolBox.refreshScreen.bind(toolBox));
       };
 
 // XXXXXXXXXX  A activer en procédure de sortie de jeu
@@ -500,30 +597,32 @@ body {
       // --------------------- Point d'entrée de l'application  ---------------------------
       // Lance l'éxecution du script après chargement et affichage du document  (Window)
       //-----------------------------------------------------------------------------------
-
-      window.onload = mainLoop;
-      
+      window.onload = mainLoop;      
   </script>
   </head>
   <body>      
+
     <!--  Arrière-Plan "Sol" en parallaxe   -->
     <div id="idFondEcranSol" class="clFondEcranSol"></div>
 
-
     <!--  Arrière-Plan "Nuages" en parallaxe   -->
     <div id="idFondEcranNuages" class="clFondEcranNuages"></div>
-  
+
+    <img id="idSpriteVie0" class="clSpriteVie" src="images/running-vil-coyote.png" alt="Sprite vie 'Vil-Coyote"/>
+    <img id="idSpriteVie1" class="clSpriteVie" src="images/running-vil-coyote.png" alt="Sprite vie 'Vil-Coyote"/>
+    <img id="idSpriteVie2" class="clSpriteVie" src="images/running-vil-coyote.png" alt="Sprite vie 'Vil-Coyote"/>
+
     <!-- Personnage Principal "Vil-Coyote"  -->
     <div id="idBoiteVilCoyote" class="clBoiteVilCoyote">
       <div id="idMasqueVilCoyote" class="clMasqueVilCoyote">
-        <img id="idSpriteVilCoyote" class="clSpriteVilCoyote" src="images/vil-coyote-sur-module-start-01-04-Droite.png" alt="Sprite 'Vil-Coyote"/>
+        <img id="idSpriteVilCoyote" class="clSpriteVilCoyote" src="images/vil-coyote-sur-module-start-01-04-Droite.png" alt="Sprite 'Vil-Coyote'"/>
       </div>
     </div>
 
     <!-- Boules d'énergie électrique tirées par Vil-Coyote -->
     <div id="idBoiteEnergyBall0" class="clBoiteEnergyBall">
       <div id="idMasqueEnergyBall0" class="clMasqueEnergyBall">
-        <img id="idSpriteEnergyBall0" class="clSpriteEnergyBall" src="images/vil-coyote-energy-balls.png" alt="Sprite 'Boule d\'énergie"/>
+        <img id="idSpriteEnergyBall0" class="clSpriteEnergyBall" src="images/vil-coyote-energy-balls.png" alt="Sprite 'Boule d\'énergie'"/>
       </div>
     </div>
 
@@ -685,14 +784,140 @@ body {
         </div>
     </div>  
   
-    <img id="idCVcourt" class="clCVcourt" src="images/rolled-up.png" title="CV court" alt="Sprite du 'Parchemin'"/>
-    <img id="idCVLong" class="clCVNLong" src="images/brown-book.png" title="CV long" alt="Sprite du 'Grimoire'"/>
-      
+    <div id="idBoiteLettre8" class="clBoiteLettre">
+        <div id="idMasqueLettre8" class="clMasqueLettre">
+          <img id="idSpriteLettre8" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'E'"/>
+        </div>
+    </div>  
+
+    <div id="idBoiteLettre9" class="clBoiteLettre">
+        <div id="idMasqueLettre9" class="clMasqueLettre">
+          <img id="idSpriteLettre9" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du '['"/>
+        </div>
+    </div>  
+  
+    <div id="idBoiteLettre10" class="clBoiteLettre">
+        <div id="idMasqueLettre10" class="clMasqueLettre">
+          <img id="idSpriteLettre10" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'F'"/>
+        </div>
+    </div>  
+  
+    <div id="idBoiteLettre11" class="clBoiteLettre">
+        <div id="idMasqueLettre11" class="clMasqueLettre">
+          <img id="idSpriteLettre11" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du '5'"/>
+        </div>
+    </div>  
+  
+    <div id="idBoiteLettre12" class="clBoiteLettre">
+        <div id="idMasqueLettre12" class="clMasqueLettre">
+          <img id="idSpriteLettre12" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du ']'"/>
+        </div>
+    </div>  
+  
+    <div id="idBoiteLettre13" class="clBoiteLettre">
+        <div id="idMasqueLettre13" class="clMasqueLettre">
+          <img id="idSpriteLettre13" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du ' '"/>
+        </div>
+    </div>  
+  
+    <div id="idBoiteLettre14" class="clBoiteLettre">
+        <div id="idMasqueLettre14" class="clMasqueLettre">
+          <img id="idSpriteLettre14" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'P'"/>
+        </div>
+    </div>  
+  
+    <div id="idBoiteLettre15" class="clBoiteLettre">
+        <div id="idMasqueLettre15" class="clMasqueLettre">
+          <img id="idSpriteLettre15" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'O'"/>
+        </div>
+    </div>  
+  
+    <div id="idBoiteLettre16" class="clBoiteLettre">
+        <div id="idMasqueLettre16" class="clMasqueLettre">
+          <img id="idSpriteLettre16" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'U'"/>
+        </div>
+    </div>  
+  
+    <div id="idBoiteLettre17" class="clBoiteLettre">
+        <div id="idMasqueLettre17" class="clMasqueLettre">
+          <img id="idSpriteLettre17" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
+        </div>
+    </div>  
+  
+    <div id="idBoiteLettre18" class="clBoiteLettre">
+        <div id="idMasqueLettre18" class="clMasqueLettre">
+          <img id="idSpriteLettre18" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du ' '"/>
+        </div>
+    </div>  
+  
+    <div id="idBoiteLettre19" class="clBoiteLettre">
+        <div id="idMasqueLettre19" class="clMasqueLettre">
+          <img id="idSpriteLettre19" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
+        </div>
+    </div>  
+  
+    <div id="idBoiteLettre20" class="clBoiteLettre">
+        <div id="idMasqueLettre20" class="clMasqueLettre">
+          <img id="idSpriteLettre20" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'E'"/>
+        </div>
+    </div>  
+  
+    <div id="idBoiteLettre21" class="clBoiteLettre">
+        <div id="idMasqueLettre21" class="clMasqueLettre">
+          <img id="idSpriteLettre21" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'J'"/>
+        </div>
+    </div>  
+  
+    <div id="idBoiteLettre22" class="clBoiteLettre">
+        <div id="idMasqueLettre22" class="clMasqueLettre">
+          <img id="idSpriteLettre22" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'O'"/>
+        </div>
+    </div>  
+    <div id="idBoiteLettre23" class="clBoiteLettre">
+        <div id="idMasqueLettre23" class="clMasqueLettre">
+          <img id="idSpriteLettre23" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'U'"/>
+        </div>
+    </div>  
+    <div id="idBoiteLettre24" class="clBoiteLettre">
+        <div id="idMasqueLettre24" class="clMasqueLettre">
+          <img id="idSpriteLettre24" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'E'"/>
+        </div>
+    </div>  
+    <div id="idBoiteLettre25" class="clBoiteLettre">
+        <div id="idMasqueLettre25" class="clMasqueLettre">
+          <img id="idSpriteLettre25" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
+        </div>
+    </div>  
+  
+    <img id="idCVcourtBtn" class="clCVcourtBtn" src="images/rolled-up.png" title="CV court" alt="Sprite du 'Parchemin'"/>
+    <img id="idCVLongBtn" class="clCVLongBtn" src="images/brown-book.png" title="CV long" alt="Sprite du 'Grimoire'"/>
+    <img id="idHelpBtn" class="clHelpBtn" src="images/help.png" title="Help button" alt="Sprite du bouton 'Help'"/>
+
+    <div id="idHelpScreen" class="clHelpScreen">
+      <img id="idHelpImg" class="clHelpImg" src="images/2048PX-BY-1536PX.png" title="Help screen" alt="Sprite de l\'écran 'Help'"/>
+      <div id="idHelpText" class="clHelpText">
+        <h1>A la recherche du CV perdu</h1>
+        <h2>Aidez Vil-Coyote à retrouver son CV !</h2>
+        <p>
+Pour cela, il doit croquer chaque effigie de Bip-Bip clignotante, ce qui révelera à chaque fois un point de compétence supplémentaire dans le panneau de contrôle, en bas de l'écran.<br />
+Cependant, la tâche ne sera pas si aisée, car il va rencontrer sur son chemin des habitants de la contrée qui ne se soucieront pas de l'éviter et lui feront perdre des vies ❤️ <span>(au nombre de 3)</span><br />
+Mais Vil-Coyote, en geek accompli, est venu sur son module volant (de la société <span>ACME</span> bien sûr), qui lui permet de se déplacer très rapidement et avec beaucoup d'agilité, avec les <span><br />[4 touches fléchées]</span>.<br />
+Les touches sont combinables, ce qui lui permet de se <span>déplacer aussi en diagonale.</span><br />
+De plus, son module volant est doté d'un canon-Taser <span>[Barre Espace]</span> qui lance des boules de pure énergie  qui vont griller instantément les importuns, mais 1 seule boule d'énergie à la fois, pour permettre au canon-taser de se recharger.<br />
+Enfin, en cas de panique, le module peut activer le mode <span>"Rotation-Folle-qui-rend-Invincible !!!"</span>, avec la touche <span>[ENTER]</span> mais Vil-Coyote, beau-joueur, ne trouve pas cette solution fair-play et l'évite au maximum  😎<br />
+En cas de victoire, lorsque toutes les compétences auront été collectées, le parchemin dans le panneau de contrôle deviendra accessible, et revelera, en le cliquant, le CV version courte de l'auteur de ce petit 'Casual Game'.<br />
+Le grimoire,quant à lui, vous révèlera le CV en version longue, et de plus, il est disponible à tous moment du jeu, sans condition de victoire.<br />
+Ces CV, une fois affiché, seront téléchargeables gràce au bouton judicieusement placé en haut et à droite de la page.😎<br />
+Vous pouvez régler le niveau de difficulté, en jouant sur le <span>Zoom/unZoom</span> de votre navigateur<span>[CTRL+] ou [CTRL-]</span><br />
+Je vous souhaite autant de plaisir à jouer à ce petit jeu, que je n'en ai eu à le concevoir.
+        </p>
+      </div>
+    </div>
+
     <noscript>
       <p>Veuillez activer JavaScript</p>
     </noscript>    
   </body>
 </html>
 
-
-<!-- <p><a href="monfichier.zip">Télécharger le fichier</a></p> -->
+2048PX-BY-1536PX

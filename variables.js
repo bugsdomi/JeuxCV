@@ -19,14 +19,14 @@
         var fondEcranNuages;          // instance du fond d'écran representant les nuages
         var boiteControlPanel;        // Cadre contenant le panneau de controle de bas d'écran
         var objectKeyFrame;           // Instance du gestionnaire des KeyFrames
-        var score;                    // Instance de l'objet "Score"
-        var victoire;                 // Instance de l'objet "Victoire"
-        var cvCourt;                  // variable du CV "new Age"
-        var cvLong;                   // variable du CV "Old-School"
-        var downloadCV;               // variable du DownLoader 
-        var browserNameAndVersion     // Instance du détécteur de Browser
+        var cvCourtBtn;               // variable du bouton CV "new Age"
+        var cvLongBtn;                // variable du bouton CV "Old-School"
+        var helpBtn;                  // variable du bouton 'Help' qui commande l'ouverture de l'écran d'aide
+        var helpScreen;               // Variable del'écran d'aide
+        var downloadCVBtn;            // variable du DownLoader 
+        var browserNameAndVersion     // Instance du détecteur de Browser
         var browserName               // Variable contenant le nom du browser
-
+        
         var dataVautours = 
                 {
                 vautour : [],         // Instance des ennemis vautours

@@ -59,7 +59,7 @@
             this.sensH = this.pas;          // Sens de la progression horizontale (<0 Gauche / >0 droite)
             this.sensV = 0;                 // Sens de la progression verticale (<0 Haut / >0 Bas)
             this.animationOn = true;        // Flag pour arrêter ou relancer l'animation automatique du sprite (Pour Dev uniquement)
-            this.animationEnCours = false;  // Flag temoin de l'tat   de l'animation (lancée ou non)
+            this.animationEnCours = false;  // Flag temoin de l'état de l'animation (lancée ou non)
             this.sensAnimFrames = 1;        // Gere les images dans la sequence 0-1-2-3...N puis N...3-2-1-0 puis 0-1-2-3..N etc ... (si "typeCycleAnimationFrames"=0)
             this.idAnimationInterval;       // Identifiant de l'animation du sprite pour la stopper quand ce n'est plus nécessaire (économie CPU)
             this.idAnimationFrame;           // Identifiant du "RequestAnimationFrame
@@ -190,30 +190,27 @@
         };
         // --------------------------------------------------------------
         Sprite.prototype.detectCollision = function(pEnnemi){
-// XXXXXXXXXX A verifier si c'est interessant de garder
-            if (!this.collision){      // Si l'entité est déjà en collision, on ne reteste pas, pour optimisation CPU 
-                // Pour eviter les calculs répétitifs de ParseInt, affectation à des variables intermédiaires
-                this.boiteStyleLeft = parseInt(pEnnemi.boite.style.left);
-                this.boiteStyleTop = parseInt(pEnnemi.boite.style.top);
-                var thisboiteStyleLeft = parseInt(this.boite.style.left);
-                var thisboiteStyletop = parseInt(this.boite.style.top);
+            // Pour eviter les calculs répétitifs de ParseInt, affectation à des variables intermédiaires
+            this.boiteStyleLeft = parseInt(pEnnemi.boite.style.left);
+            this.boiteStyleTop = parseInt(pEnnemi.boite.style.top);
+            var thisboiteStyleLeft = parseInt(this.boite.style.left);
+            var thisboiteStyletop = parseInt(this.boite.style.top);
 
-                // Vérification que 2 masques se touchent ==> Collision
-                if (((this.boiteStyleLeft + pEnnemi.frameData[pEnnemi.frameActif].offsetBoiteMasqueH) <= 
-                    (thisboiteStyleLeft + this.frameData[this.frameActif].thicknessBoiteMasqueH)) && 
+            // Vérification que 2 masques se touchent ==> Collision
+            if (((this.boiteStyleLeft + pEnnemi.frameData[pEnnemi.frameActif].offsetBoiteMasqueH) <= 
+                (thisboiteStyleLeft + this.frameData[this.frameActif].thicknessBoiteMasqueH)) && 
 
-                    ((this.boiteStyleLeft + pEnnemi.frameData[pEnnemi.frameActif].thicknessBoiteMasqueH) >= 
-                    (thisboiteStyleLeft+this.frameData[this.frameActif].offsetBoiteMasqueH)) &&
+                ((this.boiteStyleLeft + pEnnemi.frameData[pEnnemi.frameActif].thicknessBoiteMasqueH) >= 
+                (thisboiteStyleLeft+this.frameData[this.frameActif].offsetBoiteMasqueH)) &&
 
-                    (((this.boiteStyleTop + pEnnemi.frameData[pEnnemi.frameActif].thicknessBoiteMasqueV) >= 
-                    (thisboiteStyletop+this.frameData[this.frameActif].offsetBoiteMasqueV)) &&
+                (((this.boiteStyleTop + pEnnemi.frameData[pEnnemi.frameActif].thicknessBoiteMasqueV) >= 
+                (thisboiteStyletop+this.frameData[this.frameActif].offsetBoiteMasqueV)) &&
 
-                    ((this.boiteStyleTop + pEnnemi.frameData[pEnnemi.frameActif].offsetBoiteMasqueV) <= 
-                    (thisboiteStyletop + this.frameData[this.frameActif].thicknessBoiteMasqueV)))){  
-                    this.collision = true;   
-                }
-                return this.collision;
+                ((this.boiteStyleTop + pEnnemi.frameData[pEnnemi.frameActif].offsetBoiteMasqueV) <= 
+                (thisboiteStyletop + this.frameData[this.frameActif].thicknessBoiteMasqueV)))){  
+                this.collision = true;   
             }
+            return this.collision;
         }
         // --------------------------------------------------------------
         Sprite.prototype.changeDirectionH = function(pSensActuel, pFonction1, pSensFutur, pFonction2, pScreenCollide){
@@ -245,10 +242,13 @@
         };     
         // --------------------------------------------------------------
         Sprite.prototype.moveSpriteToBottom = function(){
+            var percentToPixels = toolBox.convertPercentToPixels(parseInt(boiteControlPanel.style.height),toolBox.sensVertical);
+
             this.newPos = this.myPosY + this.getHorizontalSpriteHeight()+this.sensV;
-            this.boite.style.top = (this.newPos >= toolBox.screenHeight - parseInt(boiteControlPanel.style.height) 
-                                                                        ? toolBox.screenHeight - (this.getHorizontalSpriteHeight() + parseInt(boiteControlPanel.style.height))
-                                                                        : this.newPos - this.getHorizontalSpriteHeight()) + 'px';
+
+            this.boite.style.top    = (this.newPos >= toolBox.screenHeight - percentToPixels
+                                    ? toolBox.screenHeight - (this.getHorizontalSpriteHeight() + percentToPixels)
+                                    : this.newPos - this.getHorizontalSpriteHeight()) + 'px';
         };     
         // --------------------------------------------------------------
         Sprite.prototype.moveSpriteToTop = function(){

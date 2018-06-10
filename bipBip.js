@@ -22,8 +22,8 @@
                 thicknessBoiteMasqueH: 0, 
                 offsetBoiteMasqueV: 0,                  
                 thicknessBoiteMasqueV: 0, 
-                largeurSpriteH: 60, 
-                hauteurSpriteH: 60,
+                largeurSpriteH: 3.13, 
+                hauteurSpriteH: 3.13,
                 offsetTop: 0,
                 offsetDroite: 0,
                 offsetGauche: 0
@@ -32,70 +32,70 @@
             competence = [
                 { 
                     image: 'images/HTML5.png',
-                    top: 910,
-                    left: 180,
-                    height: 62,
-                    width: 49
+                    top: 90.05,
+                    left: 9.38,
+                    height: 6.17,
+                    width: 2.55
                 },{ 
                     image: 'images/CSS3.png',
-                    top: 910,
-                    left: 240,
-                    height: 62,
-                    width: 49
+                    top: 90.05,
+                    left: 12.5,
+                    height: 6.17,
+                    width: 2.55
                 },{ 
                     image: 'images/JavaScript.png', 
-                    top: 910,
-                    left: 300,
-                    height: 62,
-                    width: 95
+                    top: 90.05,
+                    left: 15.63,
+                    height: 6.17,
+                    width: 4.95
                 },{ 
                     image: 'images/AngularJS.png', 
-                    top: 905,
-                    left: 405,
-                    height: 74,
-                    width: 56
+                    top: 89.55,
+                    left: 21.09,
+                    height: 7.36,
+                    width: 2.92
                 },{ 
                     image: 'images/jQuery.png',
-                    top: 923,
-                    left: 470,
-                    height: 35,
-                    width: 116
+                    top: 91.34,
+                    left: 24.48,
+                    height: 3.48,
+                    width: 6.04
                 },{ 
                     image: 'images/Bootstrap.png',
-                    top: 926,
-                    left: 595,
-                    height: 29,
-                    width: 116
+                    top: 91.64,
+                    left: 30.99,
+                    height: 3.48,
+                    width: 6.04
                 },{ 
                     image: 'images/mongoDB.png',
-                    top: 913,
-                    left: 720,
-                    height: 55,
-                    width: 121
+                    top: 90.35,
+                    left: 37.5,
+                    height: 5.47,
+                    width: 6.30
                 },{ 
                     image: 'images/nodeJS.png',
-                    top: 910,
-                    left: 851,
-                    height: 62,
-                    width: 89
+                    top: 90.05,
+                    left: 44.32,
+                    height: 6.17,
+                    width: 4.64
                 },{ 
                     image: 'images/AJAX.png',
-                    top: 917,
-                    left: 951,
-                    height: 47,
-                    width: 86
+                    top: 90.75,
+                    left: 49.53,
+                    height: 4.68,
+                    width: 4.48
                 },{ 
                     image: 'images/ExpressJS.png',
-                    top: 925,
-                    left: 1046,
-                    height: 31,
-                    width: 106
+                    top: 91.54,
+                    left: 54.48,
+                    height: 3.08,
+                    width: 5.52
                 },{ 
                     image: 'images/Meteor.png',
-                    top: 910,
-                    left: 1162,
-                    height: 62,
-                    width: 60
+                    top: 90.05,
+                    left: 60.52,
+                    height: 6.17,
+                    width: 3.13
             }];
         }
         //
@@ -119,16 +119,16 @@
             this.frameData[0].thicknessBoiteMasqueH = this.computeThicknessBoiteMasqueH();
             this.frameData[0].thicknessBoiteMasqueV = this.computeThicknessBoiteMasqueV();
 
-            this.boite.style.width = this.frameData[0].largeurSpriteH + 'px'; 
-            this.boite.style.height = this.frameData[0].hauteurSpriteH + 'px'; 
-            this.masque.style.width = this.frameData[0].largeurSpriteH + 'px'; 
-            this.masque.style.height = this.frameData[0].hauteurSpriteH + 'px'; 
-            this.sprite.style.width = this.frameData[0].largeurSpriteH + 'px'; 
-            this.sprite.style.height = this.frameData[0].hauteurSpriteH + 'px'; 
+            this.boite.style.width = this.frameData[0].largeurSpriteH + '%'; 
+            this.boite.style.height = (this.frameData[0].hauteurSpriteH * (toolBox.screenWidth / toolBox.screenHeight)) + '%'; 
+            this.masque.style.width = '100%'; 
+            this.masque.style.height = '100%'; 
+            this.sprite.style.width = '100%'; 
+            this.sprite.style.height = '100%'; 
 
             // calcul de positions aléatoires sous contraintes (pas aux bords de l'ecran et toujours au-dessus du Control-Panel)
             this.boite.style.left= toolBox.random(50,(toolBox.screenWidth - (this.frameData[0].hauteurSpriteH + 50)))+'px';
-            this.boite.style.top = toolBox.random(50,(toolBox.screenHeight - (parseInt(boiteControlPanel.style.height) + this.frameData[0].hauteurSpriteH + 50)))+'px';
+            this.boite.style.top = toolBox.random(50,(toolBox.screenHeight - (parseInt(getComputedStyle(boiteControlPanel).height) + 200)))+'px';
         };
         // --------------------------------------------------------------
         //  Animation qui met en évidence la prochaine target à toucher
@@ -139,15 +139,17 @@
         // --------------------------------------------------------------
         //  Lorsque Vil-Coyote touche la target clignotante, la compétence qui lui est liée est affichée dans le Control-Panel
         // --------------------------------------------------------------
-        BipBip.prototype.traiteCompetence = function(){ dataBipBip.moveSkillEnded = false;
-        this.sprite.src=competence[dataBipBip.targetActif].image;
+        BipBip.prototype.traiteCompetence = function(){ 
+            this.sprite.src=competence[dataBipBip.targetActif].image;
+            this.boite.style.animation = 'none';
 
-        this.boite.style.animation = 'none';
-        this.boite.style.left = competence[dataBipBip.targetActif].left+'px';
-        this.boite.style.top = '90%';
-
-        
-        this.sprite.style.width = competence[dataBipBip.targetActif].width+'px';
-        this.sprite.style.height = competence[dataBipBip.targetActif].height+'px';
+            this.boite.style.left = competence[dataBipBip.targetActif].left+'%';
+            this.boite.style.top = competence[dataBipBip.targetActif].top+'%';
+            this.boite.style.width = competence[dataBipBip.targetActif].width+'%';
+            this.boite.style.height = competence[dataBipBip.targetActif].height+'%';
+            this.masque.style.width = '100%';
+            this.masque.style.height = '100%';
+            this.sprite.style.width = '100%';
+            this.sprite.style.height = '100%';
         }
 

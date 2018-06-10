@@ -46,17 +46,13 @@
         // (sans rupture ni saut visible à l'écran, tout en fluidité)
         // S'applique à des animations simples de sprites, répétitives, et sans conditions particulières 
         // ---------------------------------------------------------------------------------------------------------
-        ObjectKeyFrame.prototype.upDateKeyFrames = function(pObject,pName,pFrom,pTo,pProperty,pAnimationStr){
+        ObjectKeyFrame.prototype.upDateKeyFrames = function(pObject,pName,pFrom,pTo,pProperty,pValueFrom,pValueTo){
 
-            pObject.myPosY = parseInt(window.getComputedStyle(pObject.boite,null).getPropertyValue(pProperty));
             pObject.sensAnimation *= -1;
-
-            this.keyFrameFrom = pObject.myPosY+'px';
-
-// XXXXXXXXXX  Virer maxFlottement et remplacer par un parametre
-            this.keyFrameTo = pObject.myPosY+(pObject.maxFlottement)+'px';
+            this.keyFrameFrom = pValueFrom+'px';
+            this.keyFrameTo = pValueTo+'px';
             
-            pObject.boite.style.top = pObject.myPosY+'px';
+            pObject.boite.style.top = pValueFrom+'px';
             pObject.boite.style.animationName = '';
             
             // Ce mecanisme d'alternance de noms permet la réinitialisation mémoire des anciennes données "KeyFrames"

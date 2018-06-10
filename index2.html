@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -8,22 +6,30 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         
         <title>CV Court</title>
+        <link rel="stylesheet" href="src/jeuCV.css ">
+        <script src="variables.js"></script>    
 <script>
 // ********************************************************************* //
 // *                                                                   * //
 // *       "Vil-Coyote à la recherche du CV perdu" - Mai 2018          * //
 // *                                                                   * //
 // ********************************************************************* //
-</script>
-    <link rel="stylesheet" href="src/jeuCV.css ">
-    <script src="variables.js"></script>
+    'use strict';
+        var mainLoop = function(){
+            downloadCVBtn  = document.getElementById('idDownloadCVBtn');
+        }
 
-    <script>
-        downloadCV  = document.getElementById('idDownloadCV');
-    </script>
-    </head>
+        window.onload = mainLoop; 
+</script>
+</head>
     <body>
         <img id="idCVCourt" class="clSCVCourt" src="images/CVCourt.jpeg" alt="Image du CV court'"/>
-        <a href="ressources/CVDH-03-2018-DevFullStack-ShortVersion.pdf" ><img id="idDownloadCV" class="clDownloadCV" src="images/save.png" title="Télécharger le CV" alt="Téléchargement"/></a>
+        <a href="ressources/CVDH-03-2018-DevFullStack-ShortVersion.pdf" ><img id="idDownloadCVBtn" class="clDownloadCVBtn" src="images/save.png" title="Télécharger le CV" alt="Téléchargement"/></a>
+
+        <noscript>
+            <p>Veuillez activer JavaScript</p>
+        </noscript>    
     </body>
 </html>
+
+

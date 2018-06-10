@@ -16,7 +16,9 @@
         // ***      Le module gestionnaire de clavier "keybdMgr.js"             ***
         // ***      Le module "keyFrameMgr.js"                                  ***
         // ***      Le module "energyBall.js"                                   ***
-        // ***      Le module "tooBox.js"                                        ***
+        // ***      Le module "tooBox.js"                                       ***
+        // ***      Le module "score.js"                                        ***
+        // ***      Le module "endOfGame.js"                                    ***
         // ***                                                                  ***
         // ************************************************************************
         function VilCoyote(pBoite, pMasque, pSprite) {    // Fonction constructeur de du Sprite "Vil-Coyote"
@@ -33,7 +35,11 @@
             this.ballsInterval = 100;       // Intervale de tir entre 2 boules d'énergie 
             this.tirEnCours = false;        // Flag de sequence de tir en cours
             this.bloqueClavier = false;     // Sert a bloquer le clavier lorsque VilCoyote a ete touché et se fait ejecter du jeu
-
+            this.nbreVies = 3;              // Nombres de vies de Vil-Coyote
+            this.vie = [];                  // Instances des vies de 'Vil-Coyote'
+            this.score;                     // Instance de l'objet "Score"
+            this.endOfGame;                 // Instance de l'objet affichant "Victoire" ou "perdu"
+    
             this.frameData =                // Tableau des tailles et positions des frames dans l'image des sprites
             [{
                 offsetBoiteMasqueH: 0, 
@@ -98,7 +104,8 @@
             this.initVar();
             this.pas = 5;                   // Incrément de déplacement vertical / horizontal en pixels 
             this.animSpeed = 100;           // Délai en mSec entre 2 frames ==> Vitesse d'animation     
-            this.animDelai = 1000;          // Délai pour laisser le temps à l'animation d'explosion de se terminer
+            this.animDelai = 1500;          // Délai pour laisser le temps à l'animation d'ejection de se terminer
+            this.nbreVies = 3;
 
             this.frameDeDebutNormal = 0;    // No du 1er frame du sprite (pas forcément le 1er de la série, prévu pour utilisation future)
             this.frameDeFinNormal = 2;      // No du dernier frame du sprite (pas forcément le dernier de la série, prévu pour utilisation future)
@@ -106,10 +113,16 @@
             this.frameDeDebutCollision = 0; // No du 1er frame du sprite (pas forcément le 1er de la série, prévu pour utilisation future)
             this.frameDeFinCollision = 2;   // No du dernier frame du sprite (pas forcément le dernier de la série, prévu pour utilisation future)
 
-            this.frameDeDebut = this.frameDeDebutNormal;        // No du 1er frame du sprite (pas forcément le 1er de la série, prévu pour utilisation future)
-            this.frameDeFin = this.frameDeFinNormal;            // No du dernier frame du sprite (pas forcément le dernier de la série, prévu pour utilisation future)
+            this.frameDeDebut = this.frameDeDebutNormal;   // No du 1er frame du sprite (pas forcément le 1er de la série, prévu pour utilisation future)
+            this.frameDeFin = this.frameDeFinNormal;       // No du dernier frame du sprite (pas forcément le dernier de la série, prévu pour utilisation future)
             this.frameActif = this.frameDeDebut;
-            this.typeCycleAnimationFrames = 0;                  //  0 --> 0-1-2-3_2-1-0_1-2-3_2-1-0...  Les frames vont et viennent dans un cycle ascendant/descendant permanent 
+            this.typeCycleAnimationFrames = 0;             //  0 --> 0-1-2-3_2-1-0_1-2-3_2-1-0...  Les frames vont et viennent dans un cycle ascendant/descendant permanent 
+
+            for (var i=0; i < this.nbreVies; i++){
+                this.vie[i] = document.getElementById('idSpriteVie'+[i]);   
+                this.vie[i].style.top = '1%';
+                this.vie[i].style.left = 0.5 + (5 * i)+'%';
+            }
 
             // Pour des raisons de performances, je précalcule une fois toutes, toutes les dimensions de mes boites et masques, frame par frame
             for (var i = this.frameDeDebut; i <= this.frameDeFin; i++) {
@@ -118,9 +131,21 @@
                 this.frameData[i].thicknessBoiteMasqueH = this.computeThicknessBoiteMasqueH();
                 this.frameData[i].thicknessBoiteMasqueV = this.computeThicknessBoiteMasqueV();
             }
-
+            
+            // ------------------------------------------------------------
+            // Initialisation du gestionnaire de clavier
+            // ------------------------------------------------------------            
             this.keyboardMgr = new ObjectKeyboardMgr();
 
+            // ------------------------------------------------------------
+            // Initialisation du gestionnaire de "score"
+            // ------------------------------------------------------------
+            this.score = new Score();
+            this.score.initVar();
+
+            // ------------------------------------------------------------
+            // Initialisation du gestionnaire de tirs
+            // ------------------------------------------------------------
 //  XXXXXXXXXX Declarer toutes les boules pour les tirs en rafale
 // for (var i=0; i<; i++){
 //     this.energyBall[i] = new EnergyBall('idBoiteEnergyBall'+i,'idMasqueEnergyBall'+i,'idSpriteEnergyBall'+i);
@@ -128,6 +153,7 @@
 // }
             this.energyBall[0] = new EnergyBall('idBoiteEnergyBall0','idMasqueEnergyBall0','idSpriteEnergyBall0');
             this.energyBall[0].initVarMod();
+
             vilCoyote.animationCaller();
         };
         // ------------------------------------------------------------------------
@@ -193,24 +219,25 @@
             }
         }    
         // --------------------------------------------------------------
-        VilCoyote.prototype.traiteVictoire = function(pTarget,pIndex){
-            cvCourt.style.filter = 'grayscale(0)';
-            victoire.afficheVictoire();
+        VilCoyote.prototype.traiteVictoire = function(){
+            cvCourtBtn.style.filter = 'grayscale(0)';      // Passage en couleur du parchemin car il devient accessible
+            this.stopGame();
+            endOfGame = new EndOfGame();
+            endOfGame.displayEndOfGameMsg(endOfGame.victoire);
+            endOfGame = undefined;                      // Destruction de l'objet et libération mémoire lors du Garbage Collector
         }
         // --------------------------------------------------------------
         VilCoyote.prototype.traiteCollisionTarget = function(pTarget,pIndex){
             if (pIndex === dataBipBip.targetActif){
-                dataBipBip.bipBip[dataBipBip.targetActif].traiteCompetence();
-                score.scoreActuel += 1;
-                score.AfficheScore();
+                pTarget.traiteCompetence();
+                this.score.scoreActuel += 1;
+                this.score.AfficheScore();
 
                 if (dataBipBip.targetActif < (dataBipBip.maxCompetences - 1)){
                     dataBipBip.targetActif += 1;
-
                     dataBipBip.bipBip[dataBipBip.targetActif].AfficheTargetActif();
                 } else {
                     this.traiteVictoire();
-                    dataBipBip.targetActif = null;
                 }            
             }
         }
@@ -244,11 +271,12 @@
         }   
         // --------------------------------------------------------------
         VilCoyote.prototype.refreshAnimFlottementModule = function(){
-            objectKeyFrame.upDateKeyFrames(this,'flottementModule',' {0% {','50% {','top','4s linear infinite flottementModule alternate');
+            this.myPosY = parseInt(window.getComputedStyle(this.boite,null).getPropertyValue('top'));
+            objectKeyFrame.upDateKeyFrames(this,'flottementModule',' {0% {','50% {','top',this.myPosY,this.myPosY+(this.maxFlottement));
         }
         // --------------------------------------------------------------
         VilCoyote.prototype.animationCaller = function(){
-            window.requestAnimationFrame(this.animeFrame.bind(this));
+            this.idAnimationFrame = window.requestAnimationFrame(this.animeFrame.bind(this));
         };
         // --------------------------------------------------------------
         VilCoyote.prototype.spinVilCoyote = function(){
@@ -330,17 +358,49 @@
             }
         }
         // --------------------------------------------------------------
-        VilCoyote.prototype.EjectModule = function(pEnnemi) {
-            this.bloqueClavier = true;
-            this.setSpinVilCoyote();
-            this.boite.style.animation = (pEnnemi.sensH >= 0)   ? 'ejectVilCoyoteD 1.5s linear 0s 1 forwards' 
-                                                                : 'ejectVilCoyoteG 1.5s linear 0s 1 forwards';
+        VilCoyote.prototype.stoppeDeplacement = function(){
+            this.unsetSpinVilCoyote();
+            this.bloqueClavier = true;                         // Blocage du clavier --> On ne peut plus commander Vil-Coyote apres la fin du jeu
+            this.boite.style.animation = 'STOPPED';            // Arret du flottement du module
+            // window.clearInterval(this.idAnimationInterval);
+            window.cancelAnimationFrame(this.idAnimationFrame);// Arret de l'animation principale de Vil-Coyote
         }
         // --------------------------------------------------------------
-        VilCoyote.prototype.comeBackInGame = function(pEnnemi) {
-            this.unsetSpinVilCoyote();
-            this.boite.style.animation = '4s linear infinite flottementModule alternate'; 
-            setTimeout(this.refreshAnimFlottementModule.bind(this), 500);
-            this.bloqueClavier = false;
+        VilCoyote.prototype.stopGame = function(){           
+            dataVautours.vautour[0].stoppeDeplacement();
+            this.stoppeDeplacement();
+            fondEcranSol.idFondEcran.style.animation = 'none';
+            fondEcranNuages.idFondEcran.style.animation = 'none';
+        }
+        // --------------------------------------------------------------
+        VilCoyote.prototype.traiteDefaite = function(){
+            this.stopGame();
+            endOfGame = new EndOfGame();
+            endOfGame.displayEndOfGameMsg(endOfGame.defaite);
+            endOfGame = undefined;                      // Destruction de l'objet et libération mémoire lors du Garbage Collector
+        }
+        // --------------------------------------------------------------
+        VilCoyote.prototype.EjectModule = function(pEnnemi){
+            this.vie[this.nbreVies-1].style.display = 'none';   // Supprime 1 icone de vie
+            this.nbreVies -= 1;                                 // Retire 1 vie du stock
+
+            if (this.nbreVies >= 0){
+                this.bloqueClavier = true;                      // Empeche la frappe de touches du clavier
+                this.setSpinVilCoyote();                        // Lance le module de Vil-CVoyote en mode "Rotation folle"
+                this.boite.style.animation = (pEnnemi.sensH >= 0)   ? 'ejectVilCoyoteD 1.5s linear 0s 1 forwards' 
+                                                                    : 'ejectVilCoyoteG 1.5s linear 0s 1 forwards';
+                if (this.nbreVies == 0){
+                    this.traiteDefaite();
+                }
+            }
+        }
+        // --------------------------------------------------------------
+        VilCoyote.prototype.comeBackInGame = function() {
+            if (this.nbreVies > 0){
+                this.unsetSpinVilCoyote();
+                this.boite.style.animation = '4s linear infinite flottementModule alternate'; 
+                setTimeout(this.refreshAnimFlottementModule.bind(this), 500);
+                this.bloqueClavier = false;
+            }
         }
         // --------------------------------------------------------------

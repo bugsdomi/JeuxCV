@@ -25,7 +25,7 @@
         // --------------------------------------------------------------
         ObjectFondEcran.prototype.initVar = function() {
             this.idFondEcran = document.getElementById(this.idFondEcran);
-            this.idFondEcran.style.width = toolBox.screenWidth+'px';
+            this.idFondEcran.style.width = '100%';
             this.idFondEcran.style.height = fondEcranSol.bkgndHeight+'px';
         }
         // ---------------------------------------------------------------------------------------------------------

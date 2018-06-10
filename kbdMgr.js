@@ -17,14 +17,14 @@
         // ****************************************************************************
         // ----------------------------------------------------------------------------
         function ObjectKeyboardMgr(){
-            this.keyboardSpeed = 1;         // Délai d'interrogation du clavier ==> Vitesse de réaction au clavier (et donc de mouvement)
-            this.idActionOnMgrInterval;     // Identifiant du SetInterval utilisé pour la gestion du clavier
-            this.gestionKbdOnEnCours = false; // Flag de gestion des touches appuyées lancée
-            this.keyPressedMatrix = '';     // Cette matrice recense l'état instantané de pression de toutes les touches utilisées
-            this.valueMatrixKbdWitness = 0; // Objet affichant la somme des bits de la matrice des touches appuyées (Sert uniquement au devéloppement et debugage)
-            this.bitMask = null;            // Récupère dans 1 variable unique le contenut du BitMask du tableau "keyMap" pour des raisons de vitesse car utilisée de multiples fois
-            this.idxKeyOnCode = -1;         // Index dans le tableau "tabKeyIndexes" de la touche appuyée
-            this.idxKeyOffCode = -1;        // Index dans le tableau "tabKeyIndexes" de la touche relachée
+            this.keyboardSpeed = 1;             // Délai d'interrogation du clavier ==> Vitesse de réaction au clavier (et donc de mouvement)
+            this.idActionOnMgrInterval;         // Identifiant du SetInterval utilisé pour la gestion du clavier
+            this.gestionKbdOnEnCours = false;   // Flag de gestion des touches appuyées lancée
+            this.keyPressedMatrix = '';         // Cette matrice recense l'état instantané de pression de toutes les touches utilisées
+            this.valueMatrixKbdWitness = 0;     // Objet affichant la somme des bits de la matrice des touches appuyées (Sert uniquement au devéloppement et debugage)
+            this.bitMask = null;                // Récupère dans 1 variable unique le contenut du BitMask du tableau "keyMap" pour des raisons de vitesse car utilisée de multiples fois
+            this.idxKeyOnCode = -1;             // Index dans le tableau "tabKeyIndexes" de la touche appuyée
+            this.idxKeyOffCode = -1;            // Index dans le tableau "tabKeyIndexes" de la touche relachée
                         
             // Tableau des touches clavier donnant l'index de position des infos liées dans le table "keyMap" (pour des raisons de vitesse d'exploration) 
             // On cherche la touche dans la table "tabKeyIndexes", et son "indexOf()" permet de sélectionner l'objet correspondant dans "keyMap") 
@@ -36,25 +36,25 @@
             [{
                 valueAffectedBit: 128,
                 witnessButton: null         
-                },{
+            },{
                 valueAffectedBit: 64,
                 witnessButton: null         
-                },{
+            },{
                 valueAffectedBit: 32,
                 witnessButton: null     
-                },{
+            },{
                 valueAffectedBit: 16,
                 witnessButton: null
-                },{
+            },{
                 valueAffectedBit: 8,
                 witnessButton: null
-                },{
+            },{
                 valueAffectedBit: 4,
                 witnessButton: null
-                },{
+            },{
                 valueAffectedBit: 2,
                 witnessButton: null
-                },{
+            },{
                 valueAffectedBit: 1,
                 witnessButton: null
             }];
@@ -71,6 +71,7 @@
         // -------------------------------------------------------------------------------------
         ObjectKeyboardMgr.prototype.actionOnMgr = function(){                                                          // touche 'Esc' --> On sort et Go to menu : Priorié maximum 
             if ((this.keyPressedMatrix & 128) === 128){
+                helpScreen.style.display = 'none';
                 return
             };                           
             (this.keyPressedMatrix & 1) === 1 ? vilCoyote.changeDirectionHMod({ sens: 'sensV', valeur: '0'},           // 1 - "A droite" 
@@ -92,7 +93,7 @@
         ObjectKeyboardMgr.prototype.gereAppuiTouche = function(event){
 
             this.idxKeyOnCode = this.tabKeyIndexes.indexOf(event.keyCode||event.which);
-            if ((this.idxKeyOnCode>-1)&& (!vilCoyote.bloqueClavier)){
+            if (((this.idxKeyOnCode>-1) && (!vilCoyote.bloqueClavier)) || (this.idxKeyOnCode === 0)){
                 this.bitMask = this.keyMap[this.idxKeyOnCode].valueAffectedBit;  // Récupération du bit dans la matrice correspondant à la touche
                 this.keyPressedMatrix = this.keyPressedMatrix | this.bitMask;    // "OU" logique pour positionner le bit correspondant dans la matrice
 
@@ -108,16 +109,13 @@
         // qui l'emporte 
         // ------------------------------------------------------------------------------------
         ObjectKeyboardMgr.prototype.actionOffMgr = function(){
-            this.idxKeyOffCode === 7 ? vilCoyote.refreshAnimFlottementModule() : '';     // 7 - "A droite"
-            this.idxKeyOffCode === 6 ? vilCoyote.refreshAnimFlottementModule() : '';     // 4 - "A gauche"
-            this.idxKeyOffCode === 5 ? vilCoyote.refreshAnimFlottementModule() : '';     // 4 - "En haut"
-            this.idxKeyOffCode === 4 ? vilCoyote.refreshAnimFlottementModule() : '';     // 8 - "En bas" 
             this.idxKeyOffCode === 3 ? vilCoyote.unsetSpinVilCoyote() : '';              // 16 - "ENTER" --> Spin Vil-Coyote
+            vilCoyote.refreshAnimFlottementModule();
         }
         // --------------------------------------------------------------
         ObjectKeyboardMgr.prototype.gereReleaseTouche = function(event){
             this.idxKeyOffCode = this.tabKeyIndexes.indexOf(event.keyCode||event.which);
-            if (this.idxKeyOffCode>-1){ 
+            if (this.idxKeyOffCode > -1){ 
                 this.actionOffMgr();
                 this.bitMask = this.keyMap[this.idxKeyOffCode].valueAffectedBit;  // Récupération du bit dans la matrice correspondant à la touche relachée
                 this.bitMask = ~(this.bitMask);                                   // Inversion des bits du BitMask
