@@ -24,9 +24,10 @@
         var helpBtn;                  // variable du bouton 'Help' qui commande l'ouverture de l'écran d'aide
         var helpScreen;               // Variable del'écran d'aide
         var downloadCVBtn;            // variable du DownLoader 
-        var browserNameAndVersion     // Instance du détecteur de Browser
-        var browserName               // Variable contenant le nom du browser
-        var endOfGame                 // Instance du gestionnaire d'affichage de fin de partie
+        var browserName;              // Variable contenant le nom du browser
+        var imgVictoire;              // Variable du message "Victoire"
+        var imgPerdu;                 // Variable du message "Perdu"
+        var imgRejouer;               // Variable du message "Rejouer"
         
         var dataVautours = 
                 {

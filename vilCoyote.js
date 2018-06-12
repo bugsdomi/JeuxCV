@@ -18,7 +18,6 @@
         // ***      Le module "energyBall.js"                                   ***
         // ***      Le module "tooBox.js"                                       ***
         // ***      Le module "score.js"                                        ***
-        // ***      Le module "endOfGame.js"                                    ***
         // ***                                                                  ***
         // ************************************************************************
         function VilCoyote(pBoite, pMasque, pSprite) {    // Fonction constructeur de du Sprite "Vil-Coyote"
@@ -221,7 +220,8 @@
         VilCoyote.prototype.traiteVictoire = function(){
             cvCourtBtn.style.filter = 'grayscale(0)';      // Passage en couleur du parchemin car il devient accessible
             this.stopGame();
-            endOfGame.displayEndOfGameMsg(endOfGame.victoire);
+            imgVictoire.style.display = 'Block';
+            imgRejouer.style.display = 'Block';
         }
         // --------------------------------------------------------------
         VilCoyote.prototype.traiteCollisionTarget = function(pTarget,pIndex){
@@ -372,7 +372,8 @@
         // --------------------------------------------------------------
         VilCoyote.prototype.traiteDefaite = function(){
             this.stopGame();
-            endOfGame.displayEndOfGameMsg(endOfGame.defaite);
+            imgPerdu.style.display = 'Block';
+            imgRejouer.style.display = 'Block';
         }
         // --------------------------------------------------------------
         VilCoyote.prototype.EjectModule = function(pEnnemi){

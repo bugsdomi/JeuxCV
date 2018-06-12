@@ -16,7 +16,7 @@
             this.sensBkgnd = -1;              // Sens de defilement du fond d'écran (-1 vers la gauche, +1 vers la droite)
             this.speedBkgnd = ' '+pSpeed;     // Vitesse du défilement du fond d'écran
             this.myPosX = 0;                  // Position instantanée de l'origine (0,0) de l'image du fond d'écran 
-            this.idFondEcran = pIdFondEcran;                 // Element HTML <div> identifié
+            this.idFondEcran = pIdFondEcran;  // Element HTML <div> identifié
             this.nomKeyFrames = pKeyFrames;   // Nom désignant le bloc de KeyFrames associé au scrolling du fond d'écran
         }
 

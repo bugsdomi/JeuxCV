@@ -344,12 +344,8 @@ body {
 }
 .clCVcourtBtn:hover{
     position: absolute;
-    top: 90%;
-    left: 64.84%;
     width: 5.81%;
     height : 6.97%;
-    filter: grayscale(1);
-    z-index: 8;
 }
 
 .clCVLongBtn{
@@ -361,12 +357,8 @@ body {
     z-index: 8;
 }
 .clCVLongBtn:hover{
-    position: absolute;
-    top: 89%;
-    left: 70.31%;
     width: 5.61%;
     height : 8.56%;
-    z-index: 8;
 }
 /* ------------------------------------------------------------ */
 /*                         Icone du bouton d'aide               */
@@ -380,12 +372,8 @@ body {
     z-index: 8;
 }
 .clHelpBtn:hover{
-    position: absolute;
-    top: 89%;
-    left: 76%;
     width: 5.81%;
     height : 8.56%;
-    z-index: 8;
 }
 
 .clHelpScreen{
@@ -412,8 +400,6 @@ body {
     left: 5%;
     width: 93%;
     height : 85%;
-    /* margin: auto; */
-
     font-family : "thats_font_folksitalic", Georgia, cursive, serif, sans-serif;
     /* font-family : "looneytunes_tilt_bttilt", Georgia, cursive, serif, sans-serif; */
     font-style: normal;
@@ -465,9 +451,43 @@ span{
     z-index: 6;
 }
 /* ------------------------------------------------------------ */
-/*                         Victoire                             */
+/*                 Victoire / Défaite / Rejouer                 */
 /* ------------------------------------------------------------ */
-.clBoiteLettre{
+
+.clImgVictoire{
+    position: absolute;
+    width: 27.55%;                
+    height: 9.05%;  
+    top : 25%;
+    left : 36%;
+    z-index: 7;
+    display: none;
+    /* border: solid black 1px;     */
+}
+
+.clImgPerdu{
+  position: absolute;
+  width: 18.80%;                
+  height: 9.05%;  
+  top : 25%;
+  left : 40%;
+  z-index: 7;
+  display: none;
+  /* border: solid black 1px;     */
+}
+
+.clImgRejouer{
+    position: absolute;
+    width: 59.95%;                
+    height: 10.05%;  
+    top : 50%;
+    left : 20%;
+    z-index: 7;
+    display: none;
+    /* border: solid black 1px;     */
+}
+
+/* .clBoiteLettre{
     position: absolute;
     width: 200px;                
     height: 200px;  
@@ -475,24 +495,23 @@ span{
     left : 1200px;
     z-index: 7;
     /* border: solid black 1px;     */
-}
+/* }
 
 .clMasqueLettre{
     position: absolute;
     overflow: hidden;
     margin: auto;
    /* border: solid red 1px; */
-}
+/* }
 
 .clSpriteLettre{
     position: absolute;
-}
+} --> */ 
 
   /* ------------------------------------------------------------ */
   /*                         Fin CSS                             */
   /* ------------------------------------------------------------ */
 </style>
-    <script src="BrowserNameAndVersion.js"></script>
     <script src="variables.js"></script>
     <script src="spriteAncestor.js"></script>
     <script src="kbdMgr.js"></script>
@@ -506,7 +525,6 @@ span{
     <script src="chiffres.js"></script>
     <script src="lettres.js"></script>
     <script src="score.js"></script>
-    <script src="endOfGame.js"></script>
     
     <script>
       'use strict';
@@ -514,9 +532,6 @@ span{
       var mainLoop = function(){
 
         // --------------------- Initialisations ------------------------
-        browserNameAndVersion  = new BrowserNameAndVersion();
-        browserName = browserNameAndVersion.getBrowserName();
-
         toolBox = new ToolBox();
         toolBox.getScreenSize();
 
@@ -538,7 +553,9 @@ span{
         helpBtn = document.getElementById('idHelpBtn');
         helpScreen = document.getElementById('idHelpScreen');
 
-        
+        imgVictoire = document.getElementById('idImgVictoire');
+        imgPerdu = document.getElementById('idImgPerdu');
+        imgRejouer = document.getElementById('idImgRejouer');
 
         // ------------------------------------------------------------
         // Polyfill pour Safari qui ne connait pas "RequestAnimationFrame"
@@ -567,7 +584,6 @@ span{
           };
         }());
 
-
         // ------------------------------------------------------------
         // Initialisation des targets - Les targets representent les compétences 
         // sous forme de Bip-Bip qu'il faut toucher pour révéler la compétence associée
@@ -578,19 +594,12 @@ span{
         }
         dataBipBip.targetActif = 0;
         dataBipBip.bipBip[dataBipBip.targetActif].AfficheTargetActif();
-
         
         // ------------------------------------------------------------
         // Initialisation de l'Objet "Vil-Coyote" commandé par l'utilsateur avec le clavier
         // ------------------------------------------------------------
         vilCoyote = new VilCoyote('idBoiteVilCoyote','idMasqueVilCoyote','idSpriteVilCoyote');
         vilCoyote.initVarMod();
-
-        // ------------------------------------------------------------
-        // Initialisation de l'Objet de gestion des messages de fin de partie
-        // ------------------------------------------------------------
-        endOfGame = new EndOfGame();
-        endOfGame.initVar();
 
         // ------------------------------------------------------------
         // Initialisation de l'Objet ennemi "Vautour" 
@@ -628,6 +637,12 @@ span{
       //-----------------------------------------------------------------------------------
       window.onload = mainLoop;      
   </script>
+
+
+
+<!-- ******************************************************************* -->
+<!--                               HTML                                  -->
+<!-- ******************************************************************* -->
   </head>
   <body>      
 
@@ -662,6 +677,7 @@ span{
       </div>
     </div>
 
+    <!-- Panneau de contrôle de bas d'écran -->
     <div id="idBoiteControlPanel" class="clBoiteControlPanel">
       <img id="idImgControlPanel" class="clImgControlPanel" src="images/controlPanel1024px-by-512px.png" alt="Sprite 'Container de bas d\'écran'"/>
     </div>
@@ -765,206 +781,28 @@ span{
         </div>
     </div>  
 
-  <!-- Lettres du mot "Victoiree' -->
-  <div id="idBoiteLettre0" class="clBoiteLettre">
-      <div id="idMasqueLettre0" class="clMasqueLettre">
-        <img id="idSpriteLettre0" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'V'"/>
-      </div>
-    </div>  
-    
-    <div id="idBoiteLettre1" class="clBoiteLettre">
-      <div id="idMasqueLettre1" class="clMasqueLettre">
-        <img id="idSpriteLettre1" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'I'"/>
-      </div>
-    </div>  
-    
-    <div id="idBoiteLettre2" class="clBoiteLettre">
-      <div id="idMasqueLettre2" class="clMasqueLettre">
-        <img id="idSpriteLettre2" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'C'"/>
-      </div>
-    </div>  
-    
-    <div id="idBoiteLettre3" class="clBoiteLettre">
-      <div id="idMasqueLettre3" class="clMasqueLettre">
-        <img id="idSpriteLettre3" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'T'"/>
-      </div>
-    </div>  
-    
-    <div id="idBoiteLettre4" class="clBoiteLettre">
-        <div id="idMasqueLettre4" class="clMasqueLettre">
-          <img id="idSpriteLettre4" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'O'"/>
-        </div>
-      </div>  
-    <div id="idBoiteLettre5" class="clBoiteLettre">
-      <div id="idMasqueLettre5" class="clMasqueLettre">
-        <img id="idSpriteLettre5" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'I'"/>
-      </div>
-    </div>  
-    
-    <div id="idBoiteLettre6" class="clBoiteLettre">
-      <div id="idMasqueLettre6" class="clMasqueLettre">
-        <img id="idSpriteLettre6" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
-      </div>
-    </div>  
-    
-    <div id="idBoiteLettre7" class="clBoiteLettre">
-        <div id="idMasqueLettre7" class="clMasqueLettre">
-          <img id="idSpriteLettre7" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'E'"/>
-        </div>
-    </div>  
-  
-    <div id="idBoiteLettre8" class="clBoiteLettre">
-        <div id="idMasqueLettre8" class="clMasqueLettre">
-          <img id="idSpriteLettre8" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'P'"/>
-        </div>
-    </div>  
 
-    <div id="idBoiteLettre9" class="clBoiteLettre">
-        <div id="idMasqueLettre9" class="clMasqueLettre">
-          <img id="idSpriteLettre9" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'E'"/>
-        </div>
-    </div>  
-  
-    <div id="idBoiteLettre10" class="clBoiteLettre">
-        <div id="idMasqueLettre10" class="clMasqueLettre">
-          <img id="idSpriteLettre10" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
-        </div>
-    </div>  
-  
-    <div id="idBoiteLettre11" class="clBoiteLettre">
-        <div id="idMasqueLettre11" class="clMasqueLettre">
-          <img id="idSpriteLettre11" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'D'"/>
-        </div>
-    </div>  
-  
-    <div id="idBoiteLettre12" class="clBoiteLettre">
-        <div id="idMasqueLettre12" class="clMasqueLettre">
-          <img id="idSpriteLettre12" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'U'"/>
-        </div>
-    </div>  
-  
-    <div id="idBoiteLettre13" class="clBoiteLettre">
-        <div id="idMasqueLettre13" class="clMasqueLettre">
-          <img id="idSpriteLettre13" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du '['"/>
-        </div>
-    </div>  
-  
-    <div id="idBoiteLettre14" class="clBoiteLettre">
-        <div id="idMasqueLettre14" class="clMasqueLettre">
-          <img id="idSpriteLettre14" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'F'"/>
-        </div>
-    </div>  
-  
-    <div id="idBoiteLettre15" class="clBoiteLettre">
-        <div id="idMasqueLettre15" class="clMasqueLettre">
-          <img id="idSpriteLettre15" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du '5'"/>
-        </div>
-    </div>  
-  
-    <div id="idBoiteLettre16" class="clBoiteLettre">
-        <div id="idMasqueLettre16" class="clMasqueLettre">
-          <img id="idSpriteLettre16" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du ']'"/>
-        </div>
-    </div>  
-  
-    <div id="idBoiteLettre17" class="clBoiteLettre">
-        <div id="idMasqueLettre17" class="clMasqueLettre">
-          <img id="idSpriteLettre17" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du ' '"/>
-        </div>
-    </div>  
-  
-    <div id="idBoiteLettre18" class="clBoiteLettre">
-        <div id="idMasqueLettre18" class="clMasqueLettre">
-          <img id="idSpriteLettre18" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'P'"/>
-        </div>
-    </div>  
-  
-    <div id="idBoiteLettre19" class="clBoiteLettre">
-        <div id="idMasqueLettre19" class="clMasqueLettre">
-          <img id="idSpriteLettre19" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'O'"/>
-        </div>
-    </div>  
-  
-    <div id="idBoiteLettre20" class="clBoiteLettre">
-        <div id="idMasqueLettre20" class="clMasqueLettre">
-          <img id="idSpriteLettre20" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'U'"/>
-        </div>
-    </div>  
-  
-    <div id="idBoiteLettre21" class="clBoiteLettre">
-        <div id="idMasqueLettre21" class="clMasqueLettre">
-          <img id="idSpriteLettre21" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
-        </div>
-    </div>  
-  
-    <div id="idBoiteLettre22" class="clBoiteLettre">
-        <div id="idMasqueLettre22" class="clMasqueLettre">
-          <img id="idSpriteLettre22" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du ' '"/>
-        </div>
-    </div>  
-    <div id="idBoiteLettre23" class="clBoiteLettre">
-        <div id="idMasqueLettre23" class="clMasqueLettre">
-          <img id="idSpriteLettre23" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
-        </div>
-    </div>  
-    <div id="idBoiteLettre24" class="clBoiteLettre">
-        <div id="idMasqueLettre24" class="clMasqueLettre">
-          <img id="idSpriteLettre24" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'E'"/>
-        </div>
-    </div>  
-    <div id="idBoiteLettre25" class="clBoiteLettre">
-        <div id="idMasqueLettre25" class="clMasqueLettre">
-          <img id="idSpriteLettre25" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'J'"/>
-        </div>
-    </div>  
-    <div id="idBoiteLettre26" class="clBoiteLettre">
-        <div id="idMasqueLettre26" class="clMasqueLettre">
-          <img id="idSpriteLettre26" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'O'"/>
-        </div>
-    </div>  
-    <div id="idBoiteLettre27" class="clBoiteLettre">
-        <div id="idMasqueLettre27" class="clMasqueLettre">
-          <img id="idSpriteLettre27" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'U'"/>
-        </div>
-    </div>  
-    <div id="idBoiteLettre28" class="clBoiteLettre">
-        <div id="idMasqueLettre28" class="clMasqueLettre">
-          <img id="idSpriteLettre28" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'E'"/>
-        </div>
-    </div>  
-    <div id="idBoiteLettre29" class="clBoiteLettre">
-        <div id="idMasqueLettre29" class="clMasqueLettre">
-          <img id="idSpriteLettre29" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
-        </div>
-    </div>  
+    <div id="idMasqueVictoire" class="clMasqueVictoire">
+      <img id="idImgVictoire" class="clImgVictoire" src="images/victoire.png" alt="'Victoire'"/>
+    </div>
+
+    <div id="idMasquePerdu" class="clMasquePerdu">
+      <img id="idImgPerdu" class="clImgPerdu" src="images/perdu.png" alt="'Perdu'"/>
+    </div>
+
+    <div id="idMasqueRejouer" class="clMasqueRejouer">
+      <img id="idImgRejouer" class="clImgRejouer" src="images/rejouer.png" alt="'Rejouer'"/>
+    </div>
   
     <img id="idCVcourtBtn" class="clCVcourtBtn" src="images/rolled-up.png" title="CV court" alt="Sprite du 'Parchemin'"/>
     <img id="idCVLongBtn" class="clCVLongBtn" src="images/brown-book.png" title="CV long" alt="Sprite du 'Grimoire'"/>
     <img id="idHelpBtn" class="clHelpBtn" src="images/help.png" title="Help button" alt="Sprite du bouton 'Help'"/>
 
     <div id="idHelpScreen" class="clHelpScreen">
-      <!-- <img id="idHelpImg" class="clHelpImg" src="images/2048PX-BY-1536PX.png" title="Help screen" alt="Sprite de l\'écran 'Help'"/> -->
       <img id="idHelpImg" class="clHelpImg" src="images/2048PX-BY-1536PX.png" title="Help screen" alt="Sprite de l\'écran 'Help'"/>
       <div id="idHelpText" class="clHelpText">
-        <!-- <h1>A la recherche du CV perdu</h1>
-        <h2>Aidez Vil-Coyote à retrouver son CV !</h2>
-        <p>
-Pour cela, il doit croquer chaque effigie de Bip-Bip clignotante, ce qui révelera à chaque fois un point de compétence supplémentaire dans le panneau de contrôle, en bas de l'écran.<br />
-Cependant, la tâche ne sera pas si aisée, car il va rencontrer sur son chemin des habitants de la contrée qui ne se soucieront pas de l'éviter et lui feront perdre des vies ❤️ <span>(au nombre de 3)</span><br />
-Mais Vil-Coyote, en geek accompli, est venu sur son module volant (de la société <span>ACME</span> bien sûr), qui lui permet de se déplacer très rapidement et avec beaucoup d'agilité, avec les <span><br />[4 touches fléchées]</span>.<br />
-Les touches sont combinables, ce qui lui permet de se <span>déplacer aussi en diagonale.</span><br />
-De plus, son module volant est doté d'un canon-taser <span>[Barre Espace]</span> qui lance des boules de pure énergie  qui vont griller instantément les importuns, mais 1 seule boule d'énergie à la fois, pour permettre au canon-taser de se recharger.<br />
-Enfin, en cas de panique, le module peut activer le mode <span>"Rotation-Folle-qui-rend-Invincible !!!"</span>, avec la touche <span>[ENTER]</span> mais Vil-Coyote, beau-joueur, ne trouve pas cette solution très fair-play et l'évite au maximum  😎<br />
-En cas de victoire, lorsque toutes les compétences auront été collectées, le parchemin dans le panneau de contrôle deviendra accessible, et revelera, en le cliquant, le CV version courte de l'auteur de ce petit 'Casual Game'.<br />
-Le grimoire, quant à lui, vous révèlera le CV en version longue, et de plus, il est disponible à tous moment du jeu, sans condition de victoire.<br />
-Ces CV, une fois affiché, seront téléchargeables gràce au bouton judicieusement placé en haut et à droite de la page.😎<br />
-Vous pouvez régler le niveau de difficulté, en jouant sur le <span>Zoom/unZoom</span> de votre navigateur<span>[CTRL+] ou [CTRL-]</span><br />
-Je vous souhaite autant de plaisir à jouer à ce petit jeu, que je n'en ai eu à le concevoir...<br />
-<span>[ESC]</span>pour quitter cet écran.
-        </p> -->
       </div>
     </div>
-
     <noscript>
       <p>Veuillez activer JavaScript</p>
     </noscript>    
