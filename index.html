@@ -587,6 +587,12 @@ span{
         vilCoyote.initVarMod();
 
         // ------------------------------------------------------------
+        // Initialisation de l'Objet de gestion des messages de fin de partie
+        // ------------------------------------------------------------
+        endOfGame = new EndOfGame();
+        endOfGame.initVar();
+
+        // ------------------------------------------------------------
         // Initialisation de l'Objet ennemi "Vautour" 
         // ------------------------------------------------------------
         dataVautours.vautour[0] = new Vautour('idBoiteVautour0','idMasqueVautour0','idSpriteVautour0');
@@ -809,96 +815,96 @@ span{
   
     <div id="idBoiteLettre8" class="clBoiteLettre">
         <div id="idMasqueLettre8" class="clMasqueLettre">
-          <img id="idSpriteLettre8" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'E'"/>
+          <img id="idSpriteLettre8" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'P'"/>
         </div>
     </div>  
 
     <div id="idBoiteLettre9" class="clBoiteLettre">
         <div id="idMasqueLettre9" class="clMasqueLettre">
-          <img id="idSpriteLettre9" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du '['"/>
+          <img id="idSpriteLettre9" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'E'"/>
         </div>
     </div>  
   
     <div id="idBoiteLettre10" class="clBoiteLettre">
         <div id="idMasqueLettre10" class="clMasqueLettre">
-          <img id="idSpriteLettre10" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'F'"/>
+          <img id="idSpriteLettre10" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
         </div>
     </div>  
   
     <div id="idBoiteLettre11" class="clBoiteLettre">
         <div id="idMasqueLettre11" class="clMasqueLettre">
-          <img id="idSpriteLettre11" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du '5'"/>
+          <img id="idSpriteLettre11" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'D'"/>
         </div>
     </div>  
   
     <div id="idBoiteLettre12" class="clBoiteLettre">
         <div id="idMasqueLettre12" class="clMasqueLettre">
-          <img id="idSpriteLettre12" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du ']'"/>
+          <img id="idSpriteLettre12" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'U'"/>
         </div>
     </div>  
   
     <div id="idBoiteLettre13" class="clBoiteLettre">
         <div id="idMasqueLettre13" class="clMasqueLettre">
-          <img id="idSpriteLettre13" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du ' '"/>
+          <img id="idSpriteLettre13" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du '['"/>
         </div>
     </div>  
   
     <div id="idBoiteLettre14" class="clBoiteLettre">
         <div id="idMasqueLettre14" class="clMasqueLettre">
-          <img id="idSpriteLettre14" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'P'"/>
+          <img id="idSpriteLettre14" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'F'"/>
         </div>
     </div>  
   
     <div id="idBoiteLettre15" class="clBoiteLettre">
         <div id="idMasqueLettre15" class="clMasqueLettre">
-          <img id="idSpriteLettre15" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'O'"/>
+          <img id="idSpriteLettre15" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du '5'"/>
         </div>
     </div>  
   
     <div id="idBoiteLettre16" class="clBoiteLettre">
         <div id="idMasqueLettre16" class="clMasqueLettre">
-          <img id="idSpriteLettre16" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'U'"/>
+          <img id="idSpriteLettre16" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du ']'"/>
         </div>
     </div>  
   
     <div id="idBoiteLettre17" class="clBoiteLettre">
         <div id="idMasqueLettre17" class="clMasqueLettre">
-          <img id="idSpriteLettre17" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
+          <img id="idSpriteLettre17" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du ' '"/>
         </div>
     </div>  
   
     <div id="idBoiteLettre18" class="clBoiteLettre">
         <div id="idMasqueLettre18" class="clMasqueLettre">
-          <img id="idSpriteLettre18" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du ' '"/>
+          <img id="idSpriteLettre18" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'P'"/>
         </div>
     </div>  
   
     <div id="idBoiteLettre19" class="clBoiteLettre">
         <div id="idMasqueLettre19" class="clMasqueLettre">
-          <img id="idSpriteLettre19" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
+          <img id="idSpriteLettre19" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'O'"/>
         </div>
     </div>  
   
     <div id="idBoiteLettre20" class="clBoiteLettre">
         <div id="idMasqueLettre20" class="clMasqueLettre">
-          <img id="idSpriteLettre20" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'E'"/>
+          <img id="idSpriteLettre20" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'U'"/>
         </div>
     </div>  
   
     <div id="idBoiteLettre21" class="clBoiteLettre">
         <div id="idMasqueLettre21" class="clMasqueLettre">
-          <img id="idSpriteLettre21" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'J'"/>
+          <img id="idSpriteLettre21" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
         </div>
     </div>  
   
     <div id="idBoiteLettre22" class="clBoiteLettre">
         <div id="idMasqueLettre22" class="clMasqueLettre">
-          <img id="idSpriteLettre22" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'O'"/>
+          <img id="idSpriteLettre22" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du ' '"/>
         </div>
     </div>  
     <div id="idBoiteLettre23" class="clBoiteLettre">
         <div id="idMasqueLettre23" class="clMasqueLettre">
-          <img id="idSpriteLettre23" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'U'"/>
+          <img id="idSpriteLettre23" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
         </div>
     </div>  
     <div id="idBoiteLettre24" class="clBoiteLettre">
@@ -908,7 +914,27 @@ span{
     </div>  
     <div id="idBoiteLettre25" class="clBoiteLettre">
         <div id="idMasqueLettre25" class="clMasqueLettre">
-          <img id="idSpriteLettre25" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
+          <img id="idSpriteLettre25" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'J'"/>
+        </div>
+    </div>  
+    <div id="idBoiteLettre26" class="clBoiteLettre">
+        <div id="idMasqueLettre26" class="clMasqueLettre">
+          <img id="idSpriteLettre26" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'O'"/>
+        </div>
+    </div>  
+    <div id="idBoiteLettre27" class="clBoiteLettre">
+        <div id="idMasqueLettre27" class="clMasqueLettre">
+          <img id="idSpriteLettre27" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'U'"/>
+        </div>
+    </div>  
+    <div id="idBoiteLettre28" class="clBoiteLettre">
+        <div id="idMasqueLettre28" class="clMasqueLettre">
+          <img id="idSpriteLettre28" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'E'"/>
+        </div>
+    </div>  
+    <div id="idBoiteLettre29" class="clBoiteLettre">
+        <div id="idMasqueLettre29" class="clMasqueLettre">
+          <img id="idSpriteLettre29" class="clSpriteLettre" src="images/LooneyTunesCouleur.png" alt="Emplacement du 'R'"/>
         </div>
     </div>  
   

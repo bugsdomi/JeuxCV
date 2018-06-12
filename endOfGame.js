@@ -15,7 +15,7 @@
 
         function EndOfGame(){         // Fonction constructeur 
             this.currentPoint = 0;    // Position d'ecriture incrémentée
-            this.statusEndOfGame;  
+            this.statusEndOfGame;     // Statut du jeu : Perdu ou gagné
 
             this.victoire = 
                 {
@@ -34,21 +34,28 @@
             this.rejouer = 
             {
                 msg: '[F5] POUR REJOUER',
-                lettre : [],        // Instance pour les 5 caractères du mot "Perdu" 
+                lettre : [],        // Instance pour les 17 caractères de la phrase "[F5] pour rejouer" 
                 startPoint : 21     // Position de départ (en%) de l'écriture
             }            
         }
         // -------------------------------------------------------------------------
-        EndOfGame.prototype.initVar = function(pStatusEndOfGame){
-            this.statusEndOfGame = pStatusEndOfGame
+        EndOfGame.prototype.initVar = function(){
 
-            for (var i=0; i < this.statusEndOfGame.msg.length; i++){
-                this.statusEndOfGame.lettre[i] = new Lettres('idBoiteLettre'+i,'idMasqueLettre'+i,'idSpriteLettre'+i);
-                this.statusEndOfGame.lettre[i].initVar();      
+            // Initialisation du mot "Victoire"
+            for (var i=0; i < this.victoire.msg.length; i++){
+                this.victoire.lettre[i] = new Lettres('idBoiteLettre'+i,'idMasqueLettre'+i,'idSpriteLettre'+i);
+                this.victoire.lettre[i].initVar();      
             }
 
+            // Initialisation du mot "Perdu"
+            for (var i=0; i < this.defaite.msg.length; i++){
+                this.defaite.lettre[i] = new Lettres('idBoiteLettre'+(i+8),'idMasqueLettre'+(i+8),'idSpriteLettre'+(i+8));
+                this.defaite.lettre[i].initVar();      
+            }
+
+            //  Initialisation de la pharse "[F5] POUR REJOUER"
             for (var i=0; i < this.rejouer.msg.length; i++){
-                this.rejouer.lettre[i] = new Lettres('idBoiteLettre'+(i+8),'idMasqueLettre'+(i+8),'idSpriteLettre'+(i+8));
+                this.rejouer.lettre[i] = new Lettres('idBoiteLettre'+(i+13),'idMasqueLettre'+(i+13),'idSpriteLettre'+(i+13));
                 this.rejouer.lettre[i].initVar();      
             }
 
@@ -56,7 +63,7 @@
         };
         // -------------------------------------------------------------------------
         EndOfGame.prototype.displayEndOfGameMsg = function(pStatusEndOfGame){
-            this.initVar(pStatusEndOfGame);
+            this.statusEndOfGame = pStatusEndOfGame
 
             for (var i=0; i < this.statusEndOfGame.msg.length; i++){ 
                 this.statusEndOfGame.lettre[i].afficheLettre(this.statusEndOfGame.msg[i], this.statusEndOfGame.startPoint, this.currentPoint,'32%');

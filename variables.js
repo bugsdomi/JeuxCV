@@ -26,6 +26,7 @@
         var downloadCVBtn;            // variable du DownLoader 
         var browserNameAndVersion     // Instance du détecteur de Browser
         var browserName               // Variable contenant le nom du browser
+        var endOfGame                 // Instance du gestionnaire d'affichage de fin de partie
         
         var dataVautours = 
                 {

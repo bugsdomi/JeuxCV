@@ -38,7 +38,6 @@
             this.nbreVies = 3;              // Nombres de vies de Vil-Coyote
             this.vie = [];                  // Instances des vies de 'Vil-Coyote'
             this.score;                     // Instance de l'objet "Score"
-            this.endOfGame;                 // Instance de l'objet affichant "Victoire" ou "perdu"
     
             this.frameData =                // Tableau des tailles et positions des frames dans l'image des sprites
             [{
@@ -222,9 +221,7 @@
         VilCoyote.prototype.traiteVictoire = function(){
             cvCourtBtn.style.filter = 'grayscale(0)';      // Passage en couleur du parchemin car il devient accessible
             this.stopGame();
-            endOfGame = new EndOfGame();
             endOfGame.displayEndOfGameMsg(endOfGame.victoire);
-            endOfGame = undefined;                      // Destruction de l'objet et libération mémoire lors du Garbage Collector
         }
         // --------------------------------------------------------------
         VilCoyote.prototype.traiteCollisionTarget = function(pTarget,pIndex){
@@ -375,9 +372,7 @@
         // --------------------------------------------------------------
         VilCoyote.prototype.traiteDefaite = function(){
             this.stopGame();
-            endOfGame = new EndOfGame();
             endOfGame.displayEndOfGameMsg(endOfGame.defaite);
-            endOfGame = undefined;                      // Destruction de l'objet et libération mémoire lors du Garbage Collector
         }
         // --------------------------------------------------------------
         VilCoyote.prototype.EjectModule = function(pEnnemi){
