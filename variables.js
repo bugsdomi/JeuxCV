@@ -2,14 +2,8 @@
         // ***                                                                  ***
         // *** Variables                                                        ***
         // ***                                                                  ***
-        // *** Cet objet contient différentes méthodes générales                ***
+        // *** Cet objet contient différentes variable générales                ***
         // *** Il s'entichira au fur et à mesure du temps de nouvelles méthodes ***
-        // ***                                                                  ***
-        // *** - 1 Générateur de nombre aléatoire :                             ***
-        // ***     - random(ValeurInférieure, ValeurSupérieure                  ***
-        // ***                                                                  ***
-        // ***  Nécessite :                                                     ***
-        // ***      Une variable pour son instanciation                         ***
         // ***                                                                  ***
         // ************************************************************************
         // --------------------------------------------------------------

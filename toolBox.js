@@ -46,9 +46,9 @@
             window.location.href = window.location.href; // Apres un redimensionnement de l'écran, je le régénère from scratch;
         }
         // --------------------------------------------------------------
-        ToolBox.prototype.convertPercentToPixels = function(pValue,pSensVertical){   
-            return pSensVertical    ? (toolBox.screenHeight / (100 / pValue))
-                                    : (toolBox.screenWidth / (100 / pValue));
+        ToolBox.prototype.convertPercentToPixels = function(pValue,pOrientation){   
+            return pOrientation ? (toolBox.screenHeight / (100 / pValue))
+                                : (toolBox.screenWidth / (100 / pValue));
         }
         // --------------------------------------------------------------
         ToolBox.prototype.openCV = function(event){
@@ -63,11 +63,9 @@
                         open('./index2.html', 'CV', 'directories=yes,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes');
                     }
                     break;
-
                 case 'idHelpBtn':
                     helpScreen.style.display = 'block';
                     break;
-            
                 default:
                 break;
             }

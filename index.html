@@ -43,12 +43,12 @@
 /*   n'autorise plus l'acces au CSSOM pour des raisons de       */
 /*   violation du CORS (à cause de modules d'extensions qui     */
 /*   faisaient de l'injection CSS)                              */
-/*   Seul Chrome à réagi, et il semble que la frécation ait     */
+/*   Seul Chrome à réagi, et il semble que la modification ait  */
 /*   entrainée le bug que nous rencontrons ici                  */ 
 /*                                                              */
 /*   Voila pourquoi J AI ETE OBLIGE DE METTRE LE FICHIER CSS    */
 /*   DANS LE PROGRAMME PRINCIPAL (ET CA RESOUD EFFECTIVEMENT    */
-/*   LE PROBLEME, MAIS JE N AIME PAS CETTE SOLUTION             */
+/*   LE PROBLEME), MAIS JE N AIME PAS CETTE SOLUTION            */
 /*                                                              */
 /*  Uncaught DOMException: Failed to read the 'rules' property  */
 /*  from 'CSSStyleSheet': Cannot access rules                   */
@@ -68,10 +68,6 @@
 /* https://stackoverflow.com/questions/48753691/cannot-access   */
 /* -cssrules-from-local-css-file-in-chrome/49160760#49160760    */
 /*                                                              */
-/* ------------------------------------------------------------ */
-
-/* ------------------------------------------------------------ */
-/*                           Polices                            */
 /* ------------------------------------------------------------ */
 
 /* ------------------------------------------------------------ */
@@ -486,28 +482,6 @@ span{
     display: none;
     /* border: solid black 1px;     */
 }
-
-/* .clBoiteLettre{
-    position: absolute;
-    width: 200px;                
-    height: 200px;  
-    top : 700px;
-    left : 1200px;
-    z-index: 7;
-    /* border: solid black 1px;     */
-/* }
-
-.clMasqueLettre{
-    position: absolute;
-    overflow: hidden;
-    margin: auto;
-   /* border: solid red 1px; */
-/* }
-
-.clSpriteLettre{
-    position: absolute;
-} --> */ 
-
   /* ------------------------------------------------------------ */
   /*                         Fin CSS                             */
   /* ------------------------------------------------------------ */
@@ -531,6 +505,9 @@ span{
       var mainLoop = function(){
 
         // --------------------- Initialisations ------------------------
+        // ------------------------------------------------------------
+        // Initialisation des fonctions diverses dans ToolBox
+        // ------------------------------------------------------------
         toolBox = new ToolBox();
         toolBox.getScreenSize();
 
@@ -539,10 +516,13 @@ span{
         // ------------------------------------------------------------
         fondEcranSol = new ObjectFondEcran('6s', 'scrollBkgndSol','idFondEcranSol');
         fondEcranSol.initVar();
-
+        
         fondEcranNuages = new ObjectFondEcran('3s','scrollBkgndNuages','idFondEcranNuages');
         fondEcranNuages.initVar();
         
+        // ------------------------------------------------------------
+        // Initialisation du Control-Panel et de ses boutons
+        // ------------------------------------------------------------
         boiteControlPanel = document.getElementById('idBoiteControlPanel');
         boiteControlPanel.style.width = '100%';
         boiteControlPanel.style.height = '13%';
@@ -551,7 +531,10 @@ span{
         cvLongBtn  = document.getElementById('idCVLongBtn');
         helpBtn = document.getElementById('idHelpBtn');
         helpScreen = document.getElementById('idHelpScreen');
-
+        
+        // ------------------------------------------------------------
+        // Initialisation des messages de fin de partie
+        // ------------------------------------------------------------
         imgVictoire = document.getElementById('idImgVictoire');
         imgPerdu = document.getElementById('idImgPerdu');
         imgRejouer = document.getElementById('idImgRejouer');
@@ -606,8 +589,6 @@ span{
         dataVautours.vautour[0] = new Vautour('idBoiteVautour0','idMasqueVautour0','idSpriteVautour0');
         dataVautours.vautour[0].initVarMod();          
         
-// XXXXXXXXXX  Declarer tous les autres ennemis      
-
         // ------------------------------------------------------------
         // Initialisation du gestionnaire de KeyFrames (pour les animations)
         // ------------------------------------------------------------
@@ -624,20 +605,11 @@ span{
         window.addEventListener('click',toolBox.openCV.bind(toolBox));
         window.addEventListener('resize',toolBox.refreshScreen.bind(toolBox));
       };
-
-// XXXXXXXXXX  A activer en procédure de sortie de jeu
-// if (this.gestionKbdOnEnCours){
-//   window.clearInterval(this.idActionOnMgrInterval);
-//   this.gestionKbdOnEnCours = false;
-// }
-
       // --------------------- Point d'entrée de l'application  ---------------------------
       // Lance l'éxecution du script après chargement et affichage du document  (Window)
       //-----------------------------------------------------------------------------------
       window.onload = mainLoop;      
   </script>
-
-
 
 <!-- ******************************************************************* -->
 <!--                               HTML                                  -->
@@ -681,7 +653,7 @@ span{
       <img id="idImgControlPanel" class="clImgControlPanel" src="images/controlPanel1024px-by-512px.png" alt="Sprite 'Container de bas d\'écran'"/>
     </div>
 
-<!-- Targets "Bip-Bip" que Vil-Coyote doit toucher -->
+    <!-- Targets "Bip-Bip" que Vil-Coyote doit toucher -->
     <div id="idBoiteBipBip0" class="clBoiteBipBip">
       <div id="idMasqueBipBip0" class="clMasqueBipBip">
         <img id="idSpriteBipBip0" class="clSpriteBipBip" src="images/Bip-Bip.png" alt="Sprite 'Jeton Bip-Bip'"/>
@@ -807,5 +779,3 @@ span{
     </noscript>    
   </body>
 </html>
-
-2048PX-BY-1536PX
