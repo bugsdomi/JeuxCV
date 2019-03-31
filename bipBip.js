@@ -153,4 +153,3 @@
             this.sprite.style.height = '100%';
         }
         
-

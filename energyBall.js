@@ -254,4 +254,3 @@
             this.idTimeOut = setTimeout(this.restaureModeNormal.bind(this),pEnnemi.animDelai,pEnnemi);
         }
         // --------------------------------------------------------------
-            

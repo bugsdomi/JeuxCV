@@ -107,3 +107,4 @@
             this.currentPoint = this.currentPoint + this.chiffres[maData].width +0.25; 
         }
         // --------------------------------------------------------------
+        

@@ -56,3 +56,4 @@
             this.idFondEcran.style.animationName = objectKeyFrame.newAnimName;
         }
         // --------------------------------------------------------------
+        

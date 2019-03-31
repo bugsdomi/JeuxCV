@@ -74,3 +74,4 @@
             pObject.boite.style.animationPlayState = 'running';
         }
         // --------------------------------------------------------------
+        
