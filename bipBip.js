@@ -152,4 +152,5 @@
             this.sprite.style.width = '100%';
             this.sprite.style.height = '100%';
         }
+        
 
